@@ -8,13 +8,22 @@
 
 /* Begin PBXBuildFile section */
 		46EE9DC21C4ADDDA0062D644 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EE9DC11C4ADDDA0062D644 /* AppDelegate.swift */; };
-		46EE9DC41C4ADDDA0062D644 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EE9DC31C4ADDDA0062D644 /* ViewController.swift */; };
 		46EE9DC71C4ADDDA0062D644 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 46EE9DC51C4ADDDA0062D644 /* Main.storyboard */; };
 		46EE9DC91C4ADDDA0062D644 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 46EE9DC81C4ADDDA0062D644 /* Assets.xcassets */; };
 		46EE9DCC1C4ADDDA0062D644 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 46EE9DCA1C4ADDDA0062D644 /* LaunchScreen.storyboard */; };
 		46EE9DD71C4ADDDA0062D644 /* WatchTODOTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EE9DD61C4ADDDA0062D644 /* WatchTODOTests.swift */; };
 		46EE9DE21C4ADDDA0062D644 /* WatchTODOUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EE9DE11C4ADDDA0062D644 /* WatchTODOUITests.swift */; };
 		46EE9DF01C4AE9CC0062D644 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 46EE9DEF1C4AE9CC0062D644 /* Podfile */; };
+		46EE9DF31C4B13800062D644 /* MyTodoList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 46EE9DF21C4B13800062D644 /* MyTodoList.storyboard */; };
+		46EE9DF71C4B13C40062D644 /* Watch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 46EE9DF61C4B13C40062D644 /* Watch.storyboard */; };
+		46EE9DFB1C4B14000062D644 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 46EE9DFA1C4B14000062D644 /* Settings.storyboard */; };
+		46EE9DFD1C4B14350062D644 /* MyTodoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EE9DFC1C4B14350062D644 /* MyTodoListViewController.swift */; };
+		46EE9E001C4B14670062D644 /* WatchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EE9DFF1C4B14670062D644 /* WatchViewController.swift */; };
+		46EE9E031C4B14800062D644 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EE9E021C4B14800062D644 /* SettingsViewController.swift */; };
+		46EE9E051C4B15090062D644 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EE9E041C4B15090062D644 /* MainTabBarController.swift */; };
+		46EE9E071C4B1C7F0062D644 /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EE9E061C4B1C7F0062D644 /* SideMenuViewController.swift */; };
+		46EE9E091C4B26870062D644 /* MyTodoListNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EE9E081C4B26870062D644 /* MyTodoListNavigationController.swift */; };
+		46EE9E0B1C4B28200062D644 /* SideMenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EE9E0A1C4B28200062D644 /* SideMenuTableViewController.swift */; };
 		5886145302C3E6108664AB3E /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CF17AAB31057DFF1F525CCD /* Pods.framework */; };
 /* End PBXBuildFile section */
 
@@ -39,7 +48,6 @@
 		1CF17AAB31057DFF1F525CCD /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		46EE9DBE1C4ADDDA0062D644 /* WatchTODO.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WatchTODO.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		46EE9DC11C4ADDDA0062D644 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		46EE9DC31C4ADDDA0062D644 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		46EE9DC61C4ADDDA0062D644 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		46EE9DC81C4ADDDA0062D644 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		46EE9DCB1C4ADDDA0062D644 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -50,7 +58,17 @@
 		46EE9DDD1C4ADDDA0062D644 /* WatchTODOUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WatchTODOUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		46EE9DE11C4ADDDA0062D644 /* WatchTODOUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchTODOUITests.swift; sourceTree = "<group>"; };
 		46EE9DE31C4ADDDA0062D644 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		46EE9DEF1C4AE9CC0062D644 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
+		46EE9DEF1C4AE9CC0062D644 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		46EE9DF21C4B13800062D644 /* MyTodoList.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MyTodoList.storyboard; sourceTree = "<group>"; };
+		46EE9DF61C4B13C40062D644 /* Watch.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Watch.storyboard; sourceTree = "<group>"; };
+		46EE9DFA1C4B14000062D644 /* Settings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
+		46EE9DFC1C4B14350062D644 /* MyTodoListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyTodoListViewController.swift; sourceTree = "<group>"; };
+		46EE9DFF1C4B14670062D644 /* WatchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchViewController.swift; sourceTree = "<group>"; };
+		46EE9E021C4B14800062D644 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		46EE9E041C4B15090062D644 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		46EE9E061C4B1C7F0062D644 /* SideMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuViewController.swift; sourceTree = "<group>"; };
+		46EE9E081C4B26870062D644 /* MyTodoListNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyTodoListNavigationController.swift; sourceTree = "<group>"; };
+		46EE9E0A1C4B28200062D644 /* SideMenuTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuTableViewController.swift; sourceTree = "<group>"; };
 		AA314E6A89CD1B19FA669B1D /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		FE7D93269CE1CC78AB49466F /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -108,8 +126,11 @@
 			isa = PBXGroup;
 			children = (
 				46EE9DC11C4ADDDA0062D644 /* AppDelegate.swift */,
-				46EE9DC31C4ADDDA0062D644 /* ViewController.swift */,
+				46EE9E041C4B15090062D644 /* MainTabBarController.swift */,
 				46EE9DC51C4ADDDA0062D644 /* Main.storyboard */,
+				46EE9DF11C4B12AA0062D644 /* MyTodoList */,
+				46EE9DF51C4B139B0062D644 /* Watch */,
+				46EE9DF81C4B13EC0062D644 /* Settings */,
 				46EE9DC81C4ADDDA0062D644 /* Assets.xcassets */,
 				46EE9DCA1C4ADDDA0062D644 /* LaunchScreen.storyboard */,
 				46EE9DCD1C4ADDDA0062D644 /* Info.plist */,
@@ -133,6 +154,60 @@
 				46EE9DE31C4ADDDA0062D644 /* Info.plist */,
 			);
 			path = WatchTODOUITests;
+			sourceTree = "<group>";
+		};
+		46EE9DF11C4B12AA0062D644 /* MyTodoList */ = {
+			isa = PBXGroup;
+			children = (
+				46EE9DF41C4B138B0062D644 /* View Controllers */,
+				46EE9DF21C4B13800062D644 /* MyTodoList.storyboard */,
+				46EE9E081C4B26870062D644 /* MyTodoListNavigationController.swift */,
+			);
+			name = MyTodoList;
+			sourceTree = "<group>";
+		};
+		46EE9DF41C4B138B0062D644 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				46EE9DFC1C4B14350062D644 /* MyTodoListViewController.swift */,
+				46EE9E061C4B1C7F0062D644 /* SideMenuViewController.swift */,
+				46EE9E0A1C4B28200062D644 /* SideMenuTableViewController.swift */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		46EE9DF51C4B139B0062D644 /* Watch */ = {
+			isa = PBXGroup;
+			children = (
+				46EE9DFE1C4B14400062D644 /* View Controllers */,
+				46EE9DF61C4B13C40062D644 /* Watch.storyboard */,
+			);
+			name = Watch;
+			sourceTree = "<group>";
+		};
+		46EE9DF81C4B13EC0062D644 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				46EE9E011C4B146C0062D644 /* View Controllers */,
+				46EE9DFA1C4B14000062D644 /* Settings.storyboard */,
+			);
+			name = Settings;
+			sourceTree = "<group>";
+		};
+		46EE9DFE1C4B14400062D644 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				46EE9DFF1C4B14670062D644 /* WatchViewController.swift */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		46EE9E011C4B146C0062D644 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				46EE9E021C4B14800062D644 /* SettingsViewController.swift */,
+			);
+			name = "View Controllers";
 			sourceTree = "<group>";
 		};
 		8351121F0113FDD508BCC408 /* Frameworks */ = {
@@ -223,6 +298,7 @@
 				TargetAttributes = {
 					46EE9DBD1C4ADDDA0062D644 = {
 						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = 7QF59FN54B;
 					};
 					46EE9DD11C4ADDDA0062D644 = {
 						CreatedOnToolsVersion = 7.2;
@@ -261,8 +337,11 @@
 			files = (
 				46EE9DCC1C4ADDDA0062D644 /* LaunchScreen.storyboard in Resources */,
 				46EE9DC91C4ADDDA0062D644 /* Assets.xcassets in Resources */,
+				46EE9DF71C4B13C40062D644 /* Watch.storyboard in Resources */,
+				46EE9DF31C4B13800062D644 /* MyTodoList.storyboard in Resources */,
 				46EE9DF01C4AE9CC0062D644 /* Podfile in Resources */,
 				46EE9DC71C4ADDDA0062D644 /* Main.storyboard in Resources */,
+				46EE9DFB1C4B14000062D644 /* Settings.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -335,8 +414,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				46EE9DC41C4ADDDA0062D644 /* ViewController.swift in Sources */,
+				46EE9DFD1C4B14350062D644 /* MyTodoListViewController.swift in Sources */,
+				46EE9E001C4B14670062D644 /* WatchViewController.swift in Sources */,
+				46EE9E051C4B15090062D644 /* MainTabBarController.swift in Sources */,
 				46EE9DC21C4ADDDA0062D644 /* AppDelegate.swift in Sources */,
+				46EE9E071C4B1C7F0062D644 /* SideMenuViewController.swift in Sources */,
+				46EE9E031C4B14800062D644 /* SettingsViewController.swift in Sources */,
+				46EE9E091C4B26870062D644 /* MyTodoListNavigationController.swift in Sources */,
+				46EE9E0B1C4B28200062D644 /* SideMenuTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -477,6 +562,7 @@
 			baseConfigurationReference = FE7D93269CE1CC78AB49466F /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = WatchTODO/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.naitianliu.WatchTODO;
@@ -489,6 +575,7 @@
 			baseConfigurationReference = AA314E6A89CD1B19FA669B1D /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = WatchTODO/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.naitianliu.WatchTODO;
