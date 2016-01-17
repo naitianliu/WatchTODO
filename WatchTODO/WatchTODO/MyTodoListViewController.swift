@@ -29,10 +29,15 @@ class MyTodoListViewController: UIViewController, ENSideMenuDelegate {
     }
 
     @IBAction func addButtonOnClick(sender: AnyObject) {
-        
+        let AddActionNC = self.storyboard?.instantiateViewControllerWithIdentifier("AddActionNavigationController") as! UINavigationController
+        AddActionNC.modalTransitionStyle = .CoverVertical
+        self.presentViewController(AddActionNC, animated: true) { () -> Void in
+            
+        }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-
+        
     }
+    
 }

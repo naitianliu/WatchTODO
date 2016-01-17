@@ -21,9 +21,13 @@
 		46EE9E001C4B14670062D644 /* WatchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EE9DFF1C4B14670062D644 /* WatchViewController.swift */; };
 		46EE9E031C4B14800062D644 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EE9E021C4B14800062D644 /* SettingsViewController.swift */; };
 		46EE9E051C4B15090062D644 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EE9E041C4B15090062D644 /* MainTabBarController.swift */; };
-		46EE9E071C4B1C7F0062D644 /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EE9E061C4B1C7F0062D644 /* SideMenuViewController.swift */; };
 		46EE9E091C4B26870062D644 /* MyTodoListNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EE9E081C4B26870062D644 /* MyTodoListNavigationController.swift */; };
 		46EE9E0B1C4B28200062D644 /* SideMenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EE9E0A1C4B28200062D644 /* SideMenuTableViewController.swift */; };
+		46EE9E0D1C4B3BF70062D644 /* AddActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EE9E0C1C4B3BF70062D644 /* AddActionViewController.swift */; };
+		46EE9E0F1C4B485C0062D644 /* EditActionContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EE9E0E1C4B485C0062D644 /* EditActionContentViewController.swift */; };
+		46EE9E121C4B535C0062D644 /* AddActionCellHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EE9E111C4B535C0062D644 /* AddActionCellHelper.swift */; };
+		46EE9E151C4B574D0062D644 /* AddActionContentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 46EE9E141C4B574D0062D644 /* AddActionContentTableViewCell.xib */; };
+		46EE9E171C4B58970062D644 /* AddActionContentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EE9E161C4B58970062D644 /* AddActionContentTableViewCell.swift */; };
 		5886145302C3E6108664AB3E /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CF17AAB31057DFF1F525CCD /* Pods.framework */; };
 /* End PBXBuildFile section */
 
@@ -66,9 +70,13 @@
 		46EE9DFF1C4B14670062D644 /* WatchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchViewController.swift; sourceTree = "<group>"; };
 		46EE9E021C4B14800062D644 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		46EE9E041C4B15090062D644 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
-		46EE9E061C4B1C7F0062D644 /* SideMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuViewController.swift; sourceTree = "<group>"; };
 		46EE9E081C4B26870062D644 /* MyTodoListNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyTodoListNavigationController.swift; sourceTree = "<group>"; };
 		46EE9E0A1C4B28200062D644 /* SideMenuTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuTableViewController.swift; sourceTree = "<group>"; };
+		46EE9E0C1C4B3BF70062D644 /* AddActionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddActionViewController.swift; sourceTree = "<group>"; };
+		46EE9E0E1C4B485C0062D644 /* EditActionContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditActionContentViewController.swift; sourceTree = "<group>"; };
+		46EE9E111C4B535C0062D644 /* AddActionCellHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddActionCellHelper.swift; sourceTree = "<group>"; };
+		46EE9E141C4B574D0062D644 /* AddActionContentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddActionContentTableViewCell.xib; sourceTree = "<group>"; };
+		46EE9E161C4B58970062D644 /* AddActionContentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddActionContentTableViewCell.swift; sourceTree = "<group>"; };
 		AA314E6A89CD1B19FA669B1D /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		FE7D93269CE1CC78AB49466F /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -159,6 +167,7 @@
 		46EE9DF11C4B12AA0062D644 /* MyTodoList */ = {
 			isa = PBXGroup;
 			children = (
+				46EE9E131C4B56680062D644 /* Views */,
 				46EE9DF41C4B138B0062D644 /* View Controllers */,
 				46EE9DF21C4B13800062D644 /* MyTodoList.storyboard */,
 				46EE9E081C4B26870062D644 /* MyTodoListNavigationController.swift */,
@@ -169,8 +178,8 @@
 		46EE9DF41C4B138B0062D644 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				46EE9E101C4B48640062D644 /* Add Action */,
 				46EE9DFC1C4B14350062D644 /* MyTodoListViewController.swift */,
-				46EE9E061C4B1C7F0062D644 /* SideMenuViewController.swift */,
 				46EE9E0A1C4B28200062D644 /* SideMenuTableViewController.swift */,
 			);
 			name = "View Controllers";
@@ -208,6 +217,25 @@
 				46EE9E021C4B14800062D644 /* SettingsViewController.swift */,
 			);
 			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		46EE9E101C4B48640062D644 /* Add Action */ = {
+			isa = PBXGroup;
+			children = (
+				46EE9E0C1C4B3BF70062D644 /* AddActionViewController.swift */,
+				46EE9E0E1C4B485C0062D644 /* EditActionContentViewController.swift */,
+				46EE9E111C4B535C0062D644 /* AddActionCellHelper.swift */,
+			);
+			name = "Add Action";
+			sourceTree = "<group>";
+		};
+		46EE9E131C4B56680062D644 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				46EE9E141C4B574D0062D644 /* AddActionContentTableViewCell.xib */,
+				46EE9E161C4B58970062D644 /* AddActionContentTableViewCell.swift */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 		8351121F0113FDD508BCC408 /* Frameworks */ = {
@@ -340,6 +368,7 @@
 				46EE9DF71C4B13C40062D644 /* Watch.storyboard in Resources */,
 				46EE9DF31C4B13800062D644 /* MyTodoList.storyboard in Resources */,
 				46EE9DF01C4AE9CC0062D644 /* Podfile in Resources */,
+				46EE9E151C4B574D0062D644 /* AddActionContentTableViewCell.xib in Resources */,
 				46EE9DC71C4ADDDA0062D644 /* Main.storyboard in Resources */,
 				46EE9DFB1C4B14000062D644 /* Settings.storyboard in Resources */,
 			);
@@ -414,14 +443,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				46EE9E0F1C4B485C0062D644 /* EditActionContentViewController.swift in Sources */,
 				46EE9DFD1C4B14350062D644 /* MyTodoListViewController.swift in Sources */,
 				46EE9E001C4B14670062D644 /* WatchViewController.swift in Sources */,
 				46EE9E051C4B15090062D644 /* MainTabBarController.swift in Sources */,
 				46EE9DC21C4ADDDA0062D644 /* AppDelegate.swift in Sources */,
-				46EE9E071C4B1C7F0062D644 /* SideMenuViewController.swift in Sources */,
 				46EE9E031C4B14800062D644 /* SettingsViewController.swift in Sources */,
 				46EE9E091C4B26870062D644 /* MyTodoListNavigationController.swift in Sources */,
+				46EE9E0D1C4B3BF70062D644 /* AddActionViewController.swift in Sources */,
+				46EE9E171C4B58970062D644 /* AddActionContentTableViewCell.swift in Sources */,
 				46EE9E0B1C4B28200062D644 /* SideMenuTableViewController.swift in Sources */,
+				46EE9E121C4B535C0062D644 /* AddActionCellHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
