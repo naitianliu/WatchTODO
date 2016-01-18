@@ -9,7 +9,7 @@
         <!--My Todo List-->
         <scene sceneID="H66-C6-fgS">
             <objects>
-                <viewController storyboardIdentifier="MyTodoListViewController" id="ahI-Ey-pfy" customClass="MyTodoListViewController" customModule="WatchTODO" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MyTodoListViewController" automaticallyAdjustsScrollViewInsets="NO" id="ahI-Ey-pfy" customClass="MyTodoListViewController" customModule="WatchTODO" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ciJ-n6-Mvq"/>
                         <viewControllerLayoutGuide type="bottom" id="cdV-No-kJz"/>
@@ -17,7 +17,97 @@
                     <view key="view" contentMode="scaleToFill" id="4dM-jO-Spq">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="136" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="R5t-c5-CVm">
+                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="TodoActionItemCell" rowHeight="136" id="tlO-cH-X5W" customClass="TodoActionItemTableViewCell" customModule="WatchTODO" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="600" height="136"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tlO-cH-X5W" id="trX-8E-v9F">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="135"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="ActionContentLabel" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LsS-S3-C3d">
+                                                    <rect key="frame" x="14" y="8" width="470" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lNG-9q-AqE">
+                                                    <rect key="frame" x="14" y="37" width="470" height="23"/>
+                                                    <color key="backgroundColor" red="0.2981615762" green="0.74215316099999995" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="24" id="gLX-9R-2G4"/>
+                                                    </constraints>
+                                                </view>
+                                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Pda-bg-QlP">
+                                                    <rect key="frame" x="14" y="68" width="470" height="40"/>
+                                                    <color key="backgroundColor" red="0.76113878349999997" green="1" blue="0.50617805309999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="40" id="CU9-eA-rgI"/>
+                                                    </constraints>
+                                                </view>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="unchecked" translatesAutoresizingMaskIntoConstraints="NO" id="xt6-a6-vTU">
+                                                    <rect key="frame" x="526" y="8" width="45" height="45"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="40" id="BoR-uT-7Sb"/>
+                                                        <constraint firstAttribute="height" constant="40" id="rro-OZ-Gu2"/>
+                                                    </constraints>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Pda-bg-QlP" firstAttribute="top" secondItem="lNG-9q-AqE" secondAttribute="bottom" constant="10" id="DbI-vR-fOl"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="xt6-a6-vTU" secondAttribute="trailing" constant="10" id="F48-MJ-Emk"/>
+                                                <constraint firstItem="lNG-9q-AqE" firstAttribute="trailing" secondItem="trX-8E-v9F" secondAttribute="trailingMargin" constant="40" id="Fzk-5V-Byg"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="Pda-bg-QlP" secondAttribute="trailing" constant="12" id="GHn-uU-hTO"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="LsS-S3-C3d" secondAttribute="trailing" constant="10" id="GVw-gO-2yI"/>
+                                                <constraint firstItem="lNG-9q-AqE" firstAttribute="leading" secondItem="trX-8E-v9F" secondAttribute="leadingMargin" constant="10" id="K4G-K1-clA"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="Pda-bg-QlP" secondAttribute="bottom" constant="10" id="VWD-nA-cwo"/>
+                                                <constraint firstItem="LsS-S3-C3d" firstAttribute="leading" secondItem="trX-8E-v9F" secondAttribute="leadingMargin" constant="10" id="WL0-eH-H82"/>
+                                                <constraint firstItem="lNG-9q-AqE" firstAttribute="width" secondItem="LsS-S3-C3d" secondAttribute="width" id="XPW-6s-RVN"/>
+                                                <constraint firstItem="Pda-bg-QlP" firstAttribute="leading" secondItem="trX-8E-v9F" secondAttribute="leadingMargin" constant="10" id="YLz-5E-dlj"/>
+                                                <constraint firstItem="lNG-9q-AqE" firstAttribute="top" secondItem="LsS-S3-C3d" secondAttribute="bottom" constant="10" id="Z0r-e3-G5W"/>
+                                                <constraint firstItem="xt6-a6-vTU" firstAttribute="leading" secondItem="LsS-S3-C3d" secondAttribute="trailing" constant="20" id="Z57-lR-Lhg"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="lNG-9q-AqE" secondAttribute="trailing" constant="10" id="aHe-a6-usM"/>
+                                                <constraint firstItem="Pda-bg-QlP" firstAttribute="width" secondItem="lNG-9q-AqE" secondAttribute="width" id="fgA-k3-8bG"/>
+                                                <constraint firstItem="xt6-a6-vTU" firstAttribute="leading" secondItem="lNG-9q-AqE" secondAttribute="trailing" constant="10" id="kDx-6G-9yO"/>
+                                                <constraint firstItem="xt6-a6-vTU" firstAttribute="top" secondItem="trX-8E-v9F" secondAttribute="topMargin" id="kwD-s5-rYk"/>
+                                                <constraint firstItem="LsS-S3-C3d" firstAttribute="top" secondItem="trX-8E-v9F" secondAttribute="topMargin" id="xyG-yY-2aE"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="Pda-bg-QlP" secondAttribute="trailing" constant="10" id="z2A-WX-di0"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="GVw-gO-2yI"/>
+                                                    <exclude reference="Fzk-5V-Byg"/>
+                                                    <exclude reference="aHe-a6-usM"/>
+                                                    <exclude reference="GHn-uU-hTO"/>
+                                                    <exclude reference="z2A-WX-di0"/>
+                                                    <exclude reference="kDx-6G-9yO"/>
+                                                </mask>
+                                            </variation>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="actionContentLabel" destination="LsS-S3-C3d" id="JW2-q8-O8O"/>
+                                            <outlet property="extraInfoView" destination="lNG-9q-AqE" id="5gJ-xB-Uaa"/>
+                                            <outlet property="watcherView" destination="Pda-bg-QlP" id="zK6-b8-96t"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="ahI-Ey-pfy" id="8TN-1D-oAC"/>
+                                    <outlet property="delegate" destination="ahI-Ey-pfy" id="Xez-Ww-1l2"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="cdV-No-kJz" firstAttribute="top" secondItem="R5t-c5-CVm" secondAttribute="bottom" id="HSQ-lL-gaf"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="R5t-c5-CVm" secondAttribute="trailing" constant="-20" id="VRw-AO-K29"/>
+                            <constraint firstItem="R5t-c5-CVm" firstAttribute="top" secondItem="ciJ-n6-Mvq" secondAttribute="bottom" id="aip-p5-FJJ"/>
+                            <constraint firstItem="R5t-c5-CVm" firstAttribute="leading" secondItem="4dM-jO-Spq" secondAttribute="leadingMargin" constant="-20" id="vjS-35-PjE"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="My Todo List" id="HCZ-O4-qtw">
                         <barButtonItem key="leftBarButtonItem" systemItem="action" id="jhi-Pt-zQf">
@@ -31,6 +121,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="R5t-c5-CVm" id="AfL-T0-jOt"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZwT-1v-fCd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -106,11 +199,76 @@
                     <connections>
                         <outlet property="tableView" destination="5Ib-cv-Kkj" id="tsr-ZT-K0w"/>
                         <segue destination="EQY-u6-hxz" kind="show" identifier="EditActionContentSegue" id="zKb-Zz-gTz"/>
+                        <segue destination="2a7-Tn-Bw3" kind="show" identifier="SelectProjectSegue" id="Vae-mO-Bym"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aES-ey-0kr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="526" y="1169"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="XVo-vm-Rz0">
+            <objects>
+                <navigationController storyboardIdentifier="AddProjectNavigationController" id="GTP-Ee-hX9" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="9HM-f0-Vzn">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="FGB-uO-oQf" kind="relationship" relationship="rootViewController" id="MJ3-Uj-ZZz"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="w8V-4i-gVk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-492" y="1908"/>
+        </scene>
+        <!--Add New Project-->
+        <scene sceneID="yfK-TX-MtY">
+            <objects>
+                <viewController storyboardIdentifier="AddProjectViewController" id="FGB-uO-oQf" customClass="AddProjectViewController" customModule="WatchTODO" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="TwS-lT-NC0"/>
+                        <viewControllerLayoutGuide type="bottom" id="1qr-Ln-Vwl"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="2hN-Z7-Rgb">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Project Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Qtm-kE-zk7">
+                                <rect key="frame" x="39" y="86" width="528" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="TOi-tN-zC6"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="Qtm-kE-zk7" secondAttribute="trailing" constant="10" id="UmA-e2-eck"/>
+                            <constraint firstItem="Qtm-kE-zk7" firstAttribute="top" secondItem="TwS-lT-NC0" secondAttribute="bottom" constant="20" id="jVu-YP-k7q"/>
+                            <constraint firstItem="Qtm-kE-zk7" firstAttribute="leading" secondItem="2hN-Z7-Rgb" secondAttribute="leadingMargin" constant="20" id="vqU-7E-5VN"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Add New Project" id="PAQ-0X-QGX">
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="cHW-NK-dyf">
+                            <connections>
+                                <action selector="cancelButtonOnClick:" destination="FGB-uO-oQf" id="mF3-Yq-FGT"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="done" id="5Rf-oW-zkV">
+                            <connections>
+                                <action selector="doneButtonOnClick:" destination="FGB-uO-oQf" id="e5l-sI-q0l"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="projectNameTextField" destination="Qtm-kE-zk7" id="WTq-WH-JJk"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Rlw-mR-tIk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="242" y="1908"/>
         </scene>
         <!--Edit Action Content-->
         <scene sceneID="GTr-dP-sfJ">
@@ -165,6 +323,50 @@
             </objects>
             <point key="canvasLocation" x="1184" y="1169"/>
         </scene>
+        <!--Select Project-->
+        <scene sceneID="IIr-Er-SpF">
+            <objects>
+                <viewController storyboardIdentifier="SelectProjectViewController" automaticallyAdjustsScrollViewInsets="NO" id="2a7-Tn-Bw3" customClass="SelectProjectViewController" customModule="WatchTODO" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="vCY-rV-6Xn"/>
+                        <viewControllerLayoutGuide type="bottom" id="ewA-WV-GXV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="R3x-yT-0dV">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="kZV-Pi-5BK">
+                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="2a7-Tn-Bw3" id="V8N-7i-iCS"/>
+                                    <outlet property="delegate" destination="2a7-Tn-Bw3" id="q6F-4T-nUM"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ewA-WV-GXV" firstAttribute="top" secondItem="kZV-Pi-5BK" secondAttribute="bottom" id="Po4-6r-wWQ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="kZV-Pi-5BK" secondAttribute="trailing" constant="-20" id="T3B-zA-25C"/>
+                            <constraint firstItem="kZV-Pi-5BK" firstAttribute="top" secondItem="vCY-rV-6Xn" secondAttribute="bottom" id="kNM-AY-3pf"/>
+                            <constraint firstItem="kZV-Pi-5BK" firstAttribute="leading" secondItem="R3x-yT-0dV" secondAttribute="leadingMargin" constant="-20" id="rOz-P8-UDL"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Select Project" id="oae-jT-QOd">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="7oq-v3-OPC">
+                            <connections>
+                                <action selector="addButtonOnClick:" destination="2a7-Tn-Bw3" id="BHv-YN-ekW"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="kZV-Pi-5BK" id="Tn3-JQ-JhJ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="N3R-mI-1Ww" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1207" y="1967"/>
+        </scene>
         <!--My Todo List Navigation Controller-->
         <scene sceneID="kpW-gI-XZL">
             <objects>
@@ -182,4 +384,7 @@
             <point key="canvasLocation" x="-196" y="472"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="unchecked" width="25" height="25"/>
+    </resources>
 </document>

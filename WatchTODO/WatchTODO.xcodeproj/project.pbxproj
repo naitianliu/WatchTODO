@@ -28,6 +28,12 @@
 		46EE9E121C4B535C0062D644 /* AddActionCellHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EE9E111C4B535C0062D644 /* AddActionCellHelper.swift */; };
 		46EE9E151C4B574D0062D644 /* AddActionContentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 46EE9E141C4B574D0062D644 /* AddActionContentTableViewCell.xib */; };
 		46EE9E171C4B58970062D644 /* AddActionContentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EE9E161C4B58970062D644 /* AddActionContentTableViewCell.swift */; };
+		46EE9E191C4C2A8C0062D644 /* TodoActionItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EE9E181C4C2A8C0062D644 /* TodoActionItemTableViewCell.swift */; };
+		46EE9E1C1C4C4F460062D644 /* ActionItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EE9E1B1C4C4F460062D644 /* ActionItemModel.swift */; };
+		46EE9E1E1C4C67BA0062D644 /* ProjectModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EE9E1D1C4C67BA0062D644 /* ProjectModel.swift */; };
+		46EE9E201C4C67D70062D644 /* WatcherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EE9E1F1C4C67D70062D644 /* WatcherModel.swift */; };
+		46EE9E221C4C7DA20062D644 /* SelectProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EE9E211C4C7DA20062D644 /* SelectProjectViewController.swift */; };
+		46EE9E241C4C82190062D644 /* AddProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EE9E231C4C82190062D644 /* AddProjectViewController.swift */; };
 		5886145302C3E6108664AB3E /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CF17AAB31057DFF1F525CCD /* Pods.framework */; };
 /* End PBXBuildFile section */
 
@@ -77,6 +83,12 @@
 		46EE9E111C4B535C0062D644 /* AddActionCellHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddActionCellHelper.swift; sourceTree = "<group>"; };
 		46EE9E141C4B574D0062D644 /* AddActionContentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddActionContentTableViewCell.xib; sourceTree = "<group>"; };
 		46EE9E161C4B58970062D644 /* AddActionContentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddActionContentTableViewCell.swift; sourceTree = "<group>"; };
+		46EE9E181C4C2A8C0062D644 /* TodoActionItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoActionItemTableViewCell.swift; sourceTree = "<group>"; };
+		46EE9E1B1C4C4F460062D644 /* ActionItemModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionItemModel.swift; sourceTree = "<group>"; };
+		46EE9E1D1C4C67BA0062D644 /* ProjectModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectModel.swift; sourceTree = "<group>"; };
+		46EE9E1F1C4C67D70062D644 /* WatcherModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatcherModel.swift; sourceTree = "<group>"; };
+		46EE9E211C4C7DA20062D644 /* SelectProjectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectProjectViewController.swift; sourceTree = "<group>"; };
+		46EE9E231C4C82190062D644 /* AddProjectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddProjectViewController.swift; sourceTree = "<group>"; };
 		AA314E6A89CD1B19FA669B1D /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		FE7D93269CE1CC78AB49466F /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -167,6 +179,7 @@
 		46EE9DF11C4B12AA0062D644 /* MyTodoList */ = {
 			isa = PBXGroup;
 			children = (
+				46EE9E1A1C4C4F300062D644 /* Models */,
 				46EE9E131C4B56680062D644 /* Views */,
 				46EE9DF41C4B138B0062D644 /* View Controllers */,
 				46EE9DF21C4B13800062D644 /* MyTodoList.storyboard */,
@@ -225,6 +238,8 @@
 				46EE9E0C1C4B3BF70062D644 /* AddActionViewController.swift */,
 				46EE9E0E1C4B485C0062D644 /* EditActionContentViewController.swift */,
 				46EE9E111C4B535C0062D644 /* AddActionCellHelper.swift */,
+				46EE9E211C4C7DA20062D644 /* SelectProjectViewController.swift */,
+				46EE9E231C4C82190062D644 /* AddProjectViewController.swift */,
 			);
 			name = "Add Action";
 			sourceTree = "<group>";
@@ -234,8 +249,19 @@
 			children = (
 				46EE9E141C4B574D0062D644 /* AddActionContentTableViewCell.xib */,
 				46EE9E161C4B58970062D644 /* AddActionContentTableViewCell.swift */,
+				46EE9E181C4C2A8C0062D644 /* TodoActionItemTableViewCell.swift */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		46EE9E1A1C4C4F300062D644 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				46EE9E1B1C4C4F460062D644 /* ActionItemModel.swift */,
+				46EE9E1D1C4C67BA0062D644 /* ProjectModel.swift */,
+				46EE9E1F1C4C67D70062D644 /* WatcherModel.swift */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 		8351121F0113FDD508BCC408 /* Frameworks */ = {
@@ -449,10 +475,16 @@
 				46EE9E051C4B15090062D644 /* MainTabBarController.swift in Sources */,
 				46EE9DC21C4ADDDA0062D644 /* AppDelegate.swift in Sources */,
 				46EE9E031C4B14800062D644 /* SettingsViewController.swift in Sources */,
+				46EE9E221C4C7DA20062D644 /* SelectProjectViewController.swift in Sources */,
+				46EE9E191C4C2A8C0062D644 /* TodoActionItemTableViewCell.swift in Sources */,
 				46EE9E091C4B26870062D644 /* MyTodoListNavigationController.swift in Sources */,
 				46EE9E0D1C4B3BF70062D644 /* AddActionViewController.swift in Sources */,
+				46EE9E1E1C4C67BA0062D644 /* ProjectModel.swift in Sources */,
+				46EE9E1C1C4C4F460062D644 /* ActionItemModel.swift in Sources */,
+				46EE9E241C4C82190062D644 /* AddProjectViewController.swift in Sources */,
 				46EE9E171C4B58970062D644 /* AddActionContentTableViewCell.swift in Sources */,
 				46EE9E0B1C4B28200062D644 /* SideMenuTableViewController.swift in Sources */,
+				46EE9E201C4C67D70062D644 /* WatcherModel.swift in Sources */,
 				46EE9E121C4B535C0062D644 /* AddActionCellHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

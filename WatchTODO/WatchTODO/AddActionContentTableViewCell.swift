@@ -51,7 +51,6 @@ class AddActionContentTableViewCell: UITableViewCell {
             }
         }
     }
-    
 }
 
 extension AddActionContentTableViewCell: UITextViewDelegate {
