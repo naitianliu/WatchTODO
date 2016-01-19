@@ -8,19 +8,30 @@
 
 import UIKit
 import ENSwiftSideMenu
+import Toast
 
 class MyTodoListViewController: UIViewController, ENSideMenuDelegate, UITableViewDelegate, UITableViewDataSource, AddActionVCDelegate {
     
-    let sampleData = ["After a quick dive into the source code, you now know the app is fetching data but not yet displaying anything. To get things to show up, you need to create a custom table view cell to show the data.", "Create a Basic Custom Cell"]
+    var data: [[String: AnyObject]]!
+    var dataDictArray: [String: [[String: AnyObject]]]!
     
     let actionItemCellIdentifier = "TodoActionItemCell"
     
     let actionItemModelHelper = ActionItemModelHelper()
+    let sortActionItemListHelper = SortActionItemListHelper()
+    
+    var sectionKeyList: [String]!
+    var sectionKeyTitleMapDict: [String: String]!
     
     @IBOutlet weak var tableView: UITableView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        data = actionItemModelHelper.getAllPendingItems()
+        dataDictArray = sortActionItemListHelper.divideByDate(data)
+        sectionKeyList = sortActionItemListHelper.getSectionKeyList()
+        sectionKeyTitleMapDict = sortActionItemListHelper.getSectionKeyTitleMappingDict()
 
         self.sideMenuController()?.sideMenu?.delegate = self
         
@@ -52,22 +63,56 @@ class MyTodoListViewController: UIViewController, ENSideMenuDelegate, UITableVie
         
     }
     
+    func cellCompleteButtonOnClick(sender: UIButton) {
+        let cell = sender.superview?.superview as! TodoActionItemTableViewCell
+        let indexPath = tableView.indexPathForCell(cell)!
+        let sectionKey = sectionKeyList[indexPath.section]
+        let dataArray: [[String: AnyObject]] = dataDictArray[sectionKey]!
+        // update db
+        let uuid: String = dataArray[indexPath.row]["uuid"] as! String
+        actionItemModelHelper.completeActionItem(uuid)
+        // show toast
+        let content = dataArray[indexPath.row]["content"] as! String
+        let toastStyle = CSToastStyle(defaultStyle: ())
+        toastStyle.titleColor = UIColor.greenColor()
+        self.tableView.makeToast(content, duration: 3.0, position: CSToastPositionBottom, title: "Action Completed", image: UIImage(named: "checked"), style: toastStyle) { (didTap) -> Void in
+            
+        }
+        // remove cell with animation
+        dataDictArray[sectionKey]?.removeAtIndex(indexPath.row)
+        tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+    }
+    
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
+        return sectionKeyList.count
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sampleData.count
+        let sectionKey = sectionKeyList[section]
+        let dataArray: [[String: AnyObject]] = dataDictArray[sectionKey]!
+        return dataArray.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("TodoActionItemCell") as! TodoActionItemTableViewCell
-        cell.actionContentLabel.text = sampleData[indexPath.row]
+        let sectionKey = sectionKeyList[indexPath.section]
+        let dataArray: [[String: AnyObject]] = dataDictArray[sectionKey]!
+        let rowDict = dataArray[indexPath.row]
+        let content = rowDict["content"] as! String
+        var project = rowDict["project"] as! String
+        if project == "" {
+            project = "Inbox"
+        }
+        cell.actionContentLabel.text = content
+        cell.projectLabel.text = project
+        cell.completeButton.addTarget(self, action: Selector("cellCompleteButtonOnClick:"), forControlEvents: .TouchUpInside)
         return cell
     }
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Today"
+        let sectionKey = sectionKeyList[section]
+        let sectionTitle = sectionKeyTitleMapDict[sectionKey]
+        return sectionTitle
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -78,6 +123,8 @@ class MyTodoListViewController: UIViewController, ENSideMenuDelegate, UITableVie
         if let content = actionContent {
             print("Add Action into db")
             actionItemModelHelper.addActionItem(content, project: project, dueDate: dueDate, deferDate: deferDate)
+            data = actionItemModelHelper.getAllPendingItems()
+            dataDictArray = sortActionItemListHelper.divideByDate(data)
             tableView.reloadData()
         }
     }

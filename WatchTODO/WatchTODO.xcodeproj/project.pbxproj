@@ -34,6 +34,7 @@
 		46EE9E201C4C67D70062D644 /* WatcherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EE9E1F1C4C67D70062D644 /* WatcherModel.swift */; };
 		46EE9E221C4C7DA20062D644 /* SelectProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EE9E211C4C7DA20062D644 /* SelectProjectViewController.swift */; };
 		46EE9E241C4C82190062D644 /* AddProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EE9E231C4C82190062D644 /* AddProjectViewController.swift */; };
+		46EE9E271C4DA4260062D644 /* SortActionItemListHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EE9E261C4DA4250062D644 /* SortActionItemListHelper.swift */; };
 		5886145302C3E6108664AB3E /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CF17AAB31057DFF1F525CCD /* Pods.framework */; };
 /* End PBXBuildFile section */
 
@@ -89,6 +90,7 @@
 		46EE9E1F1C4C67D70062D644 /* WatcherModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatcherModel.swift; sourceTree = "<group>"; };
 		46EE9E211C4C7DA20062D644 /* SelectProjectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectProjectViewController.swift; sourceTree = "<group>"; };
 		46EE9E231C4C82190062D644 /* AddProjectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddProjectViewController.swift; sourceTree = "<group>"; };
+		46EE9E261C4DA4250062D644 /* SortActionItemListHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortActionItemListHelper.swift; sourceTree = "<group>"; };
 		AA314E6A89CD1B19FA669B1D /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		FE7D93269CE1CC78AB49466F /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -179,6 +181,7 @@
 		46EE9DF11C4B12AA0062D644 /* MyTodoList */ = {
 			isa = PBXGroup;
 			children = (
+				46EE9E251C4DA3CC0062D644 /* Utilities */,
 				46EE9E1A1C4C4F300062D644 /* Models */,
 				46EE9E131C4B56680062D644 /* Views */,
 				46EE9DF41C4B138B0062D644 /* View Controllers */,
@@ -262,6 +265,14 @@
 				46EE9E1F1C4C67D70062D644 /* WatcherModel.swift */,
 			);
 			name = Models;
+			sourceTree = "<group>";
+		};
+		46EE9E251C4DA3CC0062D644 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				46EE9E261C4DA4250062D644 /* SortActionItemListHelper.swift */,
+			);
+			name = Utilities;
 			sourceTree = "<group>";
 		};
 		8351121F0113FDD508BCC408 /* Frameworks */ = {
@@ -475,6 +486,7 @@
 				46EE9E051C4B15090062D644 /* MainTabBarController.swift in Sources */,
 				46EE9DC21C4ADDDA0062D644 /* AppDelegate.swift in Sources */,
 				46EE9E031C4B14800062D644 /* SettingsViewController.swift in Sources */,
+				46EE9E271C4DA4260062D644 /* SortActionItemListHelper.swift in Sources */,
 				46EE9E221C4C7DA20062D644 /* SelectProjectViewController.swift in Sources */,
 				46EE9E191C4C2A8C0062D644 /* TodoActionItemTableViewCell.swift in Sources */,
 				46EE9E091C4B26870062D644 /* MyTodoListNavigationController.swift in Sources */,

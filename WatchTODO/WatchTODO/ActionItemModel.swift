@@ -68,4 +68,26 @@ class ActionItemModelHelper {
             print(error)
         }
     }
+    
+    func getAllPendingItems() -> [[String:AnyObject]] {
+        var pendingItems: [[String:AnyObject]] = []
+        do {
+            let realm = try Realm()
+            for item in realm.objects(ActionItemModel).filter("completed = false") {
+                let itemDict = [
+                    "uuid": item.uuid,
+                    "content": item.content,
+                    "project": item.project,
+                    "dueDate": item.dueDate,
+                    "deferDate": item.deferDate,
+                    "completed": item.completed,
+                    "everyday": item.everyday
+                ]
+                pendingItems.append(itemDict as! [String : AnyObject])
+            }
+        } catch {
+            print(error)
+        }
+        return pendingItems
+    }
 }
