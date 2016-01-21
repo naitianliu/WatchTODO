@@ -9,6 +9,7 @@
 import UIKit
 import ENSwiftSideMenu
 import Toast
+import CNPPopupController
 
 class MyTodoListViewController: UIViewController, ENSideMenuDelegate, UITableViewDelegate, UITableViewDataSource, AddActionVCDelegate {
     
@@ -22,6 +23,8 @@ class MyTodoListViewController: UIViewController, ENSideMenuDelegate, UITableVie
     
     var sectionKeyList: [String]!
     var sectionKeyTitleMapDict: [String: String]!
+    
+    var popupController: CNPPopupController = CNPPopupController()
     
     @IBOutlet weak var tableView: UITableView!
 
@@ -37,7 +40,7 @@ class MyTodoListViewController: UIViewController, ENSideMenuDelegate, UITableVie
         
         tableView.estimatedRowHeight = 120
         tableView.rowHeight = UITableViewAutomaticDimension
-        
+        tableView.tableFooterView = UIView(frame: CGRect.zero)
     }
 
     override func didReceiveMemoryWarning() {
@@ -83,6 +86,12 @@ class MyTodoListViewController: UIViewController, ENSideMenuDelegate, UITableVie
         tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
     }
     
+    func cellFlagButtonOnClick(sender: UIButton) {
+        let cell = sender.superview?.superview as! TodoActionItemTableViewCell
+        let indexPath = tableView.indexPathForCell(cell)!
+        self.showFlagPopupView(indexPath)
+    }
+    
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return sectionKeyList.count
     }
@@ -106,6 +115,7 @@ class MyTodoListViewController: UIViewController, ENSideMenuDelegate, UITableVie
         cell.actionContentLabel.text = content
         cell.projectLabel.text = project
         cell.completeButton.addTarget(self, action: Selector("cellCompleteButtonOnClick:"), forControlEvents: .TouchUpInside)
+        cell.flagButton.addTarget(self, action: Selector("cellFlagButtonOnClick:"), forControlEvents: .TouchUpInside)
         return cell
     }
     
@@ -127,5 +137,35 @@ class MyTodoListViewController: UIViewController, ENSideMenuDelegate, UITableVie
             dataDictArray = sortActionItemListHelper.divideByDate(data)
             tableView.reloadData()
         }
+    }
+    
+    func showFlagPopupView(selectedIndexPath: NSIndexPath) {
+        // title label
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineBreakMode = NSLineBreakMode.ByWordWrapping
+        paragraphStyle.alignment = NSTextAlignment.Center
+        let title = NSAttributedString(string: "Ready to start", attributes: [NSFontAttributeName: UIFont.systemFontOfSize(24), NSParagraphStyleAttributeName: paragraphStyle])
+        let titleLabel = UILabel()
+        titleLabel.numberOfLines = 0;
+        titleLabel.attributedText = title
+        // textfield
+        let textField = UITextField.init(frame: CGRectMake(0, 0, 250, 35))
+        textField.borderStyle = UITextBorderStyle.RoundedRect
+        textField.placeholder = "Leave a message"
+        // button
+        let button = CNPPopupButton(frame: CGRect(x: 0, y: 0, width: 200, height: 60))
+        button.setTitle("FLAG", forState: .Normal)
+        button.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+        button.titleLabel?.font = UIFont.boldSystemFontOfSize(18)
+        button.backgroundColor = UIColor.init(colorLiteralRed: 0.46, green: 0.8, blue: 1.0, alpha: 1.0)
+        button.layer.cornerRadius = 4;
+        button.selectionHandler = { (CNPPopupButton button) -> Void in
+            self.popupController.dismissPopupControllerAnimated(true)
+            print("Block for button: \(button.titleLabel?.text)")
+        }
+        self.popupController = CNPPopupController(contents: [titleLabel, textField, button])
+        self.popupController.theme = CNPPopupTheme.defaultTheme()
+        self.popupController.theme.popupStyle = .Centered
+        self.popupController.presentPopupControllerAnimated(true)
     }
 }

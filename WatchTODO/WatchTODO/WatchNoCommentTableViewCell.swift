@@ -1,26 +1,26 @@
 //
-//  TodoActionItemTableViewCell.swift
+//  WatchNoCommentTableViewCell.swift
 //  WatchTODO
 //
-//  Created by Liu, Naitian on 1/17/16.
+//  Created by Liu, Naitian on 1/20/16.
 //  Copyright © 2016 naitianliu. All rights reserved.
 //
 
 import UIKit
 
-class TodoActionItemTableViewCell: UITableViewCell {
+class WatchNoCommentTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var profileImageView: UIImageView!
+    @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var actionContentLabel: UILabel!
-    @IBOutlet weak var extraInfoView: UIView!
-    @IBOutlet weak var watcherView: UIView!
-    @IBOutlet weak var projectLabel: UILabel!
-    @IBOutlet weak var completeButton: UIButton!
-    @IBOutlet weak var flagButton: UIButton!
+    @IBOutlet weak var statusImageView: UIImageView!
+    @IBOutlet weak var statusLabel: UILabel!
+    @IBOutlet weak var commentButton: UIButton!
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        
     }
 
     override func setSelected(selected: Bool, animated: Bool) {

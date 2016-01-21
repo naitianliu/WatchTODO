@@ -47,7 +47,7 @@
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="bottom" secondItem="Ykc-8d-UMH" secondAttribute="bottom" constant="1" id="5Wg-DG-hgq"/>
+                                                        <constraint firstAttribute="bottom" secondItem="Ykc-8d-UMH" secondAttribute="bottom" priority="750" constant="1" id="5Wg-DG-hgq"/>
                                                         <constraint firstItem="Ykc-8d-UMH" firstAttribute="leading" secondItem="lNG-9q-AqE" secondAttribute="leading" constant="10" id="61M-fg-Yzw"/>
                                                         <constraint firstItem="Ykc-8d-UMH" firstAttribute="top" secondItem="lNG-9q-AqE" secondAttribute="top" constant="1" id="7OT-KP-f8F"/>
                                                         <constraint firstAttribute="height" constant="24" id="gLX-9R-2G4"/>
@@ -63,28 +63,36 @@
                                                 <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K4g-gf-2hc">
                                                     <rect key="frame" x="544" y="10" width="40" height="40"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="45" id="LlH-qr-uL7"/>
-                                                        <constraint firstAttribute="width" constant="45" id="qLs-eN-OHm"/>
+                                                        <constraint firstAttribute="height" constant="40" id="LlH-qr-uL7"/>
+                                                        <constraint firstAttribute="width" constant="40" id="qLs-eN-OHm"/>
                                                     </constraints>
                                                     <state key="normal" backgroundImage="unchecked"/>
                                                 </button>
+                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Ip-7p-Wcl">
+                                                    <rect key="frame" x="543" y="58" width="41" height="42"/>
+                                                    <state key="normal" title="Button" image="flag"/>
+                                                </button>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="3Ip-7p-Wcl" firstAttribute="top" secondItem="K4g-gf-2hc" secondAttribute="bottom" constant="10" id="3OP-ot-hyx"/>
                                                 <constraint firstItem="K4g-gf-2hc" firstAttribute="leading" secondItem="LsS-S3-C3d" secondAttribute="trailing" constant="10" id="980-Df-iTE"/>
                                                 <constraint firstItem="K4g-gf-2hc" firstAttribute="top" secondItem="trX-8E-v9F" secondAttribute="topMargin" id="CV7-Sv-WRz"/>
-                                                <constraint firstItem="Pda-bg-QlP" firstAttribute="top" secondItem="lNG-9q-AqE" secondAttribute="bottom" constant="10" id="DbI-vR-fOl"/>
+                                                <constraint firstItem="Pda-bg-QlP" firstAttribute="top" secondItem="lNG-9q-AqE" secondAttribute="bottom" priority="750" constant="5" id="DbI-vR-fOl"/>
                                                 <constraint firstItem="lNG-9q-AqE" firstAttribute="trailing" secondItem="trX-8E-v9F" secondAttribute="trailingMargin" constant="40" id="Fzk-5V-Byg"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="Pda-bg-QlP" secondAttribute="trailing" constant="12" id="GHn-uU-hTO"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="LsS-S3-C3d" secondAttribute="trailing" constant="10" id="GVw-gO-2yI"/>
+                                                <constraint firstItem="3Ip-7p-Wcl" firstAttribute="height" secondItem="K4g-gf-2hc" secondAttribute="height" id="H1u-3u-G1J"/>
                                                 <constraint firstItem="lNG-9q-AqE" firstAttribute="leading" secondItem="trX-8E-v9F" secondAttribute="leadingMargin" constant="10" id="K4G-K1-clA"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="K4g-gf-2hc" secondAttribute="trailing" constant="8" id="K5y-OX-gGN"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="Pda-bg-QlP" secondAttribute="bottom" constant="10" id="VWD-nA-cwo"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="3Ip-7p-Wcl" secondAttribute="trailing" constant="10" id="NbZ-4s-f5V"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="Pda-bg-QlP" secondAttribute="bottom" priority="750" constant="10" id="VWD-nA-cwo"/>
                                                 <constraint firstItem="LsS-S3-C3d" firstAttribute="leading" secondItem="trX-8E-v9F" secondAttribute="leadingMargin" constant="10" id="WL0-eH-H82"/>
                                                 <constraint firstItem="lNG-9q-AqE" firstAttribute="width" secondItem="LsS-S3-C3d" secondAttribute="width" id="XPW-6s-RVN"/>
                                                 <constraint firstItem="Pda-bg-QlP" firstAttribute="leading" secondItem="trX-8E-v9F" secondAttribute="leadingMargin" constant="10" id="YLz-5E-dlj"/>
-                                                <constraint firstItem="lNG-9q-AqE" firstAttribute="top" secondItem="LsS-S3-C3d" secondAttribute="bottom" constant="10" id="Z0r-e3-G5W"/>
+                                                <constraint firstItem="lNG-9q-AqE" firstAttribute="top" secondItem="LsS-S3-C3d" secondAttribute="bottom" id="Z0r-e3-G5W"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="lNG-9q-AqE" secondAttribute="trailing" constant="10" id="aHe-a6-usM"/>
                                                 <constraint firstItem="Pda-bg-QlP" firstAttribute="width" secondItem="lNG-9q-AqE" secondAttribute="width" id="fgA-k3-8bG"/>
+                                                <constraint firstItem="3Ip-7p-Wcl" firstAttribute="width" secondItem="K4g-gf-2hc" secondAttribute="width" id="iJq-T0-zWa"/>
                                                 <constraint firstItem="LsS-S3-C3d" firstAttribute="top" secondItem="trX-8E-v9F" secondAttribute="topMargin" id="xyG-yY-2aE"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="Pda-bg-QlP" secondAttribute="trailing" constant="10" id="z2A-WX-di0"/>
                                             </constraints>
@@ -102,6 +110,7 @@
                                             <outlet property="actionContentLabel" destination="LsS-S3-C3d" id="JW2-q8-O8O"/>
                                             <outlet property="completeButton" destination="K4g-gf-2hc" id="k6h-Li-RhE"/>
                                             <outlet property="extraInfoView" destination="lNG-9q-AqE" id="5gJ-xB-Uaa"/>
+                                            <outlet property="flagButton" destination="3Ip-7p-Wcl" id="qFP-z4-22H"/>
                                             <outlet property="projectLabel" destination="Ykc-8d-UMH" id="PQN-10-b5X"/>
                                             <outlet property="watcherView" destination="Pda-bg-QlP" id="zK6-b8-96t"/>
                                         </connections>
@@ -397,6 +406,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="flag" width="128" height="128"/>
         <image name="unchecked" width="25" height="25"/>
     </resources>
 </document>
