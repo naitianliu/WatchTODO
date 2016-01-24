@@ -8,10 +8,13 @@
 
 import UIKit
 import SDWebImage
+import CNPPopupController
 
 class WatchViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
+    
+    var popupController: CNPPopupController = CNPPopupController()
     
     let data = [
         [
@@ -65,6 +68,7 @@ class WatchViewController: UIViewController, UITableViewDelegate, UITableViewDat
             cell.commentTimeLabel.text = commentTime
             cell.commentNameLabel.text = "Naitian Liu"
             cell.commentMessageLabel.text = commentMessage
+            cell.commentButton.addTarget(self, action: Selector("commentButtonOnClick:"), forControlEvents: .TouchUpInside)
             return cell
         } else {
             let cell = tableView.dequeueReusableCellWithIdentifier("WatchNoCommentCell") as! WatchNoCommentTableViewCell
@@ -72,8 +76,39 @@ class WatchViewController: UIViewController, UITableViewDelegate, UITableViewDat
             cell.nameLabel.text = name
             cell.actionContentLabel.text = actionContent
             cell.statusLabel.text = status
+            cell.commentButton.addTarget(self, action: Selector("commentButtonOnClick:"), forControlEvents: .TouchUpInside)
             return cell
         }
+    }
+    
+    func commentButtonOnClick(sender: UIButton) {
+        let cell = sender.superview?.superview as! UITableViewCell
+        let indexPath = tableView.indexPathForCell(cell)!
+        self.showCommentPopupView(indexPath)
+    }
+    
+    func showCommentPopupView(selectedIndexPath: NSIndexPath) {
+        let commentView = UIView(frame: CGRect(x: 0, y: 0, width: 250, height: 60))
+        commentView.layer.borderColor = UIColor.lightGrayColor().CGColor
+        commentView.layer.borderWidth = 2
+        commentView.layer.cornerRadius = 5
+        let commentTextView = UITextView(frame: CGRectMake(5, 5, 240, 50))
+        commentView.addSubview(commentTextView)
+        commentTextView.becomeFirstResponder()
+        let button = CNPPopupButton(frame: CGRect(x: 0, y: 0, width: 160, height: 40))
+        button.setTitle("Submit Comment", forState: .Normal)
+        button.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+        button.titleLabel?.font = UIFont.boldSystemFontOfSize(17)
+        button.backgroundColor = UIColor.init(colorLiteralRed: 0.46, green: 0.8, blue: 1.0, alpha: 1.0)
+        button.layer.cornerRadius = 4;
+        button.selectionHandler = { (CNPPopupButton button) -> Void in
+            self.popupController.dismissPopupControllerAnimated(true)
+            print("Block for button: \(button.titleLabel?.text)")
+        }
+        self.popupController = CNPPopupController(contents: [commentView, button])
+        self.popupController.theme = CNPPopupTheme.defaultTheme()
+        self.popupController.theme.popupStyle = .Centered
+        self.popupController.presentPopupControllerAnimated(true)
     }
 
 }

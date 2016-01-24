@@ -9,13 +9,22 @@
 import UIKit
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, LoginVCDelegate {
 
     var window: UIWindow?
-
+    let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+    
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        
+        let isLogin = UserDefaultsHelper().checkIfLogin()
+        if !isLogin {
+            let loginViewController = mainStoryboard.instantiateViewControllerWithIdentifier("LoginViewController") as! LoginViewController
+            loginViewController.delegate = self
+            self.window?.rootViewController = loginViewController
+        }
+        
         return true
     }
 
@@ -39,6 +48,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    }
+    
+    func didLoginToSwitchRootVC() {
+        let mainTabBarController = mainStoryboard.instantiateViewControllerWithIdentifier("MainTabBarController") as! MainTabBarController
+        self.window?.rootViewController = mainTabBarController
     }
 
 

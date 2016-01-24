@@ -26,6 +26,9 @@ class WatchTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        let width: CGFloat = commentProfileImageView.frame.width
+        commentProfileImageView.layer.cornerRadius = width / 2
+        commentProfileImageView.layer.masksToBounds = true
     }
 
     override func setSelected(selected: Bool, animated: Bool) {

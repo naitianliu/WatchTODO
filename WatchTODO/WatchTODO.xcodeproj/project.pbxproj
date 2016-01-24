@@ -9,6 +9,12 @@
 /* Begin PBXBuildFile section */
 		46902CA31C509B1D00F07EF9 /* WatchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46902CA21C509B1D00F07EF9 /* WatchTableViewCell.swift */; };
 		46902CA51C50BAD500F07EF9 /* WatchNoCommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46902CA41C50BAD500F07EF9 /* WatchNoCommentTableViewCell.swift */; };
+		46B3DFF41C534A83002A6769 /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B3DFF31C534A83002A6769 /* FriendsViewController.swift */; };
+		46B3DFF61C547F3C002A6769 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B3DFF51C547F3C002A6769 /* Constant.swift */; };
+		46B3DFF81C547FB4002A6769 /* CallAPIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B3DFF71C547FB4002A6769 /* CallAPIHelper.swift */; };
+		46B3DFFB1C548415002A6769 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B3DFFA1C548415002A6769 /* LoginViewController.swift */; };
+		46B3DFFF1C5486A5002A6769 /* UserDefaultsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B3DFFE1C5486A5002A6769 /* UserDefaultsHelper.swift */; };
+		46B3E0051C549652002A6769 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B3E0041C549652002A6769 /* SignupViewController.swift */; };
 		46EE9DC21C4ADDDA0062D644 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EE9DC11C4ADDDA0062D644 /* AppDelegate.swift */; };
 		46EE9DC71C4ADDDA0062D644 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 46EE9DC51C4ADDDA0062D644 /* Main.storyboard */; };
 		46EE9DC91C4ADDDA0062D644 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 46EE9DC81C4ADDDA0062D644 /* Assets.xcassets */; };
@@ -61,6 +67,12 @@
 		1CF17AAB31057DFF1F525CCD /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		46902CA21C509B1D00F07EF9 /* WatchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchTableViewCell.swift; sourceTree = "<group>"; };
 		46902CA41C50BAD500F07EF9 /* WatchNoCommentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchNoCommentTableViewCell.swift; sourceTree = "<group>"; };
+		46B3DFF31C534A83002A6769 /* FriendsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsViewController.swift; sourceTree = "<group>"; };
+		46B3DFF51C547F3C002A6769 /* Constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
+		46B3DFF71C547FB4002A6769 /* CallAPIHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallAPIHelper.swift; sourceTree = "<group>"; };
+		46B3DFFA1C548415002A6769 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		46B3DFFE1C5486A5002A6769 /* UserDefaultsHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsHelper.swift; sourceTree = "<group>"; };
+		46B3E0041C549652002A6769 /* SignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		46EE9DBE1C4ADDDA0062D644 /* WatchTODO.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WatchTODO.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		46EE9DC11C4ADDDA0062D644 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		46EE9DC61C4ADDDA0062D644 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -134,6 +146,24 @@
 			name = Views;
 			sourceTree = "<group>";
 		};
+		46B3DFF21C534A5B002A6769 /* Friends */ = {
+			isa = PBXGroup;
+			children = (
+				46B3DFF31C534A83002A6769 /* FriendsViewController.swift */,
+			);
+			name = Friends;
+			sourceTree = "<group>";
+		};
+		46B3DFF91C5483F7002A6769 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				46B3DFFA1C548415002A6769 /* LoginViewController.swift */,
+				46B3DFFE1C5486A5002A6769 /* UserDefaultsHelper.swift */,
+				46B3E0041C549652002A6769 /* SignupViewController.swift */,
+			);
+			name = Auth;
+			sourceTree = "<group>";
+		};
 		46EE9DB51C4ADDDA0062D644 = {
 			isa = PBXGroup;
 			children = (
@@ -160,9 +190,11 @@
 		46EE9DC01C4ADDDA0062D644 /* WatchTODO */ = {
 			isa = PBXGroup;
 			children = (
+				46B3DFF51C547F3C002A6769 /* Constant.swift */,
 				46EE9DC11C4ADDDA0062D644 /* AppDelegate.swift */,
 				46EE9E041C4B15090062D644 /* MainTabBarController.swift */,
 				46EE9DC51C4ADDDA0062D644 /* Main.storyboard */,
+				46B3DFF91C5483F7002A6769 /* Auth */,
 				46EE9DF11C4B12AA0062D644 /* MyTodoList */,
 				46EE9DF51C4B139B0062D644 /* Watch */,
 				46EE9DF81C4B13EC0062D644 /* Settings */,
@@ -236,6 +268,7 @@
 		46EE9DFE1C4B14400062D644 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				46B3DFF21C534A5B002A6769 /* Friends */,
 				46EE9DFF1C4B14670062D644 /* WatchViewController.swift */,
 			);
 			name = "View Controllers";
@@ -285,6 +318,7 @@
 			isa = PBXGroup;
 			children = (
 				46EE9E261C4DA4250062D644 /* SortActionItemListHelper.swift */,
+				46B3DFF71C547FB4002A6769 /* CallAPIHelper.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -498,6 +532,7 @@
 				46EE9DFD1C4B14350062D644 /* MyTodoListViewController.swift in Sources */,
 				46902CA51C50BAD500F07EF9 /* WatchNoCommentTableViewCell.swift in Sources */,
 				46EE9E001C4B14670062D644 /* WatchViewController.swift in Sources */,
+				46B3DFF41C534A83002A6769 /* FriendsViewController.swift in Sources */,
 				46EE9E051C4B15090062D644 /* MainTabBarController.swift in Sources */,
 				46EE9DC21C4ADDDA0062D644 /* AppDelegate.swift in Sources */,
 				46EE9E031C4B14800062D644 /* SettingsViewController.swift in Sources */,
@@ -505,13 +540,18 @@
 				46EE9E271C4DA4260062D644 /* SortActionItemListHelper.swift in Sources */,
 				46EE9E221C4C7DA20062D644 /* SelectProjectViewController.swift in Sources */,
 				46EE9E191C4C2A8C0062D644 /* TodoActionItemTableViewCell.swift in Sources */,
+				46B3DFFB1C548415002A6769 /* LoginViewController.swift in Sources */,
 				46EE9E091C4B26870062D644 /* MyTodoListNavigationController.swift in Sources */,
+				46B3DFFF1C5486A5002A6769 /* UserDefaultsHelper.swift in Sources */,
 				46EE9E0D1C4B3BF70062D644 /* AddActionViewController.swift in Sources */,
 				46EE9E1E1C4C67BA0062D644 /* ProjectModel.swift in Sources */,
 				46EE9E1C1C4C4F460062D644 /* ActionItemModel.swift in Sources */,
+				46B3DFF81C547FB4002A6769 /* CallAPIHelper.swift in Sources */,
 				46EE9E241C4C82190062D644 /* AddProjectViewController.swift in Sources */,
 				46EE9E171C4B58970062D644 /* AddActionContentTableViewCell.swift in Sources */,
 				46EE9E0B1C4B28200062D644 /* SideMenuTableViewController.swift in Sources */,
+				46B3E0051C549652002A6769 /* SignupViewController.swift in Sources */,
+				46B3DFF61C547F3C002A6769 /* Constant.swift in Sources */,
 				46EE9E201C4C67D70062D644 /* WatcherModel.swift in Sources */,
 				46EE9E121C4B535C0062D644 /* AddActionCellHelper.swift in Sources */,
 			);

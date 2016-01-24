@@ -47,7 +47,7 @@
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="action content" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="17L-FW-hon">
                                                             <rect key="frame" x="8" y="8" width="520" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
@@ -85,7 +85,7 @@
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="comment name label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="54i-ma-VQ5">
                                                             <rect key="frame" x="57" y="8" width="284" height="18"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="comment time label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="myU-9U-LkD">
@@ -185,7 +185,7 @@
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="action content" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AMg-hB-AmO">
                                                             <rect key="frame" x="8" y="8" width="520" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
@@ -283,7 +283,13 @@
                             <constraint firstItem="IcK-0L-fDQ" firstAttribute="leading" secondItem="Tko-sB-dAQ" secondAttribute="leadingMargin" constant="-20" id="q01-Qb-h9M"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Watch" id="gbD-ln-gQy"/>
+                    <navigationItem key="navigationItem" title="Watch" id="gbD-ln-gQy">
+                        <barButtonItem key="rightBarButtonItem" image="friends" id="BHy-XA-vaV">
+                            <connections>
+                                <segue destination="8aP-HW-86a" kind="show" id="8fd-gf-gDU"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="IcK-0L-fDQ" id="2KJ-N7-54j"/>
                     </connections>
@@ -291,6 +297,82 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="v8h-8B-mpV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="883" y="571"/>
+        </scene>
+        <!--Friends-->
+        <scene sceneID="dGk-Kc-Fjx">
+            <objects>
+                <viewController storyboardIdentifier="FriendsViewController" automaticallyAdjustsScrollViewInsets="NO" id="8aP-HW-86a" customClass="FriendsViewController" customModule="WatchTODO" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="J0v-9s-Xsg"/>
+                        <viewControllerLayoutGuide type="bottom" id="aCR-pR-XKt"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Xb5-7n-RE2">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" text="" placeholder="Search Friend" translatesAutoresizingMaskIntoConstraints="NO" id="1tz-0L-xgq">
+                                <rect key="frame" x="0.0" y="64" width="600" height="44"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="8aP-HW-86a" id="ssk-e8-alA"/>
+                                </connections>
+                            </searchBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="8cA-fj-4OR">
+                                <rect key="frame" x="0.0" y="108" width="600" height="492"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="8aP-HW-86a" id="Bcg-4x-KfE"/>
+                                    <outlet property="delegate" destination="8aP-HW-86a" id="SY9-cr-o48"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="8cA-fj-4OR" secondAttribute="trailing" constant="-20" id="0x2-OH-1P2"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="1tz-0L-xgq" secondAttribute="trailing" constant="-20" id="BYT-vT-5K9"/>
+                            <constraint firstItem="8cA-fj-4OR" firstAttribute="top" secondItem="1tz-0L-xgq" secondAttribute="bottom" id="CrX-GY-eOY"/>
+                            <constraint firstItem="aCR-pR-XKt" firstAttribute="top" secondItem="8cA-fj-4OR" secondAttribute="bottom" id="E79-ks-AMh"/>
+                            <constraint firstItem="aCR-pR-XKt" firstAttribute="top" secondItem="8cA-fj-4OR" secondAttribute="bottom" id="EBI-K1-fJD"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="8cA-fj-4OR" secondAttribute="trailing" constant="-20" id="MjR-RV-DvD"/>
+                            <constraint firstItem="8cA-fj-4OR" firstAttribute="top" secondItem="J0v-9s-Xsg" secondAttribute="bottom" id="Us3-BK-LZt"/>
+                            <constraint firstItem="1tz-0L-xgq" firstAttribute="top" secondItem="J0v-9s-Xsg" secondAttribute="bottom" id="fej-fd-pde"/>
+                            <constraint firstItem="1tz-0L-xgq" firstAttribute="leading" secondItem="Xb5-7n-RE2" secondAttribute="leadingMargin" constant="-20" id="ibc-eh-Fth"/>
+                            <constraint firstItem="8cA-fj-4OR" firstAttribute="leading" secondItem="Xb5-7n-RE2" secondAttribute="leadingMargin" constant="-20" id="lei-d8-SSi"/>
+                            <constraint firstItem="8cA-fj-4OR" firstAttribute="leading" secondItem="Xb5-7n-RE2" secondAttribute="leadingMargin" constant="-20" id="wX1-s9-2pp"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="MjR-RV-DvD"/>
+                                <exclude reference="Us3-BK-LZt"/>
+                                <exclude reference="lei-d8-SSi"/>
+                                <exclude reference="E79-ks-AMh"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <navigationItem key="navigationItem" title="Friends" id="VmK-uV-DCf">
+                        <barButtonItem key="rightBarButtonItem" title="Item" systemItem="add" id="ssO-dg-7zg">
+                            <connections>
+                                <action selector="addButtonOnClick:" destination="8aP-HW-86a" id="aMw-il-feC"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="searchDisplayController" destination="ZYN-wX-5Ws" id="I4d-6U-1Eh"/>
+                        <outlet property="tableView" destination="8cA-fj-4OR" id="yG4-bn-19V"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Uzz-JZ-wkd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="ZYN-wX-5Ws">
+                    <connections>
+                        <outlet property="delegate" destination="8aP-HW-86a" id="Gcp-kX-Bag"/>
+                        <outlet property="searchBar" destination="1tz-0L-xgq" id="sPz-Kf-dFf"/>
+                        <outlet property="searchContentsController" destination="8aP-HW-86a" id="y6q-k3-tFD"/>
+                        <outlet property="searchResultsDataSource" destination="8aP-HW-86a" id="PXw-0R-qvR"/>
+                        <outlet property="searchResultsDelegate" destination="8aP-HW-86a" id="0AC-cH-WoO"/>
+                    </connections>
+                </searchDisplayController>
+            </objects>
+            <point key="canvasLocation" x="1593" y="571"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="TKx-go-oIs">
@@ -311,5 +393,6 @@
     </scenes>
     <resources>
         <image name="comment" width="128" height="128"/>
+        <image name="friends" width="22" height="20"/>
     </resources>
 </document>
