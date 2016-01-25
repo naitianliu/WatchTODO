@@ -34,7 +34,7 @@ class CallAPIHelper: NSObject {
         self.url = url
         self.data = data
         if NSUserDefaults.standardUserDefaults().objectForKey("token") != nil {
-            let token:String = NSKeyedUnarchiver.unarchiveObjectWithData(NSUserDefaults.standardUserDefaults().objectForKey("token") as! NSData) as! String
+            let token:String = UserDefaultsHelper().getToken()
             self.headers["Authorization"] = "Token \(token)"
         }
         let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()

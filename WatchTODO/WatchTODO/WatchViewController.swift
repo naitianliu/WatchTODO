@@ -14,6 +14,8 @@ class WatchViewController: UIViewController, UITableViewDelegate, UITableViewDat
 
     @IBOutlet weak var tableView: UITableView!
     
+    var selectedContentData: [String: String]!
+    
     var popupController: CNPPopupController = CNPPopupController()
     
     let data = [
@@ -78,6 +80,18 @@ class WatchViewController: UIViewController, UITableViewDelegate, UITableViewDat
             cell.statusLabel.text = status
             cell.commentButton.addTarget(self, action: Selector("commentButtonOnClick:"), forControlEvents: .TouchUpInside)
             return cell
+        }
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        selectedContentData = data[indexPath.row]
+        self.performSegueWithIdentifier("WatchItemDetailSegue", sender: nil)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "WatchItemDetailSegue" {
+            let watchItemDetailVC = segue.destinationViewController as! WatchItemDetailViewController
+            watchItemDetailVC.contentData = selectedContentData
         }
     }
     

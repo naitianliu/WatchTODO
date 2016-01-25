@@ -15,6 +15,12 @@
 		46B3DFFB1C548415002A6769 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B3DFFA1C548415002A6769 /* LoginViewController.swift */; };
 		46B3DFFF1C5486A5002A6769 /* UserDefaultsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B3DFFE1C5486A5002A6769 /* UserDefaultsHelper.swift */; };
 		46B3E0051C549652002A6769 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B3E0041C549652002A6769 /* SignupViewController.swift */; };
+		46B3E0071C54ABF8002A6769 /* AddFriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B3E0061C54ABF8002A6769 /* AddFriendViewController.swift */; };
+		46E98E9B1C559ABA00CE83EA /* FriendModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E98E9A1C559ABA00CE83EA /* FriendModel.swift */; };
+		46E98E9D1C55DA3B00CE83EA /* WatchItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E98E9C1C55DA3B00CE83EA /* WatchItemDetailViewController.swift */; };
+		46E98E9F1C55DAEE00CE83EA /* WatchFriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E98E9E1C55DAEE00CE83EA /* WatchFriendViewController.swift */; };
+		46E98EA11C55DF1700CE83EA /* WatchItemDetailContentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E98EA01C55DF1700CE83EA /* WatchItemDetailContentTableViewCell.swift */; };
+		46E98EA31C55E48100CE83EA /* WatchItemDetailCommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E98EA21C55E48100CE83EA /* WatchItemDetailCommentTableViewCell.swift */; };
 		46EE9DC21C4ADDDA0062D644 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EE9DC11C4ADDDA0062D644 /* AppDelegate.swift */; };
 		46EE9DC71C4ADDDA0062D644 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 46EE9DC51C4ADDDA0062D644 /* Main.storyboard */; };
 		46EE9DC91C4ADDDA0062D644 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 46EE9DC81C4ADDDA0062D644 /* Assets.xcassets */; };
@@ -73,6 +79,12 @@
 		46B3DFFA1C548415002A6769 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		46B3DFFE1C5486A5002A6769 /* UserDefaultsHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsHelper.swift; sourceTree = "<group>"; };
 		46B3E0041C549652002A6769 /* SignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
+		46B3E0061C54ABF8002A6769 /* AddFriendViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddFriendViewController.swift; sourceTree = "<group>"; };
+		46E98E9A1C559ABA00CE83EA /* FriendModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendModel.swift; sourceTree = "<group>"; };
+		46E98E9C1C55DA3B00CE83EA /* WatchItemDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchItemDetailViewController.swift; sourceTree = "<group>"; };
+		46E98E9E1C55DAEE00CE83EA /* WatchFriendViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchFriendViewController.swift; sourceTree = "<group>"; };
+		46E98EA01C55DF1700CE83EA /* WatchItemDetailContentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchItemDetailContentTableViewCell.swift; sourceTree = "<group>"; };
+		46E98EA21C55E48100CE83EA /* WatchItemDetailCommentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchItemDetailCommentTableViewCell.swift; sourceTree = "<group>"; };
 		46EE9DBE1C4ADDDA0062D644 /* WatchTODO.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WatchTODO.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		46EE9DC11C4ADDDA0062D644 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		46EE9DC61C4ADDDA0062D644 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -142,6 +154,8 @@
 			children = (
 				46902CA21C509B1D00F07EF9 /* WatchTableViewCell.swift */,
 				46902CA41C50BAD500F07EF9 /* WatchNoCommentTableViewCell.swift */,
+				46E98EA01C55DF1700CE83EA /* WatchItemDetailContentTableViewCell.swift */,
+				46E98EA21C55E48100CE83EA /* WatchItemDetailCommentTableViewCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -150,6 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				46B3DFF31C534A83002A6769 /* FriendsViewController.swift */,
+				46B3E0061C54ABF8002A6769 /* AddFriendViewController.swift */,
 			);
 			name = Friends;
 			sourceTree = "<group>";
@@ -270,6 +285,8 @@
 			children = (
 				46B3DFF21C534A5B002A6769 /* Friends */,
 				46EE9DFF1C4B14670062D644 /* WatchViewController.swift */,
+				46E98E9C1C55DA3B00CE83EA /* WatchItemDetailViewController.swift */,
+				46E98E9E1C55DAEE00CE83EA /* WatchFriendViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -310,6 +327,7 @@
 				46EE9E1B1C4C4F460062D644 /* ActionItemModel.swift */,
 				46EE9E1D1C4C67BA0062D644 /* ProjectModel.swift */,
 				46EE9E1F1C4C67D70062D644 /* WatcherModel.swift */,
+				46E98E9A1C559ABA00CE83EA /* FriendModel.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -529,9 +547,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				46EE9E0F1C4B485C0062D644 /* EditActionContentViewController.swift in Sources */,
+				46E98E9B1C559ABA00CE83EA /* FriendModel.swift in Sources */,
 				46EE9DFD1C4B14350062D644 /* MyTodoListViewController.swift in Sources */,
 				46902CA51C50BAD500F07EF9 /* WatchNoCommentTableViewCell.swift in Sources */,
+				46E98E9D1C55DA3B00CE83EA /* WatchItemDetailViewController.swift in Sources */,
 				46EE9E001C4B14670062D644 /* WatchViewController.swift in Sources */,
+				46E98EA11C55DF1700CE83EA /* WatchItemDetailContentTableViewCell.swift in Sources */,
 				46B3DFF41C534A83002A6769 /* FriendsViewController.swift in Sources */,
 				46EE9E051C4B15090062D644 /* MainTabBarController.swift in Sources */,
 				46EE9DC21C4ADDDA0062D644 /* AppDelegate.swift in Sources */,
@@ -540,9 +561,11 @@
 				46EE9E271C4DA4260062D644 /* SortActionItemListHelper.swift in Sources */,
 				46EE9E221C4C7DA20062D644 /* SelectProjectViewController.swift in Sources */,
 				46EE9E191C4C2A8C0062D644 /* TodoActionItemTableViewCell.swift in Sources */,
+				46B3E0071C54ABF8002A6769 /* AddFriendViewController.swift in Sources */,
 				46B3DFFB1C548415002A6769 /* LoginViewController.swift in Sources */,
 				46EE9E091C4B26870062D644 /* MyTodoListNavigationController.swift in Sources */,
 				46B3DFFF1C5486A5002A6769 /* UserDefaultsHelper.swift in Sources */,
+				46E98EA31C55E48100CE83EA /* WatchItemDetailCommentTableViewCell.swift in Sources */,
 				46EE9E0D1C4B3BF70062D644 /* AddActionViewController.swift in Sources */,
 				46EE9E1E1C4C67BA0062D644 /* ProjectModel.swift in Sources */,
 				46EE9E1C1C4C4F460062D644 /* ActionItemModel.swift in Sources */,
@@ -551,6 +574,7 @@
 				46EE9E171C4B58970062D644 /* AddActionContentTableViewCell.swift in Sources */,
 				46EE9E0B1C4B28200062D644 /* SideMenuTableViewController.swift in Sources */,
 				46B3E0051C549652002A6769 /* SignupViewController.swift in Sources */,
+				46E98E9F1C55DAEE00CE83EA /* WatchFriendViewController.swift in Sources */,
 				46B3DFF61C547F3C002A6769 /* Constant.swift in Sources */,
 				46EE9E201C4C67D70062D644 /* WatcherModel.swift in Sources */,
 				46EE9E121C4B535C0062D644 /* AddActionCellHelper.swift in Sources */,

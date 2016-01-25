@@ -50,6 +50,11 @@ class UserDefaultsHelper {
         return userInfo
     }
     
+    func getToken() -> String {
+        let token: String = Defaults[.token]!
+        return token
+    }
+    
     func checkIfLogin() -> Bool {
         var result = false
         let token: String? = Defaults[.token]
