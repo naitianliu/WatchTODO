@@ -10,7 +10,6 @@ import Foundation
 import SwiftyUserDefaults
 
 extension DefaultsKeys {
-    static let userId = DefaultsKey<String?>("userId")
     static let username = DefaultsKey<String?>("username")
     static let profileImageURL = DefaultsKey<String?>("profileImageURL")
     static let nickname = DefaultsKey<String?>("nickname")
@@ -22,10 +21,7 @@ class UserDefaultsHelper {
         
     }
     
-    func createOrUpdateUserInfo(userId:String?, username:String?, profileImageURL:String?, nickname:String?, token:String?) {
-        if let userId = userId {
-            Defaults[.userId] = userId
-        }
+    func createOrUpdateUserInfo(username:String?, profileImageURL:String?, nickname:String?, token:String?) {
         if let username = username {
             Defaults[.username] = username
         }
@@ -42,7 +38,6 @@ class UserDefaultsHelper {
     
     func getUserInfo() -> [String: String?] {
         var userInfo = Dictionary<String, String?>()
-        userInfo["userId"] = Defaults[.userId]
         userInfo["username"] = Defaults[.username]
         userInfo["profileImageURL"] = Defaults[.profileImageURL]
         userInfo["nickname"] = Defaults[.nickname]
@@ -58,8 +53,8 @@ class UserDefaultsHelper {
     func checkIfLogin() -> Bool {
         var result = false
         let token: String? = Defaults[.token]
-        let userId: String? = Defaults[.userId]
-        if token != nil && userId != nil {
+        let username: String? = Defaults[.username]
+        if token != nil && username != nil {
             result = true
         }
         return result

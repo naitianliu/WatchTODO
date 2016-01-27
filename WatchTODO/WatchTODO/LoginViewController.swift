@@ -57,11 +57,10 @@ class LoginViewController: UIViewController, CallAPIHelperDelegate {
             let data = responseData as! [String: AnyObject]
             let token = data["token"] as! String
             let userInfo = data["user_info"] as! [String: String]
-            let userId = userInfo["user_id"]
             let username = userInfo["username"]
             let profileImageURL = userInfo["profile_image_url"]
             let nickname = userInfo["nickname"]
-            UserDefaultsHelper().createOrUpdateUserInfo(userId, username: username, profileImageURL: profileImageURL, nickname: nickname, token: token)
+            UserDefaultsHelper().createOrUpdateUserInfo(username, profileImageURL: profileImageURL, nickname: nickname, token: token)
             delegate?.didLoginToSwitchRootVC()
         }
     }

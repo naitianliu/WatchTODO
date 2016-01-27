@@ -17,6 +17,7 @@ class MyTodoListViewController: UIViewController, ENSideMenuDelegate, UITableVie
     var dataDictArray: [String: [[String: AnyObject]]]!
     
     let actionItemCellIdentifier = "TodoActionItemCell"
+    let unfoldCellIdentifier = "TodoUnfoldCell"
     
     let actionItemModelHelper = ActionItemModelHelper()
     let sortActionItemListHelper = SortActionItemListHelper()
@@ -25,6 +26,8 @@ class MyTodoListViewController: UIViewController, ENSideMenuDelegate, UITableVie
     var sectionKeyTitleMapDict: [String: String]!
     
     var popupController: CNPPopupController = CNPPopupController()
+    
+    var selectedCellIndexPath: NSIndexPath?
     
     @IBOutlet weak var tableView: UITableView!
 
@@ -99,11 +102,29 @@ class MyTodoListViewController: UIViewController, ENSideMenuDelegate, UITableVie
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let sectionKey = sectionKeyList[section]
         let dataArray: [[String: AnyObject]] = dataDictArray[sectionKey]!
-        return dataArray.count
+        var number = dataArray.count
+        if let selectedIndexPath = selectedCellIndexPath {
+            if selectedIndexPath.section == section {
+                number += 1
+            }
+        }
+        return number
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("TodoActionItemCell") as! TodoActionItemTableViewCell
+        if let selectedIndexPath = selectedCellIndexPath {
+            if selectedIndexPath.section == indexPath.section && indexPath.row == selectedIndexPath.row + 1 {
+                return self.renderUnfoldCell(tableView, indexPath: indexPath)
+            } else {
+                return self.renderActionItemCell(tableView, indexPath: indexPath)
+            }
+        } else {
+            return self.renderActionItemCell(tableView, indexPath: indexPath)
+        }
+    }
+    
+    func renderActionItemCell(tableView: UITableView, indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier(actionItemCellIdentifier) as! TodoActionItemTableViewCell
         let sectionKey = sectionKeyList[indexPath.section]
         let dataArray: [[String: AnyObject]] = dataDictArray[sectionKey]!
         let rowDict = dataArray[indexPath.row]
@@ -114,8 +135,11 @@ class MyTodoListViewController: UIViewController, ENSideMenuDelegate, UITableVie
         }
         cell.actionContentLabel.text = content
         cell.projectLabel.text = project
-        cell.completeButton.addTarget(self, action: Selector("cellCompleteButtonOnClick:"), forControlEvents: .TouchUpInside)
-        cell.flagButton.addTarget(self, action: Selector("cellFlagButtonOnClick:"), forControlEvents: .TouchUpInside)
+        return cell
+    }
+    
+    func renderUnfoldCell(tableView: UITableView, indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier(unfoldCellIdentifier)! as UITableViewCell
         return cell
     }
     
@@ -127,6 +151,52 @@ class MyTodoListViewController: UIViewController, ENSideMenuDelegate, UITableVie
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         return nil
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if selectedCellIndexPath == nil {
+            selectedCellIndexPath = indexPath
+            let targetIndexPath = NSIndexPath(forRow: indexPath.row + 1, inSection: indexPath.section)
+            tableView.insertRowsAtIndexPaths([targetIndexPath], withRowAnimation: .Bottom)
+        } else if selectedCellIndexPath == indexPath {
+            selectedCellIndexPath = nil
+            let targetIndexPath = NSIndexPath(forRow: indexPath.row + 1, inSection: indexPath.section)
+            tableView.deleteRowsAtIndexPaths([targetIndexPath], withRowAnimation: .Top)
+        } else if selectedCellIndexPath == NSIndexPath(forRow: indexPath.row - 1, inSection: indexPath.section) {
+            
+        } else {
+            let indexPath0 = selectedCellIndexPath!
+            if indexPath0.section != indexPath.section {
+                let targetIndexPath0 = NSIndexPath(forRow: indexPath0.row + 1, inSection: indexPath0.section)
+                let targetIndexPath = NSIndexPath(forRow: indexPath.row + 1, inSection: indexPath.section)
+                tableView.beginUpdates()
+                selectedCellIndexPath = nil
+                tableView.deleteRowsAtIndexPaths([targetIndexPath0], withRowAnimation: .Top)
+                selectedCellIndexPath = indexPath
+                tableView.insertRowsAtIndexPaths([targetIndexPath], withRowAnimation: .Bottom)
+                tableView.endUpdates()
+            } else if indexPath0.row < indexPath.row {
+                let targetIndexPath0 = NSIndexPath(forRow: indexPath0.row + 1, inSection: indexPath0.section)
+                let targetIndexPath = NSIndexPath(forRow: indexPath.row, inSection: indexPath.section)
+                tableView.beginUpdates()
+                selectedCellIndexPath = nil
+                tableView.deleteRowsAtIndexPaths([targetIndexPath0], withRowAnimation: .Top)
+                selectedCellIndexPath = NSIndexPath(forRow: targetIndexPath.row - 1, inSection: targetIndexPath.section)
+                tableView.insertRowsAtIndexPaths([targetIndexPath], withRowAnimation: .Bottom)
+                tableView.endUpdates()
+            } else if indexPath0.row > indexPath.row {
+                let targetIndexPath0 = NSIndexPath(forRow: indexPath0.row + 1, inSection: indexPath0.section)
+                let targetIndexPath = NSIndexPath(forRow: indexPath.row + 1, inSection: indexPath.section)
+                tableView.beginUpdates()
+                selectedCellIndexPath = nil
+                tableView.deleteRowsAtIndexPaths([targetIndexPath0], withRowAnimation: .Top)
+                selectedCellIndexPath = indexPath
+                tableView.insertRowsAtIndexPaths([targetIndexPath], withRowAnimation: .Bottom)
+                tableView.endUpdates()
+            }
+            
+            
+        }
     }
     
     func didAddAction(actionContent: String?, project: String?, dueDate: String?, deferDate: String?) {

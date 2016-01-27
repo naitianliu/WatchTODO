@@ -1,24 +1,20 @@
 //
-//  TodoActionItemTableViewCell.swift
+//  AddActionPriorityTableViewCell.swift
 //  WatchTODO
 //
-//  Created by Liu, Naitian on 1/17/16.
+//  Created by Liu, Naitian on 1/25/16.
 //  Copyright © 2016 naitianliu. All rights reserved.
 //
 
 import UIKit
 
-class TodoActionItemTableViewCell: UITableViewCell {
+class AddActionPriorityTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var actionContentLabel: UILabel!
-    @IBOutlet weak var extraInfoView: UIView!
-    @IBOutlet weak var watcherView: UIView!
-    @IBOutlet weak var projectLabel: UILabel!
+    @IBOutlet weak var prioritySegmentedControl: UISegmentedControl!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        
     }
 
     override func setSelected(selected: Bool, animated: Bool) {

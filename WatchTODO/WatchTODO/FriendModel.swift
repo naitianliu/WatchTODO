@@ -11,13 +11,12 @@ import RealmSwift
 
 class FriendModel: Object {
     
-    dynamic var userId: String = ""
     dynamic var username: String = ""
     dynamic var nickname: String = ""
     dynamic var profileImageURL: String = ""
     
     override static func primaryKey() -> String {
-        return "userId"
+        return "username"
     }
 }
 
@@ -32,7 +31,6 @@ class FriendModelHelper {
             let realm = try Realm()
             for item in realm.objects(FriendModel) {
                 let itemDict = [
-                    "user_id": item.userId,
                     "username": item.username,
                     "nickname": item.nickname,
                     "profile_img_url": item.profileImageURL
@@ -46,12 +44,10 @@ class FriendModelHelper {
     }
     
     func addFriend(userInfo: [String: String]) {
-        let userId: String = userInfo["user_id"]!
         let username: String = userInfo["username"]!
         let nickname: String = userInfo["nickname"]!
         let profileImageURL: String = userInfo["profile_img_url"]!
         let friend = FriendModel()
-        friend.userId = userId
         friend.username = username
         friend.nickname = nickname
         friend.profileImageURL = profileImageURL

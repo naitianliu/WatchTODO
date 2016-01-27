@@ -14,7 +14,7 @@ protocol AddActionVCDelegate {
     func didAddAction(actionContent:String?, project:String?, dueDate:String?, deferDate:String?)
 }
 
-class AddActionViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, EditActionContentVCDelegate, SelectProjectVCDelegate {
+class AddActionViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, EditActionContentVCDelegate, SelectProjectVCDelegate, UITextViewDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     
@@ -54,7 +54,7 @@ class AddActionViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -63,51 +63,62 @@ class AddActionViewController: UIViewController, UITableViewDataSource, UITableV
             return 2
         case 1:
             return 2
+        case 2:
+            return 1
         default:
             return 0
         }
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .Default, reuseIdentifier: "AddActionCell")
         switch (indexPath.section, indexPath.row) {
         case (0, 0):
+            let cell = tableView.dequeueReusableCellWithIdentifier("AddActionContentCell") as! AddActionContentTableViewCell
+            cell.contentTextView.delegate = self
             if let content = actionContent {
-                cell.textLabel?.text = content
-            } else {
-                cell.textLabel?.text = "Action Content"
-                cell.textLabel?.textColor = UIColor.lightGrayColor()
+                cell.contentTextView.text = content
             }
+            return cell
         case (0, 1):
+            let cell = UITableViewCell(style: .Value1, reuseIdentifier: "AddActionDefaultCell")
+            cell.accessoryType = .DisclosureIndicator
+            cell.textLabel?.text = "Project"
             if let projectName = project {
-                cell.textLabel?.text = projectName
+                cell.detailTextLabel?.text = projectName
             } else {
-                cell.textLabel?.text = "Inbox"
+                cell.detailTextLabel?.text = "Inbox"
             }
+            return cell
         case (1, 0):
+            let cell = UITableViewCell(style: .Value1, reuseIdentifier: "AddActionDefaultCell")
+            cell.accessoryType = .DisclosureIndicator
+            cell.textLabel?.text = "Defer Until"
             if let deferDateString = deferDate {
-                cell.textLabel?.text = deferDateString
-            } else {
-                cell.textLabel?.text = "Defer until"
-                cell.textLabel?.textColor = UIColor.lightGrayColor()
+                cell.detailTextLabel?.text = deferDateString
             }
+            return cell
         case (1, 1):
+            let cell = UITableViewCell(style: .Value1, reuseIdentifier: "AddActionDefaultCell")
+            cell.accessoryType = .DisclosureIndicator
+            cell.textLabel?.text = "Due Date"
             if let dueDateString = dueDate {
-                cell.textLabel?.text = dueDateString
-            } else {
-                cell.textLabel?.text = "Due to"
-                cell.textLabel?.textColor = UIColor.lightGrayColor()
+                cell.detailTextLabel?.text = dueDateString
             }
+            return cell
+        case (2, 0):
+            let cell = tableView.dequeueReusableCellWithIdentifier("AddActionPriorityCell") as! AddActionPriorityTableViewCell
+            return cell
         default:
-            break
+            let cell = UITableViewCell(style: .Value1, reuseIdentifier: "AddActionDefaultCell")
+            return cell
         }
-        return cell
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         switch (indexPath.section, indexPath.row) {
         case (0, 0):
-            self.performSegueWithIdentifier("EditActionContentSegue", sender: nil)
+            // self.performSegueWithIdentifier("EditActionContentSegue", sender: nil)
+            break
         case (0, 1):
             self.performSegueWithIdentifier("SelectProjectSegue", sender: nil)
         case (1, 0):
@@ -169,6 +180,16 @@ class AddActionViewController: UIViewController, UITableViewDataSource, UITableV
         print(deferDate)
         print(dateType)
         tableView.reloadData()
+    }
+    
+    func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+        print(text)
+        if text == "\n" {
+            actionContent = textView.text
+            textView.resignFirstResponder()
+            return false
+        }
+        return true
     }
     
     func didEditActionContent(content: String) {

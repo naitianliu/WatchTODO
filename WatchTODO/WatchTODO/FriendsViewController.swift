@@ -18,7 +18,7 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     @IBOutlet weak var friendTableView: UITableView!
     var addFriendVC: AddFriendViewController!
-    var selectedAddFriendUserId: String = ""
+    var selectedAddFriendUsername: String = ""
     
     var addSearchController: UISearchController!
     override func viewDidLoad() {
@@ -81,11 +81,10 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
     func addDFriendDidSelectFriend(userInfo: [String : String]) {
         friendTableView.tableHeaderView = nil
         addSearchController.active = false
-        let userId: String = userInfo["user_id"]!
         let username: String = userInfo["username"]!
         let nickname: String = userInfo["nickname"]!
         let profileImageURL: String = userInfo["profile_img_url"]!
-        selectedAddFriendUserId = userId
+        selectedAddFriendUsername = username
         let alertView = UIAlertView(title: "Send Friend Request", message: nickname, delegate: self, cancelButtonTitle: "Cancel", otherButtonTitles: "Send")
         alertView.show()
     }
