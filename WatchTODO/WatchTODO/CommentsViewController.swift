@@ -26,8 +26,23 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
     var originViewFrame:CGRect!
     
     let data = [
-        "Click the Start Slicing button that is displayed over the center of the image. Set a breakpoint on this line and see what self.mediaItem.image.size looks like.",
-        "appropriate button"
+        [
+            "content": "Click the Start Slicing button that is displayed over the center of the image. Set a breakpoint on this line and see what self.mediaItem.image.size looks like.",
+            "me": false
+        ],
+        [
+            "content": "appropriate button",
+            "me": false
+        ],
+        [
+            "content": "appropriate button",
+            "me": true
+        ],
+        [
+            "content": "appropriate button",
+            "me": true
+        ],
+        
     ]
     
     override func viewDidLoad() {
@@ -70,12 +85,15 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func viewMoveUp() {
-        UIView.animateWithDuration(0.5) { () -> Void in
+        UIView.animateWithDuration(0.5, animations: { () -> Void in
             var newFrame:CGRect = self.view.frame
             newFrame.size.height -= self.keyboardFrame.size.height - self.currentKeyboardHeight
             self.view.frame = newFrame
+            }) { (complete) -> Void in
+                if complete {
+                    self.reloadTable()
+                }
         }
-        self.reloadTable()
         self.currentKeyboardHeight = self.keyboardFrame.size.height
     }
     
@@ -91,7 +109,7 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
         tableView.reloadData()
         if data.count > 0 {
             let ipath:NSIndexPath = NSIndexPath(forRow: data.count - 1, inSection: 0)
-            tableView.scrollToRowAtIndexPath(ipath, atScrollPosition: UITableViewScrollPosition.Top, animated: false)
+            tableView.scrollToRowAtIndexPath(ipath, atScrollPosition: UITableViewScrollPosition.Top, animated: true)
         }
     }
     
@@ -104,11 +122,20 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(commentCellIdentifier1) as! ChatBubbleTableViewCell
-        let content = data[indexPath.row]
-        cell.contentLabel.text = content
-        cell.nameLabel.text = "Naitian Liu"
-        return cell
+        let rowDict = data[indexPath.row]
+        let me: Bool = rowDict["me"] as! Bool
+        let content: String = rowDict["content"] as! String
+        if me {
+            let cell = tableView.dequeueReusableCellWithIdentifier(commentCellIdentifier2) as! ChatBubbleTableViewCell2
+            cell.contentLabel.text = content
+            cell.nameLabel.text = "Naitian Liu"
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCellWithIdentifier(commentCellIdentifier1) as! ChatBubbleTableViewCell
+            cell.contentLabel.text = content
+            cell.nameLabel.text = "Naitian Liu"
+            return cell
+        }
     }
 
 }
