@@ -203,7 +203,7 @@ class MyTodoListViewController: UIViewController, ENSideMenuDelegate, UITableVie
         if selectedCellIndexPath == nil {
             selectedCellIndexPath = indexPath
             let targetIndexPath = NSIndexPath(forRow: indexPath.row + 1, inSection: indexPath.section)
-            tableView.insertRowsAtIndexPaths([targetIndexPath], withRowAnimation: .Bottom)
+            tableView.insertRowsAtIndexPaths([targetIndexPath], withRowAnimation: .Top)
         } else if selectedCellIndexPath == indexPath {
             selectedCellIndexPath = nil
             let targetIndexPath = NSIndexPath(forRow: indexPath.row + 1, inSection: indexPath.section)
@@ -219,7 +219,7 @@ class MyTodoListViewController: UIViewController, ENSideMenuDelegate, UITableVie
                 selectedCellIndexPath = nil
                 tableView.deleteRowsAtIndexPaths([targetIndexPath0], withRowAnimation: .Top)
                 selectedCellIndexPath = indexPath
-                tableView.insertRowsAtIndexPaths([targetIndexPath], withRowAnimation: .Bottom)
+                tableView.insertRowsAtIndexPaths([targetIndexPath], withRowAnimation: .Top)
                 tableView.endUpdates()
             } else if indexPath0.row < indexPath.row {
                 let targetIndexPath0 = NSIndexPath(forRow: indexPath0.row + 1, inSection: indexPath0.section)
@@ -228,7 +228,7 @@ class MyTodoListViewController: UIViewController, ENSideMenuDelegate, UITableVie
                 selectedCellIndexPath = nil
                 tableView.deleteRowsAtIndexPaths([targetIndexPath0], withRowAnimation: .Top)
                 selectedCellIndexPath = NSIndexPath(forRow: targetIndexPath.row - 1, inSection: targetIndexPath.section)
-                tableView.insertRowsAtIndexPaths([targetIndexPath], withRowAnimation: .Bottom)
+                tableView.insertRowsAtIndexPaths([targetIndexPath], withRowAnimation: .Top)
                 tableView.endUpdates()
             } else if indexPath0.row > indexPath.row {
                 let targetIndexPath0 = NSIndexPath(forRow: indexPath0.row + 1, inSection: indexPath0.section)
@@ -237,7 +237,7 @@ class MyTodoListViewController: UIViewController, ENSideMenuDelegate, UITableVie
                 selectedCellIndexPath = nil
                 tableView.deleteRowsAtIndexPaths([targetIndexPath0], withRowAnimation: .Top)
                 selectedCellIndexPath = indexPath
-                tableView.insertRowsAtIndexPaths([targetIndexPath], withRowAnimation: .Bottom)
+                tableView.insertRowsAtIndexPaths([targetIndexPath], withRowAnimation: .Top)
                 tableView.endUpdates()
             }
         }
@@ -267,11 +267,11 @@ class MyTodoListViewController: UIViewController, ENSideMenuDelegate, UITableVie
     func didAddAction(actionContent: String?, project: String?, dueDate: String?, deferDate: String?, priority: Int?) {
         if let content = actionContent {
             print("Add Action into db")
-            actionItemModelHelper.addActionItem(content, project: project, dueDate: dueDate, deferDate: deferDate, priority: priority)
+            selectedCellIndexPath = nil
+            TodoListAPIHelper().addAction(content, project: project, dueDate: dueDate, deferDate: deferDate, priority: priority)
             data = actionItemModelHelper.getAllPendingItems()
             dataDictArray = sortActionItemListHelper.divideByDate(data)
             tableView.reloadData()
-            TodoListAPIHelper().addAction(content, project: project, dueDate: dueDate, deferDate: deferDate, priority: priority)
         }
     }
     
