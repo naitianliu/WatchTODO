@@ -15,9 +15,10 @@ class ActionItemModel: Object {
     dynamic var dueDate: String = ""
     dynamic var project: String = ""
     dynamic var deferDate: String = ""
-    dynamic var completed: Bool = false
+    dynamic var priority: Int = 4
+    // status 0: not started, 1: WorkInProgress, 2: complete
+    dynamic var status: Int = 0
     dynamic var everyday: Bool = false
-    let watchers = List<WatcherModel>()
     
     override static func primaryKey() -> String {
         return "uuid"
@@ -29,7 +30,7 @@ class ActionItemModelHelper {
         
     }
     
-    func addActionItem(content:String, project:String?, dueDate:String?, deferDate:String?) -> String {
+    func addActionItem(content:String, project:String?, dueDate:String?, deferDate:String?, priority:Int?) -> String {
         let uuid = NSUUID().UUIDString
         let actionItem = ActionItemModel()
         actionItem.uuid = uuid
@@ -46,6 +47,11 @@ class ActionItemModelHelper {
         if let deferDate = deferDate {
             actionItem.deferDate = deferDate
         }
+        if let priority = priority {
+            actionItem.priority = priority
+        } else {
+            actionItem.priority = 4
+        }
         do {
             let realm = try Realm()
             try realm.write({ () -> Void in
@@ -57,12 +63,12 @@ class ActionItemModelHelper {
         return uuid
     }
     
-    func completeActionItem(uuid:String) {
+    func updateActionStatus(uuid:String, status:Int) {
         do {
             let realm = try Realm()
             let actionItem = realm.objectForPrimaryKey(ActionItemModel.self, key: uuid)
             try realm.write({ () -> Void in
-                actionItem?.setValue(true, forKeyPath: "completed")
+                actionItem?.setValue(status, forKeyPath: "status")
             })
         } catch {
             print(error)
@@ -73,14 +79,15 @@ class ActionItemModelHelper {
         var pendingItems: [[String:AnyObject]] = []
         do {
             let realm = try Realm()
-            for item in realm.objects(ActionItemModel).filter("completed = false") {
+            for item in realm.objects(ActionItemModel).filter("status != 2") {
                 let itemDict = [
                     "uuid": item.uuid,
                     "content": item.content,
                     "project": item.project,
                     "dueDate": item.dueDate,
                     "deferDate": item.deferDate,
-                    "completed": item.completed,
+                    "priority": item.priority,
+                    "status": item.status,
                     "everyday": item.everyday
                 ]
                 pendingItems.append(itemDict as! [String : AnyObject])

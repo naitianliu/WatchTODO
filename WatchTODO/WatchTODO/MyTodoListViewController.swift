@@ -13,6 +13,11 @@ import CNPPopupController
 
 class MyTodoListViewController: UIViewController, ENSideMenuDelegate, UITableViewDelegate, UITableViewDataSource, AddActionVCDelegate {
     
+    let colorP1: UIColor = UIColor.redColor()
+    let colorP2: UIColor = UIColor.orangeColor()
+    let colorP3: UIColor = UIColor.yellowColor()
+    let colorP4: UIColor = UIColor.grayColor()
+    
     var data: [[String: AnyObject]]!
     var dataDictArray: [String: [[String: AnyObject]]]!
     
@@ -28,6 +33,11 @@ class MyTodoListViewController: UIViewController, ENSideMenuDelegate, UITableVie
     var popupController: CNPPopupController = CNPPopupController()
     
     var selectedCellIndexPath: NSIndexPath?
+    
+    var comments = [
+        ["content": "In addition to supporting rich text, TTTAttributedLabel can automatically detect links for dates, addresses, URLs, phone numbers, transit information, and allows you to embed your own links."],
+        ["content": "test test"]
+    ]
     
     @IBOutlet weak var tableView: UITableView!
 
@@ -76,7 +86,7 @@ class MyTodoListViewController: UIViewController, ENSideMenuDelegate, UITableVie
         let dataArray: [[String: AnyObject]] = dataDictArray[sectionKey]!
         // update db
         let uuid: String = dataArray[indexPath.row]["uuid"] as! String
-        actionItemModelHelper.completeActionItem(uuid)
+        actionItemModelHelper.updateActionStatus(uuid, status: 2)
         // show toast
         let content = dataArray[indexPath.row]["content"] as! String
         let toastStyle = CSToastStyle(defaultStyle: ())
@@ -130,16 +140,52 @@ class MyTodoListViewController: UIViewController, ENSideMenuDelegate, UITableVie
         let rowDict = dataArray[indexPath.row]
         let content = rowDict["content"] as! String
         var project = rowDict["project"] as! String
+        let priority = rowDict["priority"] as! Int
+        let dueDate = rowDict["dueDate"] as! String
+        let status = rowDict["status"] as! Int
         if project == "" {
             project = "Inbox"
         }
         cell.actionContentLabel.text = content
         cell.projectLabel.text = project
+        cell.dueLabel.text = dueDate
+        switch priority {
+        case 1:
+            cell.priorityView.backgroundColor = colorP1
+            break
+        case 2:
+            cell.priorityView.backgroundColor = colorP2
+            break
+        case 3:
+            cell.priorityView.backgroundColor = colorP3
+            break
+        case 4:
+            cell.priorityView.backgroundColor = colorP4
+            break
+        default:
+            break
+        }
+        switch status {
+        case 0:
+            cell.updateButton.setBackgroundImage(UIImage(named: "unchecked"), forState: .Normal)
+            break
+        case 1:
+            cell.updateButton.setBackgroundImage(UIImage(named: "inprogress"), forState: .Normal)
+            break
+        case 2:
+            cell.updateButton.setBackgroundImage(UIImage(named: "checked"), forState: .Normal)
+            break
+        default:
+            break
+        }
+        cell.updateButton.addTarget(self, action: Selector("updateButtonOnClick:"), forControlEvents: .TouchUpInside)
         return cell
     }
     
     func renderUnfoldCell(tableView: UITableView, indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(unfoldCellIdentifier)! as UITableViewCell
+        // let cell = tableView.dequeueReusableCellWithIdentifier(unfoldCellIdentifier) as! TodoUnfoldTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(unfoldCellIdentifier, forIndexPath: indexPath) as! TodoUnfoldTableViewCell
+        cell.contentLabel.text = comments[0]["content"]!
         return cell
     }
     
@@ -194,18 +240,38 @@ class MyTodoListViewController: UIViewController, ENSideMenuDelegate, UITableVie
                 tableView.insertRowsAtIndexPaths([targetIndexPath], withRowAnimation: .Bottom)
                 tableView.endUpdates()
             }
-            
-            
         }
     }
     
-    func didAddAction(actionContent: String?, project: String?, dueDate: String?, deferDate: String?) {
+    func updateButtonOnClick(sender: UIButton!) {
+        let cell = sender.superview?.superview as! TodoActionItemTableViewCell
+        let indexPath = tableView.indexPathForCell(cell)!
+        let sectionKey = sectionKeyList[indexPath.section]
+        let dataArray: [[String: AnyObject]] = dataDictArray[sectionKey]!
+        // update db
+        let uuid: String = dataArray[indexPath.row]["uuid"] as! String
+        let status: Int = dataArray[indexPath.row]["status"] as! Int
+        var newStatus: Int = 0
+        if status == 0 {
+            newStatus = 1
+        } else if status == 1 {
+            newStatus = 2
+        } else {
+            newStatus = 2
+        }
+        dataDictArray[sectionKey]![indexPath.row]["status"] = newStatus
+        tableView.reloadData()
+        TodoListAPIHelper().updateStatus(uuid, status: newStatus)
+    }
+    
+    func didAddAction(actionContent: String?, project: String?, dueDate: String?, deferDate: String?, priority: Int?) {
         if let content = actionContent {
             print("Add Action into db")
-            actionItemModelHelper.addActionItem(content, project: project, dueDate: dueDate, deferDate: deferDate)
+            actionItemModelHelper.addActionItem(content, project: project, dueDate: dueDate, deferDate: deferDate, priority: priority)
             data = actionItemModelHelper.getAllPendingItems()
             dataDictArray = sortActionItemListHelper.divideByDate(data)
             tableView.reloadData()
+            TodoListAPIHelper().addAction(content, project: project, dueDate: dueDate, deferDate: deferDate, priority: priority)
         }
     }
     

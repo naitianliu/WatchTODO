@@ -25,6 +25,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginVCDelegate {
             self.window?.rootViewController = loginViewController
         }
         
+        // perform database migrations
+        PerformMigrations().migrate()
+        
         return true
     }
 

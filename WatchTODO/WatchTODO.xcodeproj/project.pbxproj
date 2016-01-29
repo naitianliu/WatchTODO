@@ -9,7 +9,11 @@
 /* Begin PBXBuildFile section */
 		4600E6701C5721110007696F /* AddActionContentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4600E66F1C5721110007696F /* AddActionContentTableViewCell.swift */; };
 		4600E6721C5721D50007696F /* AddActionPriorityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4600E6711C5721D50007696F /* AddActionPriorityTableViewCell.swift */; };
-		4600E6741C5889E60007696F /* RenderTodoCellHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4600E6731C5889E60007696F /* RenderTodoCellHelper.swift */; };
+		4600E6761C59D77A0007696F /* TodoUnfoldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4600E6751C59D77A0007696F /* TodoUnfoldTableViewCell.swift */; };
+		4600E6781C59E5380007696F /* RenderCommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4600E6771C59E5380007696F /* RenderCommentView.swift */; };
+		4600E67A1C5AA48A0007696F /* Migrations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4600E6791C5AA48A0007696F /* Migrations.swift */; };
+		4600E67C1C5AD5940007696F /* CommentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4600E67B1C5AD5940007696F /* CommentModel.swift */; };
+		4600E67F1C5ADBC50007696F /* TodoListAPIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4600E67E1C5ADBC50007696F /* TodoListAPIHelper.swift */; };
 		46902CA31C509B1D00F07EF9 /* WatchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46902CA21C509B1D00F07EF9 /* WatchTableViewCell.swift */; };
 		46902CA51C50BAD500F07EF9 /* WatchNoCommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46902CA41C50BAD500F07EF9 /* WatchNoCommentTableViewCell.swift */; };
 		46B3DFF41C534A83002A6769 /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B3DFF31C534A83002A6769 /* FriendsViewController.swift */; };
@@ -75,7 +79,11 @@
 		1CF17AAB31057DFF1F525CCD /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4600E66F1C5721110007696F /* AddActionContentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddActionContentTableViewCell.swift; sourceTree = "<group>"; };
 		4600E6711C5721D50007696F /* AddActionPriorityTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddActionPriorityTableViewCell.swift; sourceTree = "<group>"; };
-		4600E6731C5889E60007696F /* RenderTodoCellHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RenderTodoCellHelper.swift; sourceTree = "<group>"; };
+		4600E6751C59D77A0007696F /* TodoUnfoldTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoUnfoldTableViewCell.swift; sourceTree = "<group>"; };
+		4600E6771C59E5380007696F /* RenderCommentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RenderCommentView.swift; sourceTree = "<group>"; };
+		4600E6791C5AA48A0007696F /* Migrations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Migrations.swift; sourceTree = "<group>"; };
+		4600E67B1C5AD5940007696F /* CommentModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentModel.swift; sourceTree = "<group>"; };
+		4600E67E1C5ADBC50007696F /* TodoListAPIHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoListAPIHelper.swift; sourceTree = "<group>"; };
 		46902CA21C509B1D00F07EF9 /* WatchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchTableViewCell.swift; sourceTree = "<group>"; };
 		46902CA41C50BAD500F07EF9 /* WatchNoCommentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchNoCommentTableViewCell.swift; sourceTree = "<group>"; };
 		46B3DFF31C534A83002A6769 /* FriendsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsViewController.swift; sourceTree = "<group>"; };
@@ -153,6 +161,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4600E67D1C5ADBAE0007696F /* API */ = {
+			isa = PBXGroup;
+			children = (
+				4600E67E1C5ADBC50007696F /* TodoListAPIHelper.swift */,
+			);
+			name = API;
+			sourceTree = "<group>";
+		};
 		46902CA11C509AF800F07EF9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -245,6 +261,7 @@
 		46EE9DF11C4B12AA0062D644 /* MyTodoList */ = {
 			isa = PBXGroup;
 			children = (
+				4600E67D1C5ADBAE0007696F /* API */,
 				46EE9E251C4DA3CC0062D644 /* Utilities */,
 				46EE9E1A1C4C4F300062D644 /* Models */,
 				46EE9E131C4B56680062D644 /* Views */,
@@ -322,7 +339,8 @@
 				46EE9E181C4C2A8C0062D644 /* TodoActionItemTableViewCell.swift */,
 				4600E66F1C5721110007696F /* AddActionContentTableViewCell.swift */,
 				4600E6711C5721D50007696F /* AddActionPriorityTableViewCell.swift */,
-				4600E6731C5889E60007696F /* RenderTodoCellHelper.swift */,
+				4600E6751C59D77A0007696F /* TodoUnfoldTableViewCell.swift */,
+				4600E6771C59E5380007696F /* RenderCommentView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -334,6 +352,8 @@
 				46EE9E1D1C4C67BA0062D644 /* ProjectModel.swift */,
 				46EE9E1F1C4C67D70062D644 /* WatcherModel.swift */,
 				46E98E9A1C559ABA00CE83EA /* FriendModel.swift */,
+				4600E6791C5AA48A0007696F /* Migrations.swift */,
+				4600E67B1C5AD5940007696F /* CommentModel.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -558,8 +578,10 @@
 				46E98E9D1C55DA3B00CE83EA /* WatchItemDetailViewController.swift in Sources */,
 				46EE9E001C4B14670062D644 /* WatchViewController.swift in Sources */,
 				46E98EA11C55DF1700CE83EA /* WatchItemDetailContentTableViewCell.swift in Sources */,
+				4600E67F1C5ADBC50007696F /* TodoListAPIHelper.swift in Sources */,
 				46B3DFF41C534A83002A6769 /* FriendsViewController.swift in Sources */,
 				46EE9E051C4B15090062D644 /* MainTabBarController.swift in Sources */,
+				4600E6761C59D77A0007696F /* TodoUnfoldTableViewCell.swift in Sources */,
 				46EE9DC21C4ADDDA0062D644 /* AppDelegate.swift in Sources */,
 				46EE9E031C4B14800062D644 /* SettingsViewController.swift in Sources */,
 				46902CA31C509B1D00F07EF9 /* WatchTableViewCell.swift in Sources */,
@@ -567,9 +589,11 @@
 				46EE9E221C4C7DA20062D644 /* SelectProjectViewController.swift in Sources */,
 				46EE9E191C4C2A8C0062D644 /* TodoActionItemTableViewCell.swift in Sources */,
 				46B3E0071C54ABF8002A6769 /* AddFriendViewController.swift in Sources */,
+				4600E6781C59E5380007696F /* RenderCommentView.swift in Sources */,
 				46B3DFFB1C548415002A6769 /* LoginViewController.swift in Sources */,
 				46EE9E091C4B26870062D644 /* MyTodoListNavigationController.swift in Sources */,
 				46B3DFFF1C5486A5002A6769 /* UserDefaultsHelper.swift in Sources */,
+				4600E67A1C5AA48A0007696F /* Migrations.swift in Sources */,
 				4600E6721C5721D50007696F /* AddActionPriorityTableViewCell.swift in Sources */,
 				4600E6701C5721110007696F /* AddActionContentTableViewCell.swift in Sources */,
 				46E98EA31C55E48100CE83EA /* WatchItemDetailCommentTableViewCell.swift in Sources */,
@@ -577,7 +601,7 @@
 				46EE9E1E1C4C67BA0062D644 /* ProjectModel.swift in Sources */,
 				46EE9E1C1C4C4F460062D644 /* ActionItemModel.swift in Sources */,
 				46B3DFF81C547FB4002A6769 /* CallAPIHelper.swift in Sources */,
-				4600E6741C5889E60007696F /* RenderTodoCellHelper.swift in Sources */,
+				4600E67C1C5AD5940007696F /* CommentModel.swift in Sources */,
 				46EE9E241C4C82190062D644 /* AddProjectViewController.swift in Sources */,
 				46EE9E171C4B58970062D644 /* AddActionContentTableViewCell1.swift in Sources */,
 				46EE9E0B1C4B28200062D644 /* SideMenuTableViewController.swift in Sources */,

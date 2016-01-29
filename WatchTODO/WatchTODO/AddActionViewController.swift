@@ -11,7 +11,7 @@ import ActionSheetPicker_3_0
 import DateTools
 
 protocol AddActionVCDelegate {
-    func didAddAction(actionContent:String?, project:String?, dueDate:String?, deferDate:String?)
+    func didAddAction(actionContent:String?, project:String?, dueDate:String?, deferDate:String?, priority: Int?)
 }
 
 class AddActionViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, EditActionContentVCDelegate, SelectProjectVCDelegate, UITextViewDelegate {
@@ -22,7 +22,7 @@ class AddActionViewController: UIViewController, UITableViewDataSource, UITableV
     var project: String?
     var dueDate: String?
     var deferDate: String?
-    
+    var priority: Int?
     var delegate: AddActionVCDelegate?
     
     override func viewDidLoad() {
@@ -47,7 +47,7 @@ class AddActionViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     @IBAction func addButtonOnClick(sender: AnyObject) {
-        delegate?.didAddAction(actionContent, project: project, dueDate: dueDate, deferDate: deferDate)
+        delegate?.didAddAction(actionContent, project: project, dueDate: dueDate, deferDate: deferDate, priority: priority)
         self.dismissViewControllerAnimated(true) { () -> Void in
             
         }
@@ -107,6 +107,10 @@ class AddActionViewController: UIViewController, UITableViewDataSource, UITableV
             return cell
         case (2, 0):
             let cell = tableView.dequeueReusableCellWithIdentifier("AddActionPriorityCell") as! AddActionPriorityTableViewCell
+            if let currentPriority = priority {
+                cell.prioritySegmentedControl.selectedSegmentIndex = currentPriority - 1
+            }
+            cell.prioritySegmentedControl.addTarget(self, action: Selector("segmentedControlValueChanged:"), forControlEvents: .ValueChanged)
             return cell
         default:
             let cell = UITableViewCell(style: .Value1, reuseIdentifier: "AddActionDefaultCell")
@@ -138,6 +142,10 @@ class AddActionViewController: UIViewController, UITableViewDataSource, UITableV
             let selectProjectVC = segue.destinationViewController as! SelectProjectViewController
             selectProjectVC.delegate = self
         }
+    }
+    
+    func segmentedControlValueChanged(sender: UISegmentedControl!) {
+        priority = sender.selectedSegmentIndex + 1
     }
     
     private func setupDate(dateType:String) {
