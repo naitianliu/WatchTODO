@@ -16,7 +16,7 @@ class PerformMigrations {
     
     func migrate() {
         let config = Realm.Configuration(
-            schemaVersion: 2,
+            schemaVersion: 3,
             migrationBlock: { migration, oldSchemaVersion in
                 if (oldSchemaVersion < 1) {
                     migration.enumerate(ActionItemModel.className(), { (oldObject, newObject) -> Void in
@@ -25,6 +25,10 @@ class PerformMigrations {
                 } else if (oldSchemaVersion < 2) {
                     migration.enumerate(ActionItemModel.className(), { (oldObject, newObject) -> Void in
                         newObject!["status"] = 0
+                    })
+                } else if (oldSchemaVersion < 3) {
+                    migration.enumerate(ActionItemModel.className(), { (oldObject, newObject) -> Void in
+                        
                     })
                 }
             }

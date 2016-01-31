@@ -15,6 +15,8 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
     let commentCellIdentifier1 = "ChatBubbleCell1"
     let commentCellIdentifier2 = "ChatBubbleCell2"
     
+    let myUsername = UserDefaultsHelper().getUsername()
+    
     @IBOutlet weak var toolbar: UIToolbar!
     @IBOutlet weak var inputTextField: UITextField!
     @IBOutlet weak var sendButton: UIBarButtonItem!
@@ -25,28 +27,13 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
     var currentKeyboardHeight:CGFloat = 0
     var originViewFrame:CGRect!
     
-    let data = [
-        [
-            "content": "Click the Start Slicing button that is displayed over the center of the image. Set a breakpoint on this line and see what self.mediaItem.image.size looks like.",
-            "me": false
-        ],
-        [
-            "content": "appropriate button",
-            "me": false
-        ],
-        [
-            "content": "appropriate button",
-            "me": true
-        ],
-        [
-            "content": "appropriate button",
-            "me": true
-        ],
-        
-    ]
+    var data: [[String: String]] = []
+    var actionId: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        data = CommentModelHelper().getCommentListByActionId(actionId)
         
         tableView.estimatedRowHeight = 44
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -69,6 +56,15 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func sendMessageButtonOnClick(sender: AnyObject) {
+        if let message = inputTextField.text {
+            CommentAPIHelper().addComment(actionId, message: message)
+            data = CommentModelHelper().getCommentListByActionId(actionId)
+            self.reloadTable()
+            inputTextField.text = nil
+        }
+    }
+    
     func keyboardShown(notification:NSNotification) {
         let info = notification.userInfo!
         let value:AnyObject = info[UIKeyboardFrameEndUserInfoKey]!
@@ -80,7 +76,6 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
     
     func dismissKeyboard() {
         self.inputTextField.resignFirstResponder()
-        print("dismiss")
         self.viewMoveDown()
     }
     
@@ -123,17 +118,18 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let rowDict = data[indexPath.row]
-        let me: Bool = rowDict["me"] as! Bool
-        let content: String = rowDict["content"] as! String
-        if me {
+        let username = rowDict["username"]
+        let nickname = rowDict["nickname"]!
+        let message = rowDict["message"]
+        if username == myUsername {
             let cell = tableView.dequeueReusableCellWithIdentifier(commentCellIdentifier2) as! ChatBubbleTableViewCell2
-            cell.contentLabel.text = content
-            cell.nameLabel.text = "Naitian Liu"
+            cell.contentLabel.text = message
+            cell.nameLabel.text = nickname
             return cell
         } else {
             let cell = tableView.dequeueReusableCellWithIdentifier(commentCellIdentifier1) as! ChatBubbleTableViewCell
-            cell.contentLabel.text = content
-            cell.nameLabel.text = "Naitian Liu"
+            cell.contentLabel.text = message
+            cell.nameLabel.text = nickname
             return cell
         }
     }

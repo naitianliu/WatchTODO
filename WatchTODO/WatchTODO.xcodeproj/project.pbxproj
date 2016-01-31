@@ -17,6 +17,8 @@
 		465DB0D91C5B029F00DAD91F /* ChatBubbleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 465DB0D81C5B029F00DAD91F /* ChatBubbleTableViewCell.swift */; };
 		465DB0DB1C5B220900DAD91F /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 465DB0DA1C5B220900DAD91F /* CommentsViewController.swift */; };
 		465DB0DD1C5B41C200DAD91F /* ChatBubbleTableViewCell2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 465DB0DC1C5B41C200DAD91F /* ChatBubbleTableViewCell2.swift */; };
+		465DB0DF1C5DADBB00DAD91F /* CommentAPIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 465DB0DE1C5DADBB00DAD91F /* CommentAPIHelper.swift */; };
+		465DB0E11C5DE42800DAD91F /* LeftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 465DB0E01C5DE42800DAD91F /* LeftViewController.swift */; };
 		46902CA31C509B1D00F07EF9 /* WatchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46902CA21C509B1D00F07EF9 /* WatchTableViewCell.swift */; };
 		46902CA51C50BAD500F07EF9 /* WatchNoCommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46902CA41C50BAD500F07EF9 /* WatchNoCommentTableViewCell.swift */; };
 		46B3DFF41C534A83002A6769 /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B3DFF31C534A83002A6769 /* FriendsViewController.swift */; };
@@ -46,7 +48,6 @@
 		46EE9E031C4B14800062D644 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EE9E021C4B14800062D644 /* SettingsViewController.swift */; };
 		46EE9E051C4B15090062D644 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EE9E041C4B15090062D644 /* MainTabBarController.swift */; };
 		46EE9E091C4B26870062D644 /* MyTodoListNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EE9E081C4B26870062D644 /* MyTodoListNavigationController.swift */; };
-		46EE9E0B1C4B28200062D644 /* SideMenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EE9E0A1C4B28200062D644 /* SideMenuTableViewController.swift */; };
 		46EE9E0D1C4B3BF70062D644 /* AddActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EE9E0C1C4B3BF70062D644 /* AddActionViewController.swift */; };
 		46EE9E0F1C4B485C0062D644 /* EditActionContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EE9E0E1C4B485C0062D644 /* EditActionContentViewController.swift */; };
 		46EE9E121C4B535C0062D644 /* AddActionCellHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EE9E111C4B535C0062D644 /* AddActionCellHelper.swift */; };
@@ -90,6 +91,8 @@
 		465DB0D81C5B029F00DAD91F /* ChatBubbleTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatBubbleTableViewCell.swift; sourceTree = "<group>"; };
 		465DB0DA1C5B220900DAD91F /* CommentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
 		465DB0DC1C5B41C200DAD91F /* ChatBubbleTableViewCell2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatBubbleTableViewCell2.swift; sourceTree = "<group>"; };
+		465DB0DE1C5DADBB00DAD91F /* CommentAPIHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentAPIHelper.swift; sourceTree = "<group>"; };
+		465DB0E01C5DE42800DAD91F /* LeftViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftViewController.swift; sourceTree = "<group>"; };
 		46902CA21C509B1D00F07EF9 /* WatchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchTableViewCell.swift; sourceTree = "<group>"; };
 		46902CA41C50BAD500F07EF9 /* WatchNoCommentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchNoCommentTableViewCell.swift; sourceTree = "<group>"; };
 		46B3DFF31C534A83002A6769 /* FriendsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsViewController.swift; sourceTree = "<group>"; };
@@ -125,7 +128,6 @@
 		46EE9E021C4B14800062D644 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		46EE9E041C4B15090062D644 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		46EE9E081C4B26870062D644 /* MyTodoListNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyTodoListNavigationController.swift; sourceTree = "<group>"; };
-		46EE9E0A1C4B28200062D644 /* SideMenuTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuTableViewController.swift; sourceTree = "<group>"; };
 		46EE9E0C1C4B3BF70062D644 /* AddActionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddActionViewController.swift; sourceTree = "<group>"; };
 		46EE9E0E1C4B485C0062D644 /* EditActionContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditActionContentViewController.swift; sourceTree = "<group>"; };
 		46EE9E111C4B535C0062D644 /* AddActionCellHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddActionCellHelper.swift; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 			isa = PBXGroup;
 			children = (
 				4600E67E1C5ADBC50007696F /* TodoListAPIHelper.swift */,
+				465DB0DE1C5DADBB00DAD91F /* CommentAPIHelper.swift */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -283,8 +286,8 @@
 			children = (
 				46EE9E101C4B48640062D644 /* Add Action */,
 				46EE9DFC1C4B14350062D644 /* MyTodoListViewController.swift */,
-				46EE9E0A1C4B28200062D644 /* SideMenuTableViewController.swift */,
 				465DB0DA1C5B220900DAD91F /* CommentsViewController.swift */,
+				465DB0E01C5DE42800DAD91F /* LeftViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -592,6 +595,7 @@
 				46EE9E051C4B15090062D644 /* MainTabBarController.swift in Sources */,
 				4600E6761C59D77A0007696F /* TodoUnfoldTableViewCell.swift in Sources */,
 				46EE9DC21C4ADDDA0062D644 /* AppDelegate.swift in Sources */,
+				465DB0DF1C5DADBB00DAD91F /* CommentAPIHelper.swift in Sources */,
 				46EE9E031C4B14800062D644 /* SettingsViewController.swift in Sources */,
 				46902CA31C509B1D00F07EF9 /* WatchTableViewCell.swift in Sources */,
 				46EE9E271C4DA4260062D644 /* SortActionItemListHelper.swift in Sources */,
@@ -604,6 +608,7 @@
 				46B3DFFF1C5486A5002A6769 /* UserDefaultsHelper.swift in Sources */,
 				4600E67A1C5AA48A0007696F /* Migrations.swift in Sources */,
 				4600E6721C5721D50007696F /* AddActionPriorityTableViewCell.swift in Sources */,
+				465DB0E11C5DE42800DAD91F /* LeftViewController.swift in Sources */,
 				465DB0DB1C5B220900DAD91F /* CommentsViewController.swift in Sources */,
 				4600E6701C5721110007696F /* AddActionContentTableViewCell.swift in Sources */,
 				46E98EA31C55E48100CE83EA /* WatchItemDetailCommentTableViewCell.swift in Sources */,
@@ -615,7 +620,6 @@
 				465DB0D91C5B029F00DAD91F /* ChatBubbleTableViewCell.swift in Sources */,
 				46EE9E241C4C82190062D644 /* AddProjectViewController.swift in Sources */,
 				46EE9E171C4B58970062D644 /* AddActionContentTableViewCell1.swift in Sources */,
-				46EE9E0B1C4B28200062D644 /* SideMenuTableViewController.swift in Sources */,
 				46B3E0051C549652002A6769 /* SignupViewController.swift in Sources */,
 				46E98E9F1C55DAEE00CE83EA /* WatchFriendViewController.swift in Sources */,
 				46B3DFF61C547F3C002A6769 /* Constant.swift in Sources */,

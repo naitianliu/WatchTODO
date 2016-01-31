@@ -150,6 +150,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="comment" width="128" height="128"/>
+        <image name="comment" width="50" height="50"/>
     </resources>
 </document>

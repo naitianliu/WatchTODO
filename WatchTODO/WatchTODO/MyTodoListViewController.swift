@@ -7,11 +7,10 @@
 //
 
 import UIKit
-import ENSwiftSideMenu
 import Toast
 import CNPPopupController
 
-class MyTodoListViewController: UIViewController, ENSideMenuDelegate, UITableViewDelegate, UITableViewDataSource, AddActionVCDelegate {
+class MyTodoListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, AddActionVCDelegate {
     
     let colorP1: UIColor = UIColor.redColor()
     let colorP2: UIColor = UIColor.orangeColor()
@@ -32,6 +31,8 @@ class MyTodoListViewController: UIViewController, ENSideMenuDelegate, UITableVie
     
     var popupController: CNPPopupController = CNPPopupController()
     
+    var appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    
     var selectedCellIndexPath: NSIndexPath?
     
     var comments = [
@@ -48,8 +49,6 @@ class MyTodoListViewController: UIViewController, ENSideMenuDelegate, UITableVie
         dataDictArray = sortActionItemListHelper.divideByDate(data)
         sectionKeyList = sortActionItemListHelper.getSectionKeyList()
         sectionKeyTitleMapDict = sortActionItemListHelper.getSectionKeyTitleMappingDict()
-
-        self.sideMenuController()?.sideMenu?.delegate = self
         
         tableView.estimatedRowHeight = 120
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -62,7 +61,9 @@ class MyTodoListViewController: UIViewController, ENSideMenuDelegate, UITableVie
     }
     
     @IBAction func showSideMenuButtonOnClick(sender: AnyObject) {
-        toggleSideMenuView()
+        appDelegate.drawerController.toggleDrawerSide(.Left, animated: true) { (complete) -> Void in
+            print(complete)
+        }
     }
 
     @IBAction func addButtonOnClick(sender: AnyObject) {
@@ -76,7 +77,13 @@ class MyTodoListViewController: UIViewController, ENSideMenuDelegate, UITableVie
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        
+        if segue.identifier == "CommentSegue" {
+            let commentVC = segue.destinationViewController as! CommentsViewController
+            let sectionKey = sectionKeyList[selectedCellIndexPath!.section]
+            let dataArray: [[String: AnyObject]] = dataDictArray[sectionKey]!
+            let uuid: String = dataArray[selectedCellIndexPath!.row]["uuid"] as! String
+            commentVC.actionId = uuid
+        }
     }
     
     func cellCompleteButtonOnClick(sender: UIButton) {

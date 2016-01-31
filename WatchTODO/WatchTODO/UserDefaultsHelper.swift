@@ -45,6 +45,10 @@ class UserDefaultsHelper {
         return userInfo
     }
     
+    func getUsername() -> String {
+        return Defaults[.username]!
+    }
+    
     func getToken() -> String {
         let token: String = Defaults[.token]!
         return token

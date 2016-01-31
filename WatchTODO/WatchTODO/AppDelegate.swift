@@ -7,22 +7,31 @@
 //
 
 import UIKit
+import MMDrawerController
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, LoginVCDelegate {
 
     var window: UIWindow?
     let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+    let todoStoryboard = UIStoryboard(name: "MyTodoList", bundle: nil)
+    var drawerController: MMDrawerController!
     
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-        
+        let mainTabBarController = mainStoryboard.instantiateViewControllerWithIdentifier("MainTabBarController") as! MainTabBarController
+        let projectsNavigationController = todoStoryboard.instantiateViewControllerWithIdentifier("ProjectsNavigationController") as! UINavigationController
+        drawerController = MMDrawerController(centerViewController: mainTabBarController, leftDrawerViewController: projectsNavigationController)
+        drawerController.showsShadow = false
+        // login view controller
         let isLogin = UserDefaultsHelper().checkIfLogin()
         if !isLogin {
             let loginViewController = mainStoryboard.instantiateViewControllerWithIdentifier("LoginViewController") as! LoginViewController
             loginViewController.delegate = self
             self.window?.rootViewController = loginViewController
+        } else {
+            self.window?.rootViewController = drawerController
         }
         
         // perform database migrations
@@ -54,8 +63,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginVCDelegate {
     }
     
     func didLoginToSwitchRootVC() {
-        let mainTabBarController = mainStoryboard.instantiateViewControllerWithIdentifier("MainTabBarController") as! MainTabBarController
-        self.window?.rootViewController = mainTabBarController
+        self.window?.rootViewController = drawerController
     }
 
 
