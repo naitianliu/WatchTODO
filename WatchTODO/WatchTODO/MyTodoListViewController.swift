@@ -148,14 +148,12 @@ class MyTodoListViewController: UIViewController, UITableViewDelegate, UITableVi
         let content = rowDict["content"] as! String
         var project = rowDict["project"] as! String
         let priority = rowDict["priority"] as! Int
-        let dueDate = rowDict["dueDate"] as! String
         let status = rowDict["status"] as! Int
         if project == "" {
             project = "Inbox"
         }
         cell.actionContentLabel.text = content
         cell.projectLabel.text = project
-        cell.dueLabel.text = dueDate
         switch priority {
         case 1:
             cell.priorityView.backgroundColor = colorP1
@@ -186,13 +184,13 @@ class MyTodoListViewController: UIViewController, UITableViewDelegate, UITableVi
             break
         }
         cell.updateButton.addTarget(self, action: Selector("updateButtonOnClick:"), forControlEvents: .TouchUpInside)
+        cell.commentImageView.hidden = true
         return cell
     }
     
     func renderUnfoldCell(tableView: UITableView, indexPath: NSIndexPath) -> UITableViewCell {
         // let cell = tableView.dequeueReusableCellWithIdentifier(unfoldCellIdentifier) as! TodoUnfoldTableViewCell
         let cell = tableView.dequeueReusableCellWithIdentifier(unfoldCellIdentifier, forIndexPath: indexPath) as! TodoUnfoldTableViewCell
-        cell.contentLabel.text = comments[0]["content"]!
         return cell
     }
     

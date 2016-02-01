@@ -8,9 +8,11 @@
 
 import UIKit
 
-class LeftViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class LeftViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate {
 
     @IBOutlet weak var tableView: UITableView!
+    
+    var appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
     let cellIdentifier1 = "SelectionCell"
     let cellIdentifier2 = "ProjectCell"
@@ -30,6 +32,18 @@ class LeftViewController: UIViewController, UITableViewDelegate, UITableViewData
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    @IBAction func logoutButtonOnClick(sender: AnyObject) {
+        let actionSheet = UIActionSheet(title: "Confirm to Logout", delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: "Logout")
+        actionSheet.showInView(self.view)
+    }
+    
+    func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
+        if buttonIndex == 0 {
+            UserDefaultsHelper().removeUserInfo()
+            appDelegate.switchToLoginVC()
+        }
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {

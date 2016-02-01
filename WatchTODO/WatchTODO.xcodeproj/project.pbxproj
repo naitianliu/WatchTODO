@@ -19,6 +19,7 @@
 		465DB0DD1C5B41C200DAD91F /* ChatBubbleTableViewCell2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 465DB0DC1C5B41C200DAD91F /* ChatBubbleTableViewCell2.swift */; };
 		465DB0DF1C5DADBB00DAD91F /* CommentAPIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 465DB0DE1C5DADBB00DAD91F /* CommentAPIHelper.swift */; };
 		465DB0E11C5DE42800DAD91F /* LeftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 465DB0E01C5DE42800DAD91F /* LeftViewController.swift */; };
+		465DB0E31C5F243E00DAD91F /* WatchNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 465DB0E21C5F243E00DAD91F /* WatchNavigationController.swift */; };
 		46902CA31C509B1D00F07EF9 /* WatchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46902CA21C509B1D00F07EF9 /* WatchTableViewCell.swift */; };
 		46902CA51C50BAD500F07EF9 /* WatchNoCommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46902CA41C50BAD500F07EF9 /* WatchNoCommentTableViewCell.swift */; };
 		46B3DFF41C534A83002A6769 /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B3DFF31C534A83002A6769 /* FriendsViewController.swift */; };
@@ -93,6 +94,7 @@
 		465DB0DC1C5B41C200DAD91F /* ChatBubbleTableViewCell2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatBubbleTableViewCell2.swift; sourceTree = "<group>"; };
 		465DB0DE1C5DADBB00DAD91F /* CommentAPIHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentAPIHelper.swift; sourceTree = "<group>"; };
 		465DB0E01C5DE42800DAD91F /* LeftViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftViewController.swift; sourceTree = "<group>"; };
+		465DB0E21C5F243E00DAD91F /* WatchNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchNavigationController.swift; sourceTree = "<group>"; };
 		46902CA21C509B1D00F07EF9 /* WatchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchTableViewCell.swift; sourceTree = "<group>"; };
 		46902CA41C50BAD500F07EF9 /* WatchNoCommentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchNoCommentTableViewCell.swift; sourceTree = "<group>"; };
 		46B3DFF31C534A83002A6769 /* FriendsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsViewController.swift; sourceTree = "<group>"; };
@@ -318,6 +320,7 @@
 				46EE9DFF1C4B14670062D644 /* WatchViewController.swift */,
 				46E98E9C1C55DA3B00CE83EA /* WatchItemDetailViewController.swift */,
 				46E98E9E1C55DAEE00CE83EA /* WatchFriendViewController.swift */,
+				465DB0E21C5F243E00DAD91F /* WatchNavigationController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -624,6 +627,7 @@
 				46E98E9F1C55DAEE00CE83EA /* WatchFriendViewController.swift in Sources */,
 				46B3DFF61C547F3C002A6769 /* Constant.swift in Sources */,
 				46EE9E201C4C67D70062D644 /* WatcherModel.swift in Sources */,
+				465DB0E31C5F243E00DAD91F /* WatchNavigationController.swift in Sources */,
 				465DB0DD1C5B41C200DAD91F /* ChatBubbleTableViewCell2.swift in Sources */,
 				46EE9E121C4B535C0062D644 /* AddActionCellHelper.swift in Sources */,
 			);

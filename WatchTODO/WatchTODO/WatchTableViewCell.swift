@@ -10,25 +10,13 @@ import UIKit
 
 class WatchTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var actionContentLabel: UILabel!
-    @IBOutlet weak var statusImageView: UIImageView!
-    @IBOutlet weak var statusLabel: UILabel!
-    @IBOutlet weak var commentProfileImageView: UIImageView!
-    @IBOutlet weak var commentNameLabel: UILabel!
-    @IBOutlet weak var commentTimeLabel: UILabel!
-    @IBOutlet weak var commentMessageLabel: UILabel!
-    @IBOutlet weak var commentButton: UIButton!
-    @IBOutlet weak var commentView: UIView!
-    
+    @IBOutlet weak var contentLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        let width: CGFloat = commentProfileImageView.frame.width
-        commentProfileImageView.layer.cornerRadius = width / 2
-        commentProfileImageView.layer.masksToBounds = true
+        
     }
 
     override func setSelected(selected: Bool, animated: Bool) {

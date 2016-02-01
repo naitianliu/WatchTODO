@@ -14,13 +14,13 @@ class TodoActionItemTableViewCell: UITableViewCell {
     @IBOutlet weak var extraInfoView: UIView!
     @IBOutlet weak var projectLabel: UILabel!
     @IBOutlet weak var priorityView: UIView!
-    @IBOutlet weak var dueLabel: UILabel!
     @IBOutlet weak var updateButton: UIButton!
+    @IBOutlet weak var commentImageView: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-                
+        
     }
 
     override func setSelected(selected: Bool, animated: Bool) {

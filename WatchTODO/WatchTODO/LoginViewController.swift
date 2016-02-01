@@ -14,7 +14,7 @@ protocol LoginVCDelegate {
     func didLoginToSwitchRootVC()
 }
 
-class LoginViewController: UIViewController, CallAPIHelperDelegate {
+class LoginViewController: UIViewController, CallAPIHelperDelegate, SignupVCDelegate {
     
     let apiURL_Login = "\(const_APIEndpoint)auth/login/"
 
@@ -43,7 +43,12 @@ class LoginViewController: UIViewController, CallAPIHelperDelegate {
     }
     
     @IBAction func signupButtonOnClick(sender: AnyObject) {
-        
+        let signupVC = self.storyboard?.instantiateViewControllerWithIdentifier("SignupViewController") as! SignupViewController
+        signupVC.delegate = self
+        signupVC.modalTransitionStyle = .FlipHorizontal
+        self.presentViewController(signupVC, animated: true) { () -> Void in
+            
+        }
     }
     
     func beforeSendRequest(index: String?) {
@@ -73,7 +78,6 @@ class LoginViewController: UIViewController, CallAPIHelperDelegate {
     
     func setDefaultRealmForUser(username: String) {
         var config = Realm.Configuration()
-        
         // Use the default directory, but replace the filename with the username
         config.path = NSURL.fileURLWithPath(config.path!)
             .URLByDeletingLastPathComponent?
@@ -84,5 +88,8 @@ class LoginViewController: UIViewController, CallAPIHelperDelegate {
         Realm.Configuration.defaultConfiguration = config
     }
 
-
+    func didSignupSucceed(username: String) {
+        self.setDefaultRealmForUser(username)
+        delegate?.didLoginToSwitchRootVC()
+    }
 }

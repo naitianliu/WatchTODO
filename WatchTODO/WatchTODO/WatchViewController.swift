@@ -14,15 +14,13 @@ class WatchViewController: UIViewController, UITableViewDelegate, UITableViewDat
 
     @IBOutlet weak var tableView: UITableView!
     
-    var selectedContentData: [String: String]!
-    
     var popupController: CNPPopupController = CNPPopupController()
     
     let data = [
         [
             "profileImageURL": "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSLufx6iMI4Pehvf4-kHOi8aktMVdCiPAkJJyPd0RFRu2JEtcBp",
             "name": "Bill Gates",
-            "actionContent": "I know this is a noob question but ...I have these labels on a tableview, ... The most flexible approach to add padding to UILabel is to subclass",
+            "content": "I know this is a noob question but ...I have these labels on a tableview, ... The most flexible approach to add padding to UILabel is to subclass",
             "status": "WorkInProgress",
             "commentProfileImageURL": "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSLufx6iMI4Pehvf4-kHOi8aktMVdCiPAkJJyPd0RFRu2JEtcBp",
             "commentTime": "2 hours ago",
@@ -35,6 +33,8 @@ class WatchViewController: UIViewController, UITableViewDelegate, UITableViewDat
 
         tableView.estimatedRowHeight = 120
         tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.tableFooterView = UIView()
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -47,52 +47,25 @@ class WatchViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data.count + 1
+        return data.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let rowDict = data[0]
-        let profileImageURL = rowDict["profileImageURL"]
         let name = rowDict["name"]
-        let actionContent = rowDict["actionContent"]
-        let status = rowDict["status"]
-        let commentProfileImageURL = rowDict["commentProfileImageURL"]
-        let commentTime = rowDict["commentTime"]
-        let commentMessage = rowDict["commentMessage"]
-        
-        if indexPath.row == 0 {
-            let cell = tableView.dequeueReusableCellWithIdentifier("WatchCell") as! WatchTableViewCell
-            cell.profileImageView.sd_setImageWithURL(NSURL(string: profileImageURL!), placeholderImage: UIImage(named: ""))
-            cell.nameLabel.text = name
-            cell.actionContentLabel.text = actionContent
-            cell.statusLabel.text = status
-            cell.commentProfileImageView.sd_setImageWithURL(NSURL(string: commentProfileImageURL!), placeholderImage: UIImage(named: ""))
-            cell.commentTimeLabel.text = commentTime
-            cell.commentNameLabel.text = "Naitian Liu"
-            cell.commentMessageLabel.text = commentMessage
-            cell.commentButton.addTarget(self, action: Selector("commentButtonOnClick:"), forControlEvents: .TouchUpInside)
-            return cell
-        } else {
-            let cell = tableView.dequeueReusableCellWithIdentifier("WatchNoCommentCell") as! WatchNoCommentTableViewCell
-            cell.profileImageView.sd_setImageWithURL(NSURL(string: profileImageURL!), placeholderImage: UIImage(named: ""))
-            cell.nameLabel.text = name
-            cell.actionContentLabel.text = actionContent
-            cell.statusLabel.text = status
-            cell.commentButton.addTarget(self, action: Selector("commentButtonOnClick:"), forControlEvents: .TouchUpInside)
-            return cell
-        }
+        let content = rowDict["content"]
+        let cell = tableView.dequeueReusableCellWithIdentifier("WatchCell") as! WatchTableViewCell
+        cell.nameLabel.text = name
+        cell.contentLabel.text = content
+        return cell
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        selectedContentData = data[indexPath.row]
-        self.performSegueWithIdentifier("WatchItemDetailSegue", sender: nil)
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "WatchItemDetailSegue" {
-            let watchItemDetailVC = segue.destinationViewController as! WatchItemDetailViewController
-            watchItemDetailVC.contentData = selectedContentData
-        }
+        
     }
     
     func commentButtonOnClick(sender: UIButton) {

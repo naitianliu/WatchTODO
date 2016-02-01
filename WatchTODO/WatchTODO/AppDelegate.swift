@@ -27,9 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginVCDelegate {
         // login view controller
         let isLogin = UserDefaultsHelper().checkIfLogin()
         if !isLogin {
-            let loginViewController = mainStoryboard.instantiateViewControllerWithIdentifier("LoginViewController") as! LoginViewController
-            loginViewController.delegate = self
-            self.window?.rootViewController = loginViewController
+            self.switchToLoginVC()
         } else {
             self.window?.rootViewController = drawerController
         }
@@ -66,6 +64,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginVCDelegate {
         self.window?.rootViewController = drawerController
     }
 
-
+    func switchToLoginVC() {
+        let loginViewController = mainStoryboard.instantiateViewControllerWithIdentifier("LoginViewController") as! LoginViewController
+        loginViewController.delegate = self
+        self.window?.rootViewController = loginViewController
+    }
 }
 

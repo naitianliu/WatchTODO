@@ -54,6 +54,13 @@ class UserDefaultsHelper {
         return token
     }
     
+    func removeUserInfo() {
+        Defaults[.username] = nil
+        Defaults[.profileImageURL] = nil
+        Defaults[.nickname] = nil
+        Defaults[.token] = nil
+    }
+    
     func checkIfLogin() -> Bool {
         var result = false
         let token: String? = Defaults[.token]
