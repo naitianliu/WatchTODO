@@ -35,16 +35,25 @@ class SortActionItemListHelper {
         return dateNameList
     }
     
-    func getSectionKeyList() -> [String] {
-        var sectionKeyList = self.getDateStringList()
-        sectionKeyList.insert("overdue", atIndex: 0)
-        sectionKeyList.append("weeklater")
-        return sectionKeyList
+    func getSectionKeyList(category: String?) -> [String] {
+        if let category = category {
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.dateFormat = "YYYY-MM-DD"
+            let key = dateFormatter.stringFromDate(NSDate())
+            let sectionKeyList = [key]
+            return sectionKeyList
+        } else {
+            var sectionKeyList = self.getDateStringList()
+            sectionKeyList.insert("overdue", atIndex: 0)
+            sectionKeyList.append("weeklater")
+            return sectionKeyList
+        }
+        
     }
     
-    func getSectionKeyTitleMappingDict() -> [String: String] {
+    func getSectionKeyTitleMappingDict(category: String?) -> [String: String] {
         var keyTitleDict = Dictionary<String, String>()
-        for sectionKey in self.getSectionKeyList() {
+        for sectionKey in self.getSectionKeyList(category) {
             if sectionKey == "overdue" {
                 keyTitleDict[sectionKey] = "Overdue"
             } else if sectionKey == "weeklater" {

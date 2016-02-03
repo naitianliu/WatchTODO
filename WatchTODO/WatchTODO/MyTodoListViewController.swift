@@ -35,20 +35,16 @@ class MyTodoListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     var selectedCellIndexPath: NSIndexPath?
     
-    var comments = [
-        ["content": "In addition to supporting rich text, TTTAttributedLabel can automatically detect links for dates, addresses, URLs, phone numbers, transit information, and allows you to embed your own links."],
-        ["content": "test test"]
-    ]
+    var selectedProject: String?
+    var selectedCategory: String?
     
     @IBOutlet weak var tableView: UITableView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        data = actionItemModelHelper.getAllPendingItems()
-        dataDictArray = sortActionItemListHelper.divideByDate(data)
-        sectionKeyList = sortActionItemListHelper.getSectionKeyList()
-        sectionKeyTitleMapDict = sortActionItemListHelper.getSectionKeyTitleMappingDict()
+        selectedCategory = "today"
+        self.setupDisplayItems()
         
         tableView.estimatedRowHeight = 120
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -58,6 +54,14 @@ class MyTodoListViewController: UIViewController, UITableViewDelegate, UITableVi
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func setupDisplayItems() {
+        data = actionItemModelHelper.getAllPendingItems()
+        dataDictArray = sortActionItemListHelper.divideByDate(data)
+        sectionKeyList = sortActionItemListHelper.getSectionKeyList(selectedCategory)
+        sectionKeyTitleMapDict = sortActionItemListHelper.getSectionKeyTitleMappingDict(selectedCategory)
+        tableView.reloadData()
     }
     
     @IBAction func showSideMenuButtonOnClick(sender: AnyObject) {
@@ -146,7 +150,7 @@ class MyTodoListViewController: UIViewController, UITableViewDelegate, UITableVi
         let dataArray: [[String: AnyObject]] = dataDictArray[sectionKey]!
         let rowDict = dataArray[indexPath.row]
         let content = rowDict["content"] as! String
-        var project = rowDict["project"] as! String
+        var project = rowDict["projectName"] as! String
         let priority = rowDict["priority"] as! Int
         let status = rowDict["status"] as! Int
         if project == "" {
@@ -269,11 +273,11 @@ class MyTodoListViewController: UIViewController, UITableViewDelegate, UITableVi
         TodoListAPIHelper().updateStatus(uuid, status: newStatus)
     }
     
-    func didAddAction(actionContent: String?, project: String?, dueDate: String?, deferDate: String?, priority: Int?) {
+    func didAddAction(actionContent: String?, projectId: String?, projectName: String?, dueDate: String?, deferDate: String?, priority: Int?) {
         if let content = actionContent {
             print("Add Action into db")
             selectedCellIndexPath = nil
-            TodoListAPIHelper().addAction(content, project: project, dueDate: dueDate, deferDate: deferDate, priority: priority)
+            TodoListAPIHelper().addAction(content, projectId: projectId, projectName: projectName, dueDate: dueDate, deferDate: deferDate, priority: priority)
             data = actionItemModelHelper.getAllPendingItems()
             dataDictArray = sortActionItemListHelper.divideByDate(data)
             tableView.reloadData()

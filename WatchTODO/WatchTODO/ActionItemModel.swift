@@ -13,7 +13,8 @@ class ActionItemModel: Object {
     dynamic var uuid: String = ""
     dynamic var content: String = ""
     dynamic var dueDate: String = ""
-    dynamic var project: String = ""
+    dynamic var projectId: String = ""
+    dynamic var projectName: String = ""
     dynamic var deferDate: String = ""
     dynamic var priority: Int = 4
     // status 0: not started, 1: WorkInProgress, 2: complete
@@ -30,13 +31,16 @@ class ActionItemModelHelper {
         
     }
     
-    func addActionItem(content:String, project:String?, dueDate:String?, deferDate:String?, priority:Int?) -> String {
+    func addActionItem(content:String, projectId:String?, projectName:String?, dueDate:String?, deferDate:String?, priority:Int?) -> String {
         let uuid = NSUUID().UUIDString
         let actionItem = ActionItemModel()
         actionItem.uuid = uuid
         actionItem.content = content
-        if let project = project {
-            actionItem.project = project
+        if let projectId = projectId {
+            actionItem.projectId = projectId
+        }
+        if let projectName = projectName {
+            actionItem.projectName = projectName
         }
         if let dueDate = dueDate {
             if dueDate == "everyday" {
@@ -83,7 +87,8 @@ class ActionItemModelHelper {
                 let itemDict = [
                     "uuid": item.uuid,
                     "content": item.content,
-                    "project": item.project,
+                    "projectId": item.projectId,
+                    "projectName": item.projectName,
                     "dueDate": item.dueDate,
                     "deferDate": item.deferDate,
                     "priority": item.priority,

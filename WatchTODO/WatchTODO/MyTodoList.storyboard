@@ -478,8 +478,19 @@
                         <subviews>
                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xfH-Bb-qRn">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="134"/>
-                                <color key="backgroundColor" red="0.94792991876602173" green="0.98446506261825562" blue="0.98451226949691772" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Egp-Yg-mAu">
+                                        <rect key="frame" x="23" y="29" width="66" height="63"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="60" id="4HW-Ux-8sB"/>
+                                            <constraint firstAttribute="height" constant="60" id="Baf-Gh-ICj"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
                                 <constraints>
+                                    <constraint firstItem="Egp-Yg-mAu" firstAttribute="leading" secondItem="xfH-Bb-qRn" secondAttribute="leading" constant="20" id="4g5-bZ-H80"/>
+                                    <constraint firstItem="Egp-Yg-mAu" firstAttribute="top" secondItem="xfH-Bb-qRn" secondAttribute="top" constant="30" id="Vgk-na-aPc"/>
                                     <constraint firstAttribute="height" constant="120" id="i5G-jc-5xs"/>
                                 </constraints>
                             </view>
@@ -558,6 +569,7 @@
                     <navigationItem key="navigationItem" id="SuV-Yp-Xzc"/>
                     <connections>
                         <outlet property="tableView" destination="Pfc-EJ-c27" id="6y7-kM-I7v"/>
+                        <outlet property="todayCompleteView" destination="Egp-Yg-mAu" id="BR3-wW-aIK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Le-tk-yEL" userLabel="First Responder" sceneMemberID="firstResponder"/>

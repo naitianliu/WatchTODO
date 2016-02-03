@@ -402,9 +402,9 @@
                                                     </constraints>
                                                     <variation key="default">
                                                         <mask key="constraints">
-                                                            <exclude reference="hZc-IM-mtr"/>
-                                                            <exclude reference="C6S-DP-Gyy"/>
                                                             <exclude reference="AKJ-K2-sZK"/>
+                                                            <exclude reference="C6S-DP-Gyy"/>
+                                                            <exclude reference="hZc-IM-mtr"/>
                                                             <exclude reference="jwV-8G-De1"/>
                                                         </mask>
                                                     </variation>

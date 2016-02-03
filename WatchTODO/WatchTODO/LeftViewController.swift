@@ -7,10 +7,12 @@
 //
 
 import UIKit
+import PNChart
 
 class LeftViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate {
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var todayCompleteView: UIView!
     
     var appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
@@ -23,15 +25,34 @@ class LeftViewController: UIViewController, UITableViewDelegate, UITableViewData
         ["name": "Next 7 days", "icon": "week-icon"]
     ]
     
+    let projectModelHelper = ProjectModelHelper()
+    
+    var projects: [[String: String]] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         tableView.tableFooterView = UIView()
+        self.initiateCompleteView()
+        self.reloadProjects()
+        print(projects)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func initiateCompleteView() {
+        let circleChart1 = PNCircleChart(frame: CGRect(x: 0, y: 0, width: todayCompleteView.frame.width, height: todayCompleteView.frame.height), total: NSNumber(integer: 100), current: NSNumber(integer: 60), clockwise: true)
+        circleChart1.backgroundColor = UIColor.clearColor()
+        circleChart1.strokeChart()
+        todayCompleteView.addSubview(circleChart1)
+    }
+    
+    func reloadProjects() {
+        projects = projectModelHelper.getAllProjects()
+        tableView.reloadData()
     }
     
     @IBAction func logoutButtonOnClick(sender: AnyObject) {
@@ -54,7 +75,7 @@ class LeftViewController: UIViewController, UITableViewDelegate, UITableViewData
         if section == 0 {
             return selectionList.count
         } else {
-            return 1
+            return projects.count
         }
     }
     
@@ -67,6 +88,9 @@ class LeftViewController: UIViewController, UITableViewDelegate, UITableViewData
             return cell
         } else {
             let cell = UITableViewCell(style: .Default, reuseIdentifier: cellIdentifier2)
+            let rowDict = projects[indexPath.row]
+            let projectName: String = rowDict["name"]!
+            cell.textLabel?.text = projectName
             return cell
         }
     }
@@ -76,6 +100,22 @@ class LeftViewController: UIViewController, UITableViewDelegate, UITableViewData
             return "Projects"
         } else {
             return nil
+        }
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        let centerTC = appDelegate.drawerController.centerViewController as! MainTabBarController
+        let todoNC = centerTC.myTodoListNC as MyTodoListNavigationController
+        let todoVC = todoNC.viewControllers[0] as! MyTodoListViewController
+        if indexPath.section == 0 && indexPath.row == 1 {
+            todoVC.selectedCategory = "today"
+        } else {
+            todoVC.selectedCategory = nil
+        }
+        todoVC.setupDisplayItems()
+        appDelegate.drawerController.closeDrawerAnimated(true) { (complete) -> Void in
+            
         }
     }
 

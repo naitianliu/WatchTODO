@@ -14,6 +14,7 @@
 		4600E67A1C5AA48A0007696F /* Migrations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4600E6791C5AA48A0007696F /* Migrations.swift */; };
 		4600E67C1C5AD5940007696F /* CommentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4600E67B1C5AD5940007696F /* CommentModel.swift */; };
 		4600E67F1C5ADBC50007696F /* TodoListAPIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4600E67E1C5ADBC50007696F /* TodoListAPIHelper.swift */; };
+		465B55ED1C61270500C75FC9 /* ProjectAPIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 465B55EC1C61270500C75FC9 /* ProjectAPIHelper.swift */; };
 		465DB0D91C5B029F00DAD91F /* ChatBubbleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 465DB0D81C5B029F00DAD91F /* ChatBubbleTableViewCell.swift */; };
 		465DB0DB1C5B220900DAD91F /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 465DB0DA1C5B220900DAD91F /* CommentsViewController.swift */; };
 		465DB0DD1C5B41C200DAD91F /* ChatBubbleTableViewCell2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 465DB0DC1C5B41C200DAD91F /* ChatBubbleTableViewCell2.swift */; };
@@ -89,6 +90,7 @@
 		4600E6791C5AA48A0007696F /* Migrations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Migrations.swift; sourceTree = "<group>"; };
 		4600E67B1C5AD5940007696F /* CommentModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentModel.swift; sourceTree = "<group>"; };
 		4600E67E1C5ADBC50007696F /* TodoListAPIHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoListAPIHelper.swift; sourceTree = "<group>"; };
+		465B55EC1C61270500C75FC9 /* ProjectAPIHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectAPIHelper.swift; sourceTree = "<group>"; };
 		465DB0D81C5B029F00DAD91F /* ChatBubbleTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatBubbleTableViewCell.swift; sourceTree = "<group>"; };
 		465DB0DA1C5B220900DAD91F /* CommentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
 		465DB0DC1C5B41C200DAD91F /* ChatBubbleTableViewCell2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatBubbleTableViewCell2.swift; sourceTree = "<group>"; };
@@ -176,6 +178,7 @@
 			children = (
 				4600E67E1C5ADBC50007696F /* TodoListAPIHelper.swift */,
 				465DB0DE1C5DADBB00DAD91F /* CommentAPIHelper.swift */,
+				465B55EC1C61270500C75FC9 /* ProjectAPIHelper.swift */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -608,6 +611,7 @@
 				4600E6781C59E5380007696F /* RenderCommentView.swift in Sources */,
 				46B3DFFB1C548415002A6769 /* LoginViewController.swift in Sources */,
 				46EE9E091C4B26870062D644 /* MyTodoListNavigationController.swift in Sources */,
+				465B55ED1C61270500C75FC9 /* ProjectAPIHelper.swift in Sources */,
 				46B3DFFF1C5486A5002A6769 /* UserDefaultsHelper.swift in Sources */,
 				4600E67A1C5AA48A0007696F /* Migrations.swift in Sources */,
 				4600E6721C5721D50007696F /* AddActionPriorityTableViewCell.swift in Sources */,

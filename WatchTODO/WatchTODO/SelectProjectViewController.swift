@@ -9,7 +9,7 @@
 import UIKit
 
 protocol SelectProjectVCDelegate {
-    func didSelectProject(projectName:String)
+    func didSelectProject(projectId:String, projectName:String)
 }
 
 class SelectProjectViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, AddProjectVCDelegate {
@@ -67,10 +67,12 @@ class SelectProjectViewController: UIViewController, UITableViewDelegate, UITabl
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         var projectName = "Inbox"
+        var projectId:String = "0"
         if indexPath.section == 1 {
             projectName = projects[indexPath.row]["name"]!
+            projectId = projects[indexPath.row]["uuid"]!
         }
-        delegate?.didSelectProject(projectName)
+        delegate?.didSelectProject(projectId, projectName: projectName)
         self.navigationController?.popViewControllerAnimated(true)
     }
     
@@ -83,7 +85,7 @@ class SelectProjectViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     func didAddNewProject(projectName: String) {
-        projectModelHelper.addProject(projectName)
+        ProjectAPIHelper().addProject(projectName)
         projects = projectModelHelper.getAllProjects()
         tableView.reloadData()
     }

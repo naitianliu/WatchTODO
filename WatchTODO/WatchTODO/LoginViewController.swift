@@ -8,7 +8,6 @@
 
 import UIKit
 import MBProgressHUD
-import RealmSwift
 
 protocol LoginVCDelegate {
     func didLoginToSwitchRootVC()
@@ -22,6 +21,8 @@ class LoginViewController: UIViewController, CallAPIHelperDelegate, SignupVCDele
     @IBOutlet weak var passwordTextField: UITextField!
     
     var delegate: LoginVCDelegate?
+    
+    var appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,7 +68,7 @@ class LoginViewController: UIViewController, CallAPIHelperDelegate, SignupVCDele
             let profileImageURL = userInfo["profile_image_url"]
             let nickname = userInfo["nickname"]
             UserDefaultsHelper().createOrUpdateUserInfo(username, profileImageURL: profileImageURL, nickname: nickname, token: token)
-            self.setDefaultRealmForUser(username!)
+            appDelegate.setDefaultRealmForUser(username!)
             delegate?.didLoginToSwitchRootVC()
         }
     }
@@ -76,20 +77,10 @@ class LoginViewController: UIViewController, CallAPIHelperDelegate, SignupVCDele
         MBProgressHUD.hideHUDForView(self.view, animated: true)
     }
     
-    func setDefaultRealmForUser(username: String) {
-        var config = Realm.Configuration()
-        // Use the default directory, but replace the filename with the username
-        config.path = NSURL.fileURLWithPath(config.path!)
-            .URLByDeletingLastPathComponent?
-            .URLByAppendingPathComponent("\(username).realm")
-            .path
-        
-        // Set this as the configuration used for the default Realm
-        Realm.Configuration.defaultConfiguration = config
-    }
+    
 
     func didSignupSucceed(username: String) {
-        self.setDefaultRealmForUser(username)
+        appDelegate.setDefaultRealmForUser(username)
         delegate?.didLoginToSwitchRootVC()
     }
 }

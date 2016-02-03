@@ -11,7 +11,7 @@ import ActionSheetPicker_3_0
 import DateTools
 
 protocol AddActionVCDelegate {
-    func didAddAction(actionContent:String?, project:String?, dueDate:String?, deferDate:String?, priority: Int?)
+    func didAddAction(actionContent:String?, projectId:String?, projectName:String?, dueDate:String?, deferDate:String?, priority: Int?)
 }
 
 class AddActionViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, EditActionContentVCDelegate, SelectProjectVCDelegate, UITextViewDelegate {
@@ -19,7 +19,8 @@ class AddActionViewController: UIViewController, UITableViewDataSource, UITableV
     @IBOutlet weak var tableView: UITableView!
     
     var actionContent: String?
-    var project: String?
+    var projectId: String?
+    var projectName: String?
     var dueDate: String?
     var deferDate: String?
     var priority: Int?
@@ -47,7 +48,7 @@ class AddActionViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     @IBAction func addButtonOnClick(sender: AnyObject) {
-        delegate?.didAddAction(actionContent, project: project, dueDate: dueDate, deferDate: deferDate, priority: priority)
+        delegate?.didAddAction(actionContent, projectId: projectId, projectName: projectName, dueDate: dueDate, deferDate: deferDate, priority: priority)
         self.dismissViewControllerAnimated(true) { () -> Void in
             
         }
@@ -83,7 +84,7 @@ class AddActionViewController: UIViewController, UITableViewDataSource, UITableV
             let cell = UITableViewCell(style: .Value1, reuseIdentifier: "AddActionDefaultCell")
             cell.accessoryType = .DisclosureIndicator
             cell.textLabel?.text = "Project"
-            if let projectName = project {
+            if let projectName = projectName {
                 cell.detailTextLabel?.text = projectName
             } else {
                 cell.detailTextLabel?.text = "Inbox"
@@ -206,9 +207,9 @@ class AddActionViewController: UIViewController, UITableViewDataSource, UITableV
         tableView.reloadData()
     }
     
-    func didSelectProject(projectName: String) {
-        print(projectName)
-        project = projectName
+    func didSelectProject(projectId: String, projectName: String) {
+        self.projectId = projectId
+        self.projectName = projectName
         tableView.reloadData()
     }
 }

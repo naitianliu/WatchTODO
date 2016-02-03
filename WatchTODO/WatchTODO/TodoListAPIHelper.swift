@@ -34,11 +34,14 @@ class TodoListAPIHelper: CallAPIHelperDelegate {
         
     }
     
-    func addAction(content: String, project: String?, dueDate:String?, deferDate: String?, priority: Int?) {
-        let actionId = actionItemModelHelper.addActionItem(content, project: project, dueDate: dueDate, deferDate: deferDate, priority: priority)
+    func addAction(content: String, projectId: String?, projectName:String?, dueDate:String?, deferDate: String?, priority: Int?) {
+        let actionId = actionItemModelHelper.addActionItem(content, projectId: projectId, projectName: projectName, dueDate: dueDate, deferDate: deferDate, priority: priority)
         var actionInfo: [String: String] = ["content": content]
-        if let project = project {
-            actionInfo["project"] = project
+        if let projectId = projectId {
+            actionInfo["project_id"] = projectId
+        }
+        if let projectName = projectName {
+            actionInfo["project_name"] = projectName
         }
         if let dueDate = dueDate {
             actionInfo["due_date"] = dueDate

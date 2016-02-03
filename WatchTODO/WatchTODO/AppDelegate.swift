@@ -8,6 +8,7 @@
 
 import UIKit
 import MMDrawerController
+import RealmSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, LoginVCDelegate {
@@ -30,10 +31,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginVCDelegate {
             self.switchToLoginVC()
         } else {
             self.window?.rootViewController = drawerController
+            let username = UserDefaultsHelper().getUsername()
+            print(username)
+            self.setDefaultRealmForUser(username)
         }
         
         // perform database migrations
         PerformMigrations().migrate()
+        
         
         return true
     }
@@ -62,12 +67,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginVCDelegate {
     
     func didLoginToSwitchRootVC() {
         self.window?.rootViewController = drawerController
+        ProjectAPIHelper().initiateDefaultProjects()
     }
 
     func switchToLoginVC() {
         let loginViewController = mainStoryboard.instantiateViewControllerWithIdentifier("LoginViewController") as! LoginViewController
         loginViewController.delegate = self
         self.window?.rootViewController = loginViewController
+    }
+    
+    func setDefaultRealmForUser(username: String) {
+        var config = Realm.Configuration()
+        // Use the default directory, but replace the filename with the username
+        config.path = NSURL.fileURLWithPath(config.path!)
+            .URLByDeletingLastPathComponent?
+            .URLByAppendingPathComponent("\(username).realm")
+            .path
+        
+        // Set this as the configuration used for the default Realm
+        Realm.Configuration.defaultConfiguration = config
     }
 }
 
