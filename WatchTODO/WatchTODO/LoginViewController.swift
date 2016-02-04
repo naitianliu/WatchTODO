@@ -10,7 +10,7 @@ import UIKit
 import MBProgressHUD
 
 protocol LoginVCDelegate {
-    func didLoginToSwitchRootVC()
+    func didLoginToSwitchRootVC(username: String)
 }
 
 class LoginViewController: UIViewController, CallAPIHelperDelegate, SignupVCDelegate {
@@ -21,8 +21,6 @@ class LoginViewController: UIViewController, CallAPIHelperDelegate, SignupVCDele
     @IBOutlet weak var passwordTextField: UITextField!
     
     var delegate: LoginVCDelegate?
-    
-    var appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,8 +66,7 @@ class LoginViewController: UIViewController, CallAPIHelperDelegate, SignupVCDele
             let profileImageURL = userInfo["profile_image_url"]
             let nickname = userInfo["nickname"]
             UserDefaultsHelper().createOrUpdateUserInfo(username, profileImageURL: profileImageURL, nickname: nickname, token: token)
-            appDelegate.setDefaultRealmForUser(username!)
-            delegate?.didLoginToSwitchRootVC()
+            delegate?.didLoginToSwitchRootVC(username!)
         }
     }
     
@@ -80,7 +77,6 @@ class LoginViewController: UIViewController, CallAPIHelperDelegate, SignupVCDele
     
 
     func didSignupSucceed(username: String) {
-        appDelegate.setDefaultRealmForUser(username)
-        delegate?.didLoginToSwitchRootVC()
+        delegate?.didLoginToSwitchRootVC(username)
     }
 }

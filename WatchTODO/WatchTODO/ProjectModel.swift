@@ -23,7 +23,7 @@ class ProjectModelHelper {
     let defaultProjectNames = ["Personal", "Family", "Work", "Shopping", "Books to read", "Movies to watch"]
     
     init() {
-        
+        print(Realm.Configuration.defaultConfiguration.path)
     }
     
     func addProject(projectName:String) -> String {

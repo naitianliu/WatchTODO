@@ -17,28 +17,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginVCDelegate {
     let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
     let todoStoryboard = UIStoryboard(name: "MyTodoList", bundle: nil)
     var drawerController: MMDrawerController!
-    
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        
+        if let username = UserDefaultsHelper().getUsername() {
+            print(username)
+            self.setDefaultRealmForUser(username)
+        }
+        
         let mainTabBarController = mainStoryboard.instantiateViewControllerWithIdentifier("MainTabBarController") as! MainTabBarController
         let projectsNavigationController = todoStoryboard.instantiateViewControllerWithIdentifier("ProjectsNavigationController") as! UINavigationController
         drawerController = MMDrawerController(centerViewController: mainTabBarController, leftDrawerViewController: projectsNavigationController)
         drawerController.showsShadow = false
+        drawerController.maximumLeftDrawerWidth = UIScreen.mainScreen().bounds.width / 2
         // login view controller
         let isLogin = UserDefaultsHelper().checkIfLogin()
         if !isLogin {
             self.switchToLoginVC()
         } else {
             self.window?.rootViewController = drawerController
-            let username = UserDefaultsHelper().getUsername()
-            print(username)
-            self.setDefaultRealmForUser(username)
         }
-        
+        print(Realm.Configuration.defaultConfiguration.path)
         // perform database migrations
         PerformMigrations().migrate()
-        
         
         return true
     }
@@ -65,8 +67,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginVCDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
     
-    func didLoginToSwitchRootVC() {
+    func didLoginToSwitchRootVC(username: String) {
         self.window?.rootViewController = drawerController
+        self.setDefaultRealmForUser(username)
         ProjectAPIHelper().initiateDefaultProjects()
     }
 

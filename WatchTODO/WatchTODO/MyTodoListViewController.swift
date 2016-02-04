@@ -43,6 +43,10 @@ class MyTodoListViewController: UIViewController, UITableViewDelegate, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if let username = UserDefaultsHelper().getUsername() {
+            appDelegate.setDefaultRealmForUser(username)
+        }
+        
         selectedCategory = "today"
         self.setupDisplayItems()
         

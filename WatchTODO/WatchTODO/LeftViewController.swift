@@ -31,6 +31,10 @@ class LeftViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if let username = UserDefaultsHelper().getUsername() {
+            appDelegate.setDefaultRealmForUser(username)
+        }
 
         tableView.tableFooterView = UIView()
         self.initiateCompleteView()
@@ -118,5 +122,4 @@ class LeftViewController: UIViewController, UITableViewDelegate, UITableViewData
             
         }
     }
-
 }

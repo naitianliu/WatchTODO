@@ -21,6 +21,7 @@ class CommentAPIHelper: CallAPIHelperDelegate {
     }
     
     func addComment(actionId: String, message: String) {
+        print(message)
         commentModelHelper.addComment(actionId, message: message)
         let data: [String: AnyObject] = [
             "action_id": actionId,
