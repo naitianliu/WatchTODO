@@ -15,6 +15,7 @@
 		4600E67C1C5AD5940007696F /* CommentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4600E67B1C5AD5940007696F /* CommentModel.swift */; };
 		4600E67F1C5ADBC50007696F /* TodoListAPIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4600E67E1C5ADBC50007696F /* TodoListAPIHelper.swift */; };
 		465B55ED1C61270500C75FC9 /* ProjectAPIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 465B55EC1C61270500C75FC9 /* ProjectAPIHelper.swift */; };
+		465B55EF1C63C39200C75FC9 /* UpdateAPIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 465B55EE1C63C39200C75FC9 /* UpdateAPIHelper.swift */; };
 		465DB0D91C5B029F00DAD91F /* ChatBubbleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 465DB0D81C5B029F00DAD91F /* ChatBubbleTableViewCell.swift */; };
 		465DB0DB1C5B220900DAD91F /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 465DB0DA1C5B220900DAD91F /* CommentsViewController.swift */; };
 		465DB0DD1C5B41C200DAD91F /* ChatBubbleTableViewCell2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 465DB0DC1C5B41C200DAD91F /* ChatBubbleTableViewCell2.swift */; };
@@ -23,6 +24,9 @@
 		465DB0E31C5F243E00DAD91F /* WatchNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 465DB0E21C5F243E00DAD91F /* WatchNavigationController.swift */; };
 		46902CA31C509B1D00F07EF9 /* WatchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46902CA21C509B1D00F07EF9 /* WatchTableViewCell.swift */; };
 		46902CA51C50BAD500F07EF9 /* WatchNoCommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46902CA41C50BAD500F07EF9 /* WatchNoCommentTableViewCell.swift */; };
+		46B17DD11C651CFC0006EEB3 /* FriendAPIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B17DD01C651CFC0006EEB3 /* FriendAPIHelper.swift */; };
+		46B17DD31C657DD70006EEB3 /* DateTimeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B17DD21C657DD70006EEB3 /* DateTimeHelper.swift */; };
+		46B17DD51C65B53A0006EEB3 /* SyncHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B17DD41C65B53A0006EEB3 /* SyncHelper.swift */; };
 		46B3DFF41C534A83002A6769 /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B3DFF31C534A83002A6769 /* FriendsViewController.swift */; };
 		46B3DFF61C547F3C002A6769 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B3DFF51C547F3C002A6769 /* Constant.swift */; };
 		46B3DFF81C547FB4002A6769 /* CallAPIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B3DFF71C547FB4002A6769 /* CallAPIHelper.swift */; };
@@ -91,6 +95,7 @@
 		4600E67B1C5AD5940007696F /* CommentModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentModel.swift; sourceTree = "<group>"; };
 		4600E67E1C5ADBC50007696F /* TodoListAPIHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoListAPIHelper.swift; sourceTree = "<group>"; };
 		465B55EC1C61270500C75FC9 /* ProjectAPIHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectAPIHelper.swift; sourceTree = "<group>"; };
+		465B55EE1C63C39200C75FC9 /* UpdateAPIHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateAPIHelper.swift; sourceTree = "<group>"; };
 		465DB0D81C5B029F00DAD91F /* ChatBubbleTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatBubbleTableViewCell.swift; sourceTree = "<group>"; };
 		465DB0DA1C5B220900DAD91F /* CommentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
 		465DB0DC1C5B41C200DAD91F /* ChatBubbleTableViewCell2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatBubbleTableViewCell2.swift; sourceTree = "<group>"; };
@@ -99,6 +104,9 @@
 		465DB0E21C5F243E00DAD91F /* WatchNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchNavigationController.swift; sourceTree = "<group>"; };
 		46902CA21C509B1D00F07EF9 /* WatchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchTableViewCell.swift; sourceTree = "<group>"; };
 		46902CA41C50BAD500F07EF9 /* WatchNoCommentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchNoCommentTableViewCell.swift; sourceTree = "<group>"; };
+		46B17DD01C651CFC0006EEB3 /* FriendAPIHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendAPIHelper.swift; sourceTree = "<group>"; };
+		46B17DD21C657DD70006EEB3 /* DateTimeHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateTimeHelper.swift; sourceTree = "<group>"; };
+		46B17DD41C65B53A0006EEB3 /* SyncHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncHelper.swift; sourceTree = "<group>"; };
 		46B3DFF31C534A83002A6769 /* FriendsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsViewController.swift; sourceTree = "<group>"; };
 		46B3DFF51C547F3C002A6769 /* Constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		46B3DFF71C547FB4002A6769 /* CallAPIHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallAPIHelper.swift; sourceTree = "<group>"; };
@@ -179,6 +187,9 @@
 				4600E67E1C5ADBC50007696F /* TodoListAPIHelper.swift */,
 				465DB0DE1C5DADBB00DAD91F /* CommentAPIHelper.swift */,
 				465B55EC1C61270500C75FC9 /* ProjectAPIHelper.swift */,
+				465B55EE1C63C39200C75FC9 /* UpdateAPIHelper.swift */,
+				46B17DD01C651CFC0006EEB3 /* FriendAPIHelper.swift */,
+				46B17DD41C65B53A0006EEB3 /* SyncHelper.swift */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -381,6 +392,7 @@
 			children = (
 				46EE9E261C4DA4250062D644 /* SortActionItemListHelper.swift */,
 				46B3DFF71C547FB4002A6769 /* CallAPIHelper.swift */,
+				46B17DD21C657DD70006EEB3 /* DateTimeHelper.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -617,6 +629,7 @@
 				4600E6721C5721D50007696F /* AddActionPriorityTableViewCell.swift in Sources */,
 				465DB0E11C5DE42800DAD91F /* LeftViewController.swift in Sources */,
 				465DB0DB1C5B220900DAD91F /* CommentsViewController.swift in Sources */,
+				46B17DD31C657DD70006EEB3 /* DateTimeHelper.swift in Sources */,
 				4600E6701C5721110007696F /* AddActionContentTableViewCell.swift in Sources */,
 				46E98EA31C55E48100CE83EA /* WatchItemDetailCommentTableViewCell.swift in Sources */,
 				46EE9E0D1C4B3BF70062D644 /* AddActionViewController.swift in Sources */,
@@ -627,9 +640,12 @@
 				465DB0D91C5B029F00DAD91F /* ChatBubbleTableViewCell.swift in Sources */,
 				46EE9E241C4C82190062D644 /* AddProjectViewController.swift in Sources */,
 				46EE9E171C4B58970062D644 /* AddActionContentTableViewCell1.swift in Sources */,
+				46B17DD51C65B53A0006EEB3 /* SyncHelper.swift in Sources */,
 				46B3E0051C549652002A6769 /* SignupViewController.swift in Sources */,
 				46E98E9F1C55DAEE00CE83EA /* WatchFriendViewController.swift in Sources */,
 				46B3DFF61C547F3C002A6769 /* Constant.swift in Sources */,
+				465B55EF1C63C39200C75FC9 /* UpdateAPIHelper.swift in Sources */,
+				46B17DD11C651CFC0006EEB3 /* FriendAPIHelper.swift in Sources */,
 				46EE9E201C4C67D70062D644 /* WatcherModel.swift in Sources */,
 				465DB0E31C5F243E00DAD91F /* WatchNavigationController.swift in Sources */,
 				465DB0DD1C5B41C200DAD91F /* ChatBubbleTableViewCell2.swift in Sources */,

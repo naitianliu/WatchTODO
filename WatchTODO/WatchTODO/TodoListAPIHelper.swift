@@ -30,8 +30,9 @@ class TodoListAPIHelper: CallAPIHelperDelegate {
         
     }
     
-    func syncTodoList() {
-        
+    func getTodoList() {
+        let data: [String: AnyObject] = ["timestamp": "0"]
+        CallAPIHelper(url: apiURL_GetTodoList, data: data, delegate: self).GET(index_GetTodoList)
     }
     
     func addAction(content: String, projectId: String?, projectName:String?, dueDate:String?, deferDate: String?, priority: Int?) {
@@ -87,6 +88,20 @@ class TodoListAPIHelper: CallAPIHelperDelegate {
     func afterReceiveResponse(responseData: AnyObject, index: String?) {
         if index == index_AddAction {
             
+        } else if index == index_GetTodoList {
+            let resDict = responseData as! [String: [[String: AnyObject]]]
+            for item in resDict["todo_list"]! {
+                let actionId = item["action_id"] as! String
+                let actionInfo = item["info"] as! [String: String]
+                let content = actionInfo["content"]
+                let projectId = actionInfo["project_id"]
+                let projectName = actionInfo["project_name"]
+                let dueDate = actionInfo["due_date"]
+                let deferDate = actionInfo["defer_date"]
+                let priority = Int(actionInfo["priority"]!)
+                self.actionItemModelHelper.addActionItem(content!, projectId: projectId, projectName: projectName, dueDate: dueDate, deferDate: deferDate, priority: priority)
+                
+            }
         }
     }
     

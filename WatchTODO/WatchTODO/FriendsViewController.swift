@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating, UISearchBarDelegate, AddFriendVCDelegate, CallAPIHelperDelegate, UIAlertViewDelegate {
+class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating, UISearchBarDelegate, AddFriendVCDelegate, CallAPIHelperDelegate {
     
     let apiURL_GetFriendList = "\(const_APIEndpoint)friends/get_friend_list/"
     let apiURL_GetUserListByKeyword = "\(const_APIEndpoint)friends/get_user_list_by_keyword/"
@@ -18,11 +18,19 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     @IBOutlet weak var friendTableView: UITableView!
     var addFriendVC: AddFriendViewController!
-    var selectedAddFriendUsername: String = ""
+    var selectedAddFriendUsername: String?
+    var selectedAddFriendNickname: String?
+    
+    var pendingFriends: [[String: String]] = []
+    var friends: [[String: String]] = []
+    let friendModelHelper = FriendModelHelper()
     
     var addSearchController: UISearchController!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
         
         let searchResultsController = self.storyboard?.instantiateViewControllerWithIdentifier("AddFriendNavigationController") as! UINavigationController
         addFriendVC = searchResultsController.viewControllers[0] as! AddFriendViewController
@@ -38,11 +46,19 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         friendTableView.tableFooterView = UIView()
         
+        self.reloadTable()
+        
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    private func reloadTable() {
+        pendingFriends = friendModelHelper.getPendingFriendList()
+        friends = friendModelHelper.getAllFriendList()
+        friendTableView.reloadData()
     }
     
     @IBAction func addButtonOnClick(sender: AnyObject) {
@@ -51,17 +67,67 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
+        if pendingFriends.count == 0 {
+            return 1
+        } else {
+            return 2
+        }
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        if pendingFriends.count == 0 {
+            return friends.count
+        } else {
+            if section == 0 {
+                return pendingFriends.count
+            } else {
+                return friends.count
+            }
+        }
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .Default, reuseIdentifier: "FriendCell")
-        
+        let cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "FriendCell")
+        if pendingFriends.count == 0 {
+            let rowDict = friends[indexPath.row]
+            let username = rowDict["username"]!
+            let nickname = rowDict["nickname"]!
+            cell.textLabel?.text = nickname
+            cell.detailTextLabel?.text = username
+        } else {
+            if indexPath.section == 0 {
+                let rowDict = pendingFriends[indexPath.row]
+                // let username = rowDict["username"]!
+                let nickname = rowDict["nickname"]!
+                let role = rowDict["role"]!
+                cell.textLabel?.text = nickname
+                if role == "accepter" {
+                    cell.detailTextLabel?.text = "Waiting for his action"
+                } else {
+                    cell.detailTextLabel?.text = "Need your action to accept"
+                }
+            } else {
+                let rowDict = friends[indexPath.row]
+                let username = rowDict["username"]!
+                let nickname = rowDict["nickname"]!
+                cell.textLabel?.text = nickname
+                cell.detailTextLabel?.text = username
+            }
+        }
         return cell
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        self.friendTableView.deselectRowAtIndexPath(indexPath, animated: true)
+        if pendingFriends.count != 0 && indexPath.section == 0 {
+            let rowDict = pendingFriends[indexPath.row]
+            let username = rowDict["username"]!
+            let nickname = rowDict["nickname"]!
+            let role = rowDict["role"]!
+            if role == "requester" {
+                self.showAcceptAlertController(username, nickname: nickname)
+            }
+        }
     }
     
     func updateSearchResultsForSearchController(searchController: UISearchController) {
@@ -83,16 +149,40 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
         addSearchController.active = false
         let username: String = userInfo["username"]!
         let nickname: String = userInfo["nickname"]!
-        let profileImageURL: String = userInfo["profile_img_url"]!
         selectedAddFriendUsername = username
-        let alertView = UIAlertView(title: "Send Friend Request", message: nickname, delegate: self, cancelButtonTitle: "Cancel", otherButtonTitles: "Send")
-        alertView.show()
+        selectedAddFriendNickname = nickname
+        self.showSendAlertController(selectedAddFriendUsername, nickname: selectedAddFriendNickname)
     }
     
-    func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int) {
-        if buttonIndex == 1 {
+    private func showSendAlertController(username: String?, nickname: String?) {
+        let alertController = UIAlertController(title: "Send Friend Invitation", message: nickname, preferredStyle: UIAlertControllerStyle.Alert)
+        let alertActionSend = UIAlertAction(title: "Send", style: UIAlertActionStyle.Default) { (action) -> Void in
+            if let selectedUsername = username, selectedNickname = nickname {
+                FriendAPIHelper().sendFriendRequest(selectedUsername, nickname: selectedNickname)
+                self.reloadTable()
+            }
+        }
+        let alertActionCancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil)
+        alertController.addAction(alertActionSend)
+        alertController.addAction(alertActionCancel)
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
+    
+    private func showAcceptAlertController(username: String, nickname: String) {
+        print("show accept alert")
+        let alertController = UIAlertController(title: "Accept", message: "Accept invitation from \(nickname)", preferredStyle: UIAlertControllerStyle.Alert)
+        let actionAccept = UIAlertAction(title: "Accept", style: UIAlertActionStyle.Default) { (action) -> Void in
+            FriendAPIHelper().acceptFriendRequest(username)
+            self.reloadTable()
+        }
+        let actionDecline = UIAlertAction(title: "Decline", style: UIAlertActionStyle.Default) { (action) -> Void in
             
         }
+        let actionCancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil)
+        alertController.addAction(actionAccept)
+        alertController.addAction(actionDecline)
+        alertController.addAction(actionCancel)
+        self.presentViewController(alertController, animated: true, completion: nil)
     }
     
     func beforeSendRequest(index: String?) {

@@ -10,11 +10,10 @@ import RealmSwift
 
 class WatcherModel: Object {
     
-    dynamic var userId: String = ""
+    dynamic var actionId: String = ""
     dynamic var username: String = ""
-    dynamic var imgUrl: String = ""
     
     override static func primaryKey() -> String {
-        return "userId"
+        return "actionId"
     }
 }

@@ -71,6 +71,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginVCDelegate {
         self.window?.rootViewController = drawerController
         self.setDefaultRealmForUser(username)
         ProjectAPIHelper().initiateDefaultProjects()
+        SyncHelper().syncAfterLogin()
     }
 
     func switchToLoginVC() {

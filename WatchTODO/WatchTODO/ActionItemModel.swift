@@ -59,7 +59,7 @@ class ActionItemModelHelper {
         do {
             let realm = try Realm()
             try realm.write({ () -> Void in
-                realm.add(actionItem)
+                realm.add(actionItem, update: true)
             })
         } catch {
             print(error)

@@ -43,6 +43,8 @@ class MyTodoListViewController: UIViewController, UITableViewDelegate, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        UpdateAPIHelper().getUpdatedInfo()
+        
         if let username = UserDefaultsHelper().getUsername() {
             appDelegate.setDefaultRealmForUser(username)
         }

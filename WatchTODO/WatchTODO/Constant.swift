@@ -9,4 +9,5 @@
 import Foundation
 
 
-let const_APIEndpoint = "http://localhost:9000/"
+// let const_APIEndpoint = "http://localhost:9000/"
+let const_APIEndpoint = "http://apiqa.wedo.knockfuture.com/"
