@@ -17,4 +17,5 @@ class SyncHelper {
         FriendAPIHelper().getFriendList()
         TodoListAPIHelper().getTodoList()
     }
+    
 }

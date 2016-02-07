@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -196,6 +196,13 @@
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="addWatcherButton" destination="Pzm-cj-qsQ" id="KCf-Ro-fs1"/>
+                                            <outlet property="commentButton" destination="xCw-2N-3cL" id="Pe9-Ny-fhM"/>
+                                            <outlet property="completeButton" destination="0iY-c6-ucS" id="wW9-dn-yZ8"/>
+                                            <outlet property="editButton" destination="WGm-Sz-IXj" id="3vz-gR-xrM"/>
+                                            <outlet property="revokeButton" destination="Hnk-OU-gbz" id="NZ5-lU-mSz"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>

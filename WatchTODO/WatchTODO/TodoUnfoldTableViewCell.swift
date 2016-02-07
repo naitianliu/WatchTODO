@@ -10,9 +10,11 @@ import UIKit
 
 class TodoUnfoldTableViewCell: UITableViewCell {
     
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var timeLabel: UILabel!
-    @IBOutlet weak var contentLabel: UILabel!
+    @IBOutlet weak var revokeButton: UIBarButtonItem!
+    @IBOutlet weak var completeButton: UIBarButtonItem!
+    @IBOutlet weak var editButton: UIBarButtonItem!
+    @IBOutlet weak var addWatcherButton: UIBarButtonItem!
+    @IBOutlet weak var commentButton: UIBarButtonItem!
     
     
     override func awakeFromNib() {

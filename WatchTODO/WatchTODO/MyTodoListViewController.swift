@@ -9,8 +9,9 @@
 import UIKit
 import Toast
 import CNPPopupController
+import CZPicker
 
-class MyTodoListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, AddActionVCDelegate {
+class MyTodoListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, AddActionVCDelegate, CZPickerViewDelegate, CZPickerViewDataSource {
     
     let colorP1: UIColor = UIColor.redColor()
     let colorP2: UIColor = UIColor.orangeColor()
@@ -38,16 +39,18 @@ class MyTodoListViewController: UIViewController, UITableViewDelegate, UITableVi
     var selectedProject: String?
     var selectedCategory: String?
     
+    var selectedWatchers: [String] = []
+    
     @IBOutlet weak var tableView: UITableView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        UpdateAPIHelper().getUpdatedInfo()
-        
         if let username = UserDefaultsHelper().getUsername() {
             appDelegate.setDefaultRealmForUser(username)
         }
+        
+        selectedWatchers = ["Naitian Liu", "Testuser1", "testuser2"]
         
         selectedCategory = "today"
         self.setupDisplayItems()
@@ -55,6 +58,8 @@ class MyTodoListViewController: UIViewController, UITableViewDelegate, UITableVi
         tableView.estimatedRowHeight = 120
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.tableFooterView = UIView(frame: CGRect.zero)
+        
+        UpdateAPIHelper().getUpdatedInfo()
     }
 
     override func didReceiveMemoryWarning() {
@@ -114,12 +119,6 @@ class MyTodoListViewController: UIViewController, UITableViewDelegate, UITableVi
         // remove cell with animation
         dataDictArray[sectionKey]?.removeAtIndex(indexPath.row)
         tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-    }
-    
-    func cellFlagButtonOnClick(sender: UIButton) {
-        let cell = sender.superview?.superview as! TodoActionItemTableViewCell
-        let indexPath = tableView.indexPathForCell(cell)!
-        self.showFlagPopupView(indexPath)
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -201,6 +200,7 @@ class MyTodoListViewController: UIViewController, UITableViewDelegate, UITableVi
     func renderUnfoldCell(tableView: UITableView, indexPath: NSIndexPath) -> UITableViewCell {
         // let cell = tableView.dequeueReusableCellWithIdentifier(unfoldCellIdentifier) as! TodoUnfoldTableViewCell
         let cell = tableView.dequeueReusableCellWithIdentifier(unfoldCellIdentifier, forIndexPath: indexPath) as! TodoUnfoldTableViewCell
+        cell.addWatcherButton.action = Selector("addWatcherButtonOnClick:")
         return cell
     }
     
@@ -279,6 +279,16 @@ class MyTodoListViewController: UIViewController, UITableViewDelegate, UITableVi
         TodoListAPIHelper().updateStatus(uuid, status: newStatus)
     }
     
+    func addWatcherButtonOnClick(sender: UIBarButtonItem!) {
+        let picker: CZPickerView = CZPickerView(headerTitle: "Select friends to watch", cancelButtonTitle: "Cancel", confirmButtonTitle: "Confirm")
+        picker.delegate = self
+        picker.dataSource = self
+        picker.allowMultipleSelection = true
+        picker.setSelectedRows([0, 1])
+        picker.show()
+        
+    }
+    
     func didAddAction(actionContent: String?, projectId: String?, projectName: String?, dueDate: String?, deferDate: String?, priority: Int?) {
         if let content = actionContent {
             print("Add Action into db")
@@ -290,33 +300,15 @@ class MyTodoListViewController: UIViewController, UITableViewDelegate, UITableVi
         }
     }
     
-    func showFlagPopupView(selectedIndexPath: NSIndexPath) {
-        // title label
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineBreakMode = NSLineBreakMode.ByWordWrapping
-        paragraphStyle.alignment = NSTextAlignment.Center
-        let title = NSAttributedString(string: "Ready to start", attributes: [NSFontAttributeName: UIFont.systemFontOfSize(24), NSParagraphStyleAttributeName: paragraphStyle])
-        let titleLabel = UILabel()
-        titleLabel.numberOfLines = 0;
-        titleLabel.attributedText = title
-        // textfield
-        let textField = UITextField.init(frame: CGRectMake(0, 0, 250, 35))
-        textField.borderStyle = UITextBorderStyle.RoundedRect
-        textField.placeholder = "Leave a message"
-        // button
-        let button = CNPPopupButton(frame: CGRect(x: 0, y: 0, width: 200, height: 60))
-        button.setTitle("FLAG", forState: .Normal)
-        button.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
-        button.titleLabel?.font = UIFont.boldSystemFontOfSize(18)
-        button.backgroundColor = UIColor.init(colorLiteralRed: 0.46, green: 0.8, blue: 1.0, alpha: 1.0)
-        button.layer.cornerRadius = 4;
-        button.selectionHandler = { (CNPPopupButton button) -> Void in
-            self.popupController.dismissPopupControllerAnimated(true)
-            print("Block for button: \(button.titleLabel?.text)")
-        }
-        self.popupController = CNPPopupController(contents: [titleLabel, textField, button])
-        self.popupController.theme = CNPPopupTheme.defaultTheme()
-        self.popupController.theme.popupStyle = .Centered
-        self.popupController.presentPopupControllerAnimated(true)
+    func numberOfRowsInPickerView(pickerView: CZPickerView!) -> Int {
+        return selectedWatchers.count
+    }
+    
+    func czpickerView(pickerView: CZPickerView!, titleForRow row: Int) -> String! {
+        return selectedWatchers[row]
+    }
+    
+    func czpickerView(pickerView: CZPickerView!, didConfirmWithItemsAtRows rows: [AnyObject]!) {
+        print(rows)
     }
 }
