@@ -35,11 +35,12 @@ class MyTodoListViewController: UIViewController, UITableViewDelegate, UITableVi
     var appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
     var selectedCellIndexPath: NSIndexPath?
+    var selectedActionId: String?
     
     var selectedProject: String?
     var selectedCategory: String?
     
-    var selectedWatchers: [String] = []
+    var friends: [[String: String]] = []
     
     @IBOutlet weak var tableView: UITableView!
 
@@ -50,7 +51,7 @@ class MyTodoListViewController: UIViewController, UITableViewDelegate, UITableVi
             appDelegate.setDefaultRealmForUser(username)
         }
         
-        selectedWatchers = ["Naitian Liu", "Testuser1", "testuser2"]
+        friends = FriendModelHelper().getAllFriendList()
         
         selectedCategory = "today"
         self.setupDisplayItems()
@@ -277,14 +278,28 @@ class MyTodoListViewController: UIViewController, UITableViewDelegate, UITableVi
         dataDictArray[sectionKey]![indexPath.row]["status"] = newStatus
         tableView.reloadData()
         TodoListAPIHelper().updateStatus(uuid, status: newStatus)
+        selectedActionId = uuid
     }
     
     func addWatcherButtonOnClick(sender: UIBarButtonItem!) {
+        friends = FriendModelHelper().getAllFriendList()
         let picker: CZPickerView = CZPickerView(headerTitle: "Select friends to watch", cancelButtonTitle: "Cancel", confirmButtonTitle: "Confirm")
         picker.delegate = self
         picker.dataSource = self
         picker.allowMultipleSelection = true
-        picker.setSelectedRows([0, 1])
+        let sectionKey = sectionKeyList[selectedCellIndexPath!.section]
+        let dataArray: [[String: AnyObject]] = dataDictArray[sectionKey]!
+        let actionId: String = dataArray[selectedCellIndexPath!.row]["uuid"] as! String
+        let watcherUsernames: [String] = WatcherModelHelper().getWatcherUsernames(actionId)
+        selectedActionId = actionId
+        var selectedRows: [Int] = []
+        for (var i=0; i<self.friends.count; i++) {
+            let username = friends[i]["username"]!
+            if watcherUsernames.contains(username) {
+                selectedRows.append(i)
+            }
+        }
+        picker.setSelectedRows(selectedRows)
         picker.show()
         
     }
@@ -301,14 +316,20 @@ class MyTodoListViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func numberOfRowsInPickerView(pickerView: CZPickerView!) -> Int {
-        return selectedWatchers.count
+        return friends.count
     }
     
     func czpickerView(pickerView: CZPickerView!, titleForRow row: Int) -> String! {
-        return selectedWatchers[row]
+        let rowDict = friends[row]
+        let nickname = rowDict["nickname"]
+        return nickname
     }
     
     func czpickerView(pickerView: CZPickerView!, didConfirmWithItemsAtRows rows: [AnyObject]!) {
-        print(rows)
+        var watchers: [[String: String]] = []
+        for row in rows {
+            watchers.append(friends[row as! Int])
+        }
+        WatchAPIHelper().addWatchers(selectedActionId!, watchers: watchers)
     }
 }

@@ -27,6 +27,7 @@
 		46B17DD11C651CFC0006EEB3 /* FriendAPIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B17DD01C651CFC0006EEB3 /* FriendAPIHelper.swift */; };
 		46B17DD31C657DD70006EEB3 /* DateTimeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B17DD21C657DD70006EEB3 /* DateTimeHelper.swift */; };
 		46B17DD51C65B53A0006EEB3 /* SyncHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B17DD41C65B53A0006EEB3 /* SyncHelper.swift */; };
+		46B17DD71C6725F50006EEB3 /* WatchAPIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B17DD61C6725F50006EEB3 /* WatchAPIHelper.swift */; };
 		46B3DFF41C534A83002A6769 /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B3DFF31C534A83002A6769 /* FriendsViewController.swift */; };
 		46B3DFF61C547F3C002A6769 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B3DFF51C547F3C002A6769 /* Constant.swift */; };
 		46B3DFF81C547FB4002A6769 /* CallAPIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B3DFF71C547FB4002A6769 /* CallAPIHelper.swift */; };
@@ -107,6 +108,7 @@
 		46B17DD01C651CFC0006EEB3 /* FriendAPIHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendAPIHelper.swift; sourceTree = "<group>"; };
 		46B17DD21C657DD70006EEB3 /* DateTimeHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateTimeHelper.swift; sourceTree = "<group>"; };
 		46B17DD41C65B53A0006EEB3 /* SyncHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncHelper.swift; sourceTree = "<group>"; };
+		46B17DD61C6725F50006EEB3 /* WatchAPIHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchAPIHelper.swift; sourceTree = "<group>"; };
 		46B3DFF31C534A83002A6769 /* FriendsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsViewController.swift; sourceTree = "<group>"; };
 		46B3DFF51C547F3C002A6769 /* Constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		46B3DFF71C547FB4002A6769 /* CallAPIHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallAPIHelper.swift; sourceTree = "<group>"; };
@@ -190,6 +192,7 @@
 				465B55EE1C63C39200C75FC9 /* UpdateAPIHelper.swift */,
 				46B17DD01C651CFC0006EEB3 /* FriendAPIHelper.swift */,
 				46B17DD41C65B53A0006EEB3 /* SyncHelper.swift */,
+				46B17DD61C6725F50006EEB3 /* WatchAPIHelper.swift */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -602,6 +605,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				46EE9E0F1C4B485C0062D644 /* EditActionContentViewController.swift in Sources */,
+				46B17DD71C6725F50006EEB3 /* WatchAPIHelper.swift in Sources */,
 				46E98E9B1C559ABA00CE83EA /* FriendModel.swift in Sources */,
 				46EE9DFD1C4B14350062D644 /* MyTodoListViewController.swift in Sources */,
 				46902CA51C50BAD500F07EF9 /* WatchNoCommentTableViewCell.swift in Sources */,

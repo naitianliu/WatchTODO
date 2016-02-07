@@ -74,4 +74,13 @@ class WatcherModelHelper {
         }
         return watchers
     }
+    
+    func getWatcherUsernames(actionId: String) -> [String] {
+        var watcherUsernames: [String] = []
+        for itemDict in self.getWatchers(actionId) {
+            let username = itemDict["username"]!
+            watcherUsernames.append(username)
+        }
+        return watcherUsernames
+    }
 }
