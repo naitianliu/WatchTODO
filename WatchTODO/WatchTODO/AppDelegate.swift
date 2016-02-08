@@ -21,11 +21,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginVCDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         
-        if let username = UserDefaultsHelper().getUsername() {
-            print(username)
-            self.setDefaultRealmForUser(username)
-        }
-        
         let mainTabBarController = mainStoryboard.instantiateViewControllerWithIdentifier("MainTabBarController") as! MainTabBarController
         let projectsNavigationController = todoStoryboard.instantiateViewControllerWithIdentifier("ProjectsNavigationController") as! UINavigationController
         drawerController = MMDrawerController(centerViewController: mainTabBarController, leftDrawerViewController: projectsNavigationController)
@@ -36,12 +31,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginVCDelegate {
         if !isLogin {
             self.switchToLoginVC()
         } else {
+            
             UIApplication.sharedApplication().registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [.Badge, .Alert, .Sound], categories: nil))
             UIApplication.sharedApplication().registerForRemoteNotifications()
             self.window?.rootViewController = drawerController
             WatchAPIHelper().updateDeviceToken()
         }
-        print(Realm.Configuration.defaultConfiguration.path)
+        
         // perform database migrations
         PerformMigrations().migrate()
         
@@ -64,6 +60,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginVCDelegate {
 
     func applicationDidBecomeActive(application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        UIApplication.sharedApplication().applicationIconBadgeNumber = 0
     }
 
     func applicationWillTerminate(application: UIApplication) {
@@ -85,11 +82,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginVCDelegate {
     
     func didLoginToSwitchRootVC(username: String) {
         self.window?.rootViewController = drawerController
-        self.setDefaultRealmForUser(username)
         ProjectAPIHelper().initiateDefaultProjects()
-        print(1)
         SyncHelper().syncAfterLogin()
-        print(2)
         WatchAPIHelper().updateDeviceToken()
     }
 
@@ -97,18 +91,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginVCDelegate {
         let loginViewController = mainStoryboard.instantiateViewControllerWithIdentifier("LoginViewController") as! LoginViewController
         loginViewController.delegate = self
         self.window?.rootViewController = loginViewController
-    }
-    
-    func setDefaultRealmForUser(username: String) {
-        var config = Realm.Configuration()
-        // Use the default directory, but replace the filename with the username
-        config.path = NSURL.fileURLWithPath(config.path!)
-            .URLByDeletingLastPathComponent?
-            .URLByAppendingPathComponent("\(username).realm")
-            .path
-        
-        // Set this as the configuration used for the default Realm
-        Realm.Configuration.defaultConfiguration = config
     }
     
     private func dataToHex(data: NSData) -> String {

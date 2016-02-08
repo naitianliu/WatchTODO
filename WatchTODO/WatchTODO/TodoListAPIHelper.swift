@@ -24,7 +24,7 @@ class TodoListAPIHelper: CallAPIHelperDelegate {
     let index_UpdateStatus = "UpdateStatus"
     let index_Complete = "Complete"
     
-    let actionItemModelHelper = ActionItemModelHelper()
+    let actionItemModelHelper = ActionItemModelHelper(me: true)
     
     init() {
         

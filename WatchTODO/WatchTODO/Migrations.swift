@@ -10,52 +10,44 @@ import Foundation
 import RealmSwift
 
 class PerformMigrations {
+    
+    var path: String?
+    
     init() {
-        
+        self.setDefaultRealmForUser()
     }
     
     func migrate() {
         let config = Realm.Configuration(
-            schemaVersion: 8,
+            path: self.path,
+            schemaVersion: const_RealmSchemaVersion,
             migrationBlock: { migration, oldSchemaVersion in
+                print(oldSchemaVersion)
                 if (oldSchemaVersion < 1) {
                     migration.enumerate(ActionItemModel.className(), { (oldObject, newObject) -> Void in
-                        newObject!["priority"] = 4
-                    })
-                } else if (oldSchemaVersion < 2) {
-                    migration.enumerate(ActionItemModel.className(), { (oldObject, newObject) -> Void in
-                        newObject!["status"] = 0
-                    })
-                } else if (oldSchemaVersion < 3) {
-                    migration.enumerate(ActionItemModel.className(), { (oldObject, newObject) -> Void in
-                        
-                    })
-                } else if (oldSchemaVersion < 4) {
-                    migration.enumerate(ProjectModel.className(), { (oldObject, newObject) -> Void in
-                        newObject!["projectName"] = oldObject!["project"]
-                    })
-                } else if (oldSchemaVersion < 5) {
-                    migration.enumerate(ProjectModel.className(), { (oldObject, newObject) -> Void in
-                        
-                    })
-                } else if (oldSchemaVersion < 6) {
-                    migration.enumerate(WatcherModel.className(), { (oldObject, newObject) -> Void in
-                        newObject!["username"] = oldObject!["userId"]
-                        newObject!["actionId"] = ""
-                    })
-                } else if (oldSchemaVersion < 7) {
-                    migration.enumerate(WatcherModel.className(), { (oldObject, newObject) -> Void in
-                        newObject!["username"] = ""
-                        newObject!["actionId"] = ""
-                    })
-                } else if (oldSchemaVersion < 8) {
-                    migration.enumerate(WatcherModel.className(), { (oldObject, newObject) -> Void in
-                        
+                        newObject!["me"] = true
                     })
                 }
             }
         )
         Realm.Configuration.defaultConfiguration = config
+        print(config.path)
         let realm = try! Realm()
+    }
+    
+    func setDefaultRealmForUser() {
+        if let username = UserDefaultsHelper().getUsername() {
+            var config = Realm.Configuration()
+            // Use the default directory, but replace the filename with the username
+            config.path = NSURL.fileURLWithPath(config.path!)
+                .URLByDeletingLastPathComponent?
+                .URLByAppendingPathComponent("\(username).realm")
+                .path
+            
+            // Set this as the configuration used for the default Realm
+            config.schemaVersion = const_RealmSchemaVersion
+            self.path = config.path
+            Realm.Configuration.defaultConfiguration = config
+        }
     }
 }

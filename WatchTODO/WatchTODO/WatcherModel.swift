@@ -18,7 +18,7 @@ class WatcherModel: Object {
 
 class WatcherModelHelper {
     init() {
-        
+        PerformMigrations().setDefaultRealmForUser()
     }
     
     func addUpdateWatchers(actionId: String, watchers: [[String: String]]) {

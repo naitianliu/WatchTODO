@@ -24,7 +24,7 @@ class FriendModel: Object {
 
 class FriendModelHelper {
     init() {
-        
+        PerformMigrations().setDefaultRealmForUser()
     }
     
     func addFriend(userInfo: [String: String]) {

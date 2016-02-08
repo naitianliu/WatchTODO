@@ -23,7 +23,7 @@ class ProjectModelHelper {
     let defaultProjectNames = ["Personal", "Family", "Work", "Shopping", "Books to read", "Movies to watch"]
     
     init() {
-        
+        PerformMigrations().setDefaultRealmForUser()
     }
     
     func addProject(projectName:String) -> String {
@@ -54,7 +54,7 @@ class ProjectModelHelper {
                 projects.append(projectDict)
             }
         } catch {
-            print(error)
+            print("getAllProjects\(error)")
         }
         return projects
     }

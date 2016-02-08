@@ -35,6 +35,8 @@ class WatchViewController: UIViewController, UITableViewDelegate, UITableViewDat
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.tableFooterView = UIView()
         
+        WatchAPIHelper().getUpdatedWatchList()
+        
     }
 
     override func didReceiveMemoryWarning() {

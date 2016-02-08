@@ -24,7 +24,7 @@ class MyTodoListViewController: UIViewController, UITableViewDelegate, UITableVi
     let actionItemCellIdentifier = "TodoActionItemCell"
     let unfoldCellIdentifier = "TodoUnfoldCell"
     
-    let actionItemModelHelper = ActionItemModelHelper()
+    let actionItemModelHelper = ActionItemModelHelper(me: true)
     let sortActionItemListHelper = SortActionItemListHelper()
     
     var sectionKeyList: [String]!
@@ -46,11 +46,7 @@ class MyTodoListViewController: UIViewController, UITableViewDelegate, UITableVi
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        if let username = UserDefaultsHelper().getUsername() {
-            appDelegate.setDefaultRealmForUser(username)
-        }
-        
+
         friends = FriendModelHelper().getAllFriendList()
         
         selectedCategory = "today"

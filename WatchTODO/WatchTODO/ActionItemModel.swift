@@ -20,6 +20,7 @@ class ActionItemModel: Object {
     // status 0: not started, 1: WorkInProgress, 2: complete
     dynamic var status: Int = 0
     dynamic var everyday: Bool = false
+    dynamic var me: Bool = false
     
     override static func primaryKey() -> String {
         return "uuid"
@@ -27,8 +28,12 @@ class ActionItemModel: Object {
 }
 
 class ActionItemModelHelper {
-    init() {
-        
+    
+    var me: Bool = true
+    
+    init(me: Bool) {
+        self.me = me
+        PerformMigrations().setDefaultRealmForUser()
     }
     
     func addActionItem(actionId: String?, content:String, projectId:String?, projectName:String?, dueDate:String?, deferDate:String?, priority:Int?) -> String {
@@ -39,6 +44,7 @@ class ActionItemModelHelper {
         let actionItem = ActionItemModel()
         actionItem.uuid = uuid
         actionItem.content = content
+        actionItem.me = me
         if let projectId = projectId {
             actionItem.projectId = projectId
         }
@@ -86,7 +92,7 @@ class ActionItemModelHelper {
         var pendingItems: [[String:AnyObject]] = []
         do {
             let realm = try Realm()
-            for item in realm.objects(ActionItemModel).filter("status != 2") {
+            for item in realm.objects(ActionItemModel).filter("status != 2 AND me = \(self.me)") {
                 let itemDict = [
                     "uuid": item.uuid,
                     "content": item.content,
@@ -101,7 +107,7 @@ class ActionItemModelHelper {
                 pendingItems.append(itemDict as! [String : AnyObject])
             }
         } catch {
-            print(error)
+            print("getAllPendingItems\(error)")
         }
         return pendingItems
     }

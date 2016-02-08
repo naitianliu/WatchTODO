@@ -29,6 +29,7 @@ class CommentModelHelper {
         let userInfo: [String: String?] = UserDefaultsHelper().getUserInfo()
         username = userInfo["username"]!!
         nickname = userInfo["nickname"]!!
+        PerformMigrations().setDefaultRealmForUser()
     }
     
     func addComment(actionId: String, message: String) {
