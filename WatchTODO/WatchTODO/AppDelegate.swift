@@ -36,7 +36,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginVCDelegate {
         if !isLogin {
             self.switchToLoginVC()
         } else {
+            UIApplication.sharedApplication().registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [.Badge, .Alert, .Sound], categories: nil))
+            UIApplication.sharedApplication().registerForRemoteNotifications()
             self.window?.rootViewController = drawerController
+            WatchAPIHelper().updateDeviceToken()
         }
         print(Realm.Configuration.defaultConfiguration.path)
         // perform database migrations
@@ -67,11 +70,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginVCDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
     
+    func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+        let deviceTokenString = self.dataToHex(deviceToken)
+        print(deviceTokenString)
+    }
+    
+    func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
+        
+    }
+    
+    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
+        
+    }
+    
     func didLoginToSwitchRootVC(username: String) {
         self.window?.rootViewController = drawerController
         self.setDefaultRealmForUser(username)
         ProjectAPIHelper().initiateDefaultProjects()
+        print(1)
         SyncHelper().syncAfterLogin()
+        print(2)
+        WatchAPIHelper().updateDeviceToken()
     }
 
     func switchToLoginVC() {
@@ -90,6 +109,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginVCDelegate {
         
         // Set this as the configuration used for the default Realm
         Realm.Configuration.defaultConfiguration = config
+    }
+    
+    private func dataToHex(data: NSData) -> String {
+        var str: String = String()
+        let p = UnsafePointer<UInt8>(data.bytes)
+        let len = data.length
+        
+        for var i=0; i<len; ++i {
+            str += String(format: "%02.2X", p[i])
+        }
+        return str
     }
 }
 

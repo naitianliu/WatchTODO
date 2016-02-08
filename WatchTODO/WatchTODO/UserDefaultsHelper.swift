@@ -14,6 +14,7 @@ extension DefaultsKeys {
     static let profileImageURL = DefaultsKey<String?>("profileImageURL")
     static let nickname = DefaultsKey<String?>("nickname")
     static let token = DefaultsKey<String?>("token")
+    static let deviceToken = DefaultsKey<String?>("deviceToken")
 }
 
 class UserDefaultsHelper {
@@ -34,6 +35,16 @@ class UserDefaultsHelper {
         if let token = token {
             Defaults[.token] = token
         }
+    }
+    
+    func updateDeviceToken(deviceToken: String?) {
+        if let deviceTokenStr = deviceToken {
+            Defaults[.deviceToken] = deviceTokenStr
+        }
+    }
+    
+    func getDeviceToken() -> String? {
+        return Defaults[.deviceToken]
     }
     
     func getUserInfo() -> [String: String?] {

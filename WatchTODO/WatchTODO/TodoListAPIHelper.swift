@@ -36,7 +36,7 @@ class TodoListAPIHelper: CallAPIHelperDelegate {
     }
     
     func addAction(content: String, projectId: String?, projectName:String?, dueDate:String?, deferDate: String?, priority: Int?) {
-        let actionId = actionItemModelHelper.addActionItem(content, projectId: projectId, projectName: projectName, dueDate: dueDate, deferDate: deferDate, priority: priority)
+        let actionId = actionItemModelHelper.addActionItem(nil, content: content, projectId: projectId, projectName: projectName, dueDate: dueDate, deferDate: deferDate, priority: priority)
         var actionInfo: [String: String] = ["content": content]
         if let projectId = projectId {
             actionInfo["project_id"] = projectId
@@ -91,15 +91,33 @@ class TodoListAPIHelper: CallAPIHelperDelegate {
         } else if index == index_GetTodoList {
             let resDict = responseData as! [String: [[String: AnyObject]]]
             for item in resDict["todo_list"]! {
+                print(item)
                 let actionId = item["action_id"] as! String
                 let actionInfo = item["info"] as! [String: String]
                 let content = actionInfo["content"]
-                let projectId = actionInfo["project_id"]
-                let projectName = actionInfo["project_name"]
-                let dueDate = actionInfo["due_date"]
-                let deferDate = actionInfo["defer_date"]
-                let priority = Int(actionInfo["priority"]!)
-                self.actionItemModelHelper.addActionItem(content!, projectId: projectId, projectName: projectName, dueDate: dueDate, deferDate: deferDate, priority: priority)
+                var projectId: String?
+                if let tempProjectId = actionInfo["project_id"] {
+                    projectId = tempProjectId
+                }
+                var projectName: String?
+                if let tempProjectName = actionInfo["project_name"] {
+                    projectName = tempProjectName
+                }
+                var dueDate: String?
+                if let tempDueDate = actionInfo["due_date"] {
+                    dueDate = tempDueDate
+                }
+                var deferDate: String?
+                if let tempDeferDate = actionInfo["defer_date"] {
+                    deferDate = tempDeferDate
+                }
+                var priority = 4
+                if let tempPriority = actionInfo["priority"] {
+                    if tempPriority != NSNull() {
+                        priority = Int(tempPriority)!
+                    }
+                }
+                self.actionItemModelHelper.addActionItem(actionId, content: content!, projectId: projectId, projectName: projectName, dueDate: dueDate, deferDate: deferDate, priority: priority)
                 
             }
         }

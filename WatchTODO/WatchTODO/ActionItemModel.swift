@@ -31,8 +31,11 @@ class ActionItemModelHelper {
         
     }
     
-    func addActionItem(content:String, projectId:String?, projectName:String?, dueDate:String?, deferDate:String?, priority:Int?) -> String {
-        let uuid = NSUUID().UUIDString
+    func addActionItem(actionId: String?, content:String, projectId:String?, projectName:String?, dueDate:String?, deferDate:String?, priority:Int?) -> String {
+        var uuid = NSUUID().UUIDString
+        if let actionId = actionId {
+            uuid = actionId
+        }
         let actionItem = ActionItemModel()
         actionItem.uuid = uuid
         actionItem.content = content

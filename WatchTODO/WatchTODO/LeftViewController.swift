@@ -39,7 +39,6 @@ class LeftViewController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.tableFooterView = UIView()
         self.initiateCompleteView()
         self.reloadProjects()
-        print(projects)
     }
 
     override func didReceiveMemoryWarning() {

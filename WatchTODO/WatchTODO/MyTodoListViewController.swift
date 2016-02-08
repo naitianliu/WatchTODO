@@ -59,8 +59,9 @@ class MyTodoListViewController: UIViewController, UITableViewDelegate, UITableVi
         tableView.estimatedRowHeight = 120
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.tableFooterView = UIView(frame: CGRect.zero)
-        
+        print(1)
         UpdateAPIHelper().getUpdatedInfo()
+        print(2)
     }
 
     override func didReceiveMemoryWarning() {
@@ -154,7 +155,16 @@ class MyTodoListViewController: UIViewController, UITableViewDelegate, UITableVi
         let cell = tableView.dequeueReusableCellWithIdentifier(actionItemCellIdentifier) as! TodoActionItemTableViewCell
         let sectionKey = sectionKeyList[indexPath.section]
         let dataArray: [[String: AnyObject]] = dataDictArray[sectionKey]!
-        let rowDict = dataArray[indexPath.row]
+        var rowDict: [String: AnyObject]!
+        if let selectedIndexPath = selectedCellIndexPath {
+            if selectedIndexPath.row < indexPath.row {
+                rowDict = dataArray[indexPath.row - 1]
+            } else {
+                rowDict = dataArray[indexPath.row]
+            }
+        } else {
+            rowDict = dataArray[indexPath.row]
+        }
         let content = rowDict["content"] as! String
         var project = rowDict["projectName"] as! String
         let priority = rowDict["priority"] as! Int

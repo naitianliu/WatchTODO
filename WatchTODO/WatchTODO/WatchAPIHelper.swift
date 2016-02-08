@@ -12,8 +12,10 @@ class WatchAPIHelper: CallAPIHelperDelegate {
     
     let apiURL_AddWatchers = "\(const_APIEndpoint)watch/add_watchers/"
     let apiURL_GetUpdatedWatchList = "\(const_APIEndpoint)watch/get_updated_watch_list/"
+    let apiURL_UpdateDeviceToken = "\(const_APIEndpoint)watch/update_device_token/"
     
     let index_AddWatchers = "AddWatchers"
+    let index_UpdateDeviceToken = "UpdateDeviceToken"
     
     let watcherModelHelper = WatcherModelHelper()
     
@@ -34,6 +36,14 @@ class WatchAPIHelper: CallAPIHelperDelegate {
     
     func getUpdatedWatchList() {
         
+    }
+    
+    func updateDeviceToken() {
+        let deviceToken = UserDefaultsHelper().getDeviceToken()
+        if let deviceToken = deviceToken {
+            let data: [String: AnyObject] = ["device_token": deviceToken]
+            CallAPIHelper(url: apiURL_UpdateDeviceToken, data: data, delegate: self).POST(index_UpdateDeviceToken)
+        }
     }
     
     func beforeSendRequest(index: String?) {
