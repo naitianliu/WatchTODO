@@ -66,7 +66,8 @@ class MyTodoListViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func setupDisplayItems() {
-        data = actionItemModelHelper.getAllPendingItems()
+        selectedCellIndexPath = nil
+        data = actionItemModelHelper.getMyPendingItems()
         dataDictArray = sortActionItemListHelper.divideByDate(data)
         sectionKeyList = sortActionItemListHelper.getSectionKeyList(selectedCategory)
         sectionKeyTitleMapDict = sortActionItemListHelper.getSectionKeyTitleMappingDict(selectedCategory)
@@ -270,9 +271,15 @@ class MyTodoListViewController: UIViewController, UITableViewDelegate, UITableVi
         let indexPath = tableView.indexPathForCell(cell)!
         let sectionKey = sectionKeyList[indexPath.section]
         let dataArray: [[String: AnyObject]] = dataDictArray[sectionKey]!
+        var row: Int = indexPath.row
+        if let selectedIndexPath = selectedCellIndexPath {
+            if selectedIndexPath.section == indexPath.section && selectedIndexPath.row < indexPath.row {
+                row = indexPath.row - 1
+            }
+        }
         // update db
-        let uuid: String = dataArray[indexPath.row]["uuid"] as! String
-        let status: Int = dataArray[indexPath.row]["status"] as! Int
+        let uuid: String = dataArray[row]["uuid"] as! String
+        let status: Int = dataArray[row]["status"] as! Int
         var newStatus: Int = 0
         if status == 0 {
             newStatus = 1
@@ -281,7 +288,7 @@ class MyTodoListViewController: UIViewController, UITableViewDelegate, UITableVi
         } else {
             newStatus = 2
         }
-        dataDictArray[sectionKey]![indexPath.row]["status"] = newStatus
+        dataDictArray[sectionKey]![row]["status"] = newStatus
         tableView.reloadData()
         TodoListAPIHelper().updateStatus(uuid, status: newStatus)
         selectedActionId = uuid
@@ -315,7 +322,7 @@ class MyTodoListViewController: UIViewController, UITableViewDelegate, UITableVi
             print("Add Action into db")
             selectedCellIndexPath = nil
             TodoListAPIHelper().addAction(content, projectId: projectId, projectName: projectName, dueDate: dueDate, deferDate: deferDate, priority: priority)
-            data = actionItemModelHelper.getAllPendingItems()
+            data = actionItemModelHelper.getMyPendingItems()
             dataDictArray = sortActionItemListHelper.divideByDate(data)
             tableView.reloadData()
         }

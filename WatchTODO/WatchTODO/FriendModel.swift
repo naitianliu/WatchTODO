@@ -146,7 +146,13 @@ class FriendModelHelper {
         }
     }
     
-    func syncFriends(userList: [[String: String]]) {
-        
+    func getFriendsMapDict() -> [String: String] {
+        let friendList = self.getAllFriendList()
+        var mapDict = [String: String]()
+        for item in friendList {
+            mapDict["username"] = item["nickname"]
+        }
+        return mapDict
     }
+    
 }

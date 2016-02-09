@@ -12,4 +12,4 @@ import Foundation
 // let const_APIEndpoint = "http://localhost:9000/"
 let const_APIEndpoint = "http://apiqa.wedo.knockfuture.com/"
 
-let const_RealmSchemaVersion: UInt64 = 2
+let const_RealmSchemaVersion: UInt64 = 3

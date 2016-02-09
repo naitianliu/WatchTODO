@@ -21,6 +21,7 @@ class ActionItemModel: Object {
     dynamic var status: Int = 0
     dynamic var everyday: Bool = false
     dynamic var me: Bool = false
+    dynamic var username: String = ""
     
     override static func primaryKey() -> String {
         return "uuid"
@@ -36,7 +37,7 @@ class ActionItemModelHelper {
         PerformMigrations().setDefaultRealmForUser()
     }
     
-    func addActionItem(actionId: String?, content:String, projectId:String?, projectName:String?, dueDate:String?, deferDate:String?, priority:Int?) -> String {
+    func addActionItem(actionId: String?, username: String?, content:String, projectId:String?, projectName:String?, dueDate:String?, deferDate:String?, priority:Int?) -> String {
         var uuid = NSUUID().UUIDString
         if let actionId = actionId {
             uuid = actionId
@@ -45,6 +46,9 @@ class ActionItemModelHelper {
         actionItem.uuid = uuid
         actionItem.content = content
         actionItem.me = me
+        if let username = username {
+            actionItem.username = username
+        }
         if let projectId = projectId {
             actionItem.projectId = projectId
         }
@@ -88,7 +92,7 @@ class ActionItemModelHelper {
         }
     }
     
-    func getAllPendingItems() -> [[String:AnyObject]] {
+    func getMyPendingItems() -> [[String:AnyObject]] {
         var pendingItems: [[String:AnyObject]] = []
         do {
             let realm = try Realm()
@@ -103,6 +107,33 @@ class ActionItemModelHelper {
                     "priority": item.priority,
                     "status": item.status,
                     "everyday": item.everyday
+                ]
+                pendingItems.append(itemDict as! [String : AnyObject])
+            }
+        } catch {
+            print("getMyPendingItems\(error)")
+        }
+        return pendingItems
+    }
+    
+    func getFriendsPendingItems() -> [[String:AnyObject]] {
+        let friendsMapDict = FriendModelHelper().getFriendsMapDict()
+        var pendingItems: [[String:AnyObject]] = []
+        do {
+            let realm = try Realm()
+            for item in realm.objects(ActionItemModel).filter("status != 2 AND me = \(self.me)") {
+                let itemDict = [
+                    "uuid": item.uuid,
+                    "content": item.content,
+                    "projectId": item.projectId,
+                    "projectName": item.projectName,
+                    "dueDate": item.dueDate,
+                    "deferDate": item.deferDate,
+                    "priority": item.priority,
+                    "status": item.status,
+                    "everyday": item.everyday,
+                    "username": item.username,
+                    "nickname": friendsMapDict[item.username]!
                 ]
                 pendingItems.append(itemDict as! [String : AnyObject])
             }

@@ -19,6 +19,7 @@ class WatchAPIHelper: CallAPIHelperDelegate {
     let index_UpdateDeviceToken = "UpdateDeviceToken"
     
     let watcherModelHelper = WatcherModelHelper()
+    let actionItemModelHelper = ActionItemModelHelper(me: false)
     
     init() {
         
@@ -55,7 +56,34 @@ class WatchAPIHelper: CallAPIHelperDelegate {
     func afterReceiveResponse(responseData: AnyObject, index: String?) {
         print(responseData)
         if index == index_GetUpdatedWatchList {
-            
+            let resDict = responseData as! [String: AnyObject]
+            let actionList = resDict["updated_actions_watch"] as! [[String: AnyObject]]
+            for action in actionList {
+                let actionId = action["action_id"] as! String
+                let actionInfo = action["info"] as! [String: String]
+                var content: String?
+                var dueDate: String?
+                var deferDate: String?
+                var priority: Int?
+                if let tempContent = actionInfo["content"] {
+                    content = tempContent
+                }
+                if let tempDueDate = actionInfo["due_date"] {
+                    dueDate = tempDueDate
+                }
+                if let tempDeferDate = actionInfo["defer_date"] {
+                    deferDate = tempDeferDate
+                }
+                if let tempPriority = actionInfo["priority"] {
+                    priority = Int(tempPriority)
+                }
+                let pending = action["pending"] as! Bool
+                let projectId = action["project_id"] as? String
+                let status = action["status"] as! Int
+                let username = action["username"] as? String
+                let projectName = action["project_name"] as? String
+                self.actionItemModelHelper.addActionItem(actionId, username: username, content: content!, projectId: projectId, projectName: projectName, dueDate: dueDate, deferDate: deferDate, priority: priority)
+            }
         }
     }
     
