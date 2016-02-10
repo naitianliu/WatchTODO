@@ -8,7 +8,6 @@
 
 import UIKit
 import Toast
-import CNPPopupController
 import CZPicker
 
 class MyTodoListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, AddActionVCDelegate, CZPickerViewDelegate, CZPickerViewDataSource {
@@ -30,14 +29,12 @@ class MyTodoListViewController: UIViewController, UITableViewDelegate, UITableVi
     var sectionKeyList: [String]!
     var sectionKeyTitleMapDict: [String: String]!
     
-    var popupController: CNPPopupController = CNPPopupController()
-    
     var appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
     var selectedCellIndexPath: NSIndexPath?
     var selectedActionId: String?
     
-    var selectedProject: String?
+    var selectedProjectId: String?
     var selectedCategory: String?
     
     var friends: [[String: String]] = []
@@ -55,9 +52,8 @@ class MyTodoListViewController: UIViewController, UITableViewDelegate, UITableVi
         tableView.estimatedRowHeight = 120
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.tableFooterView = UIView(frame: CGRect.zero)
-        print(1)
+        
         UpdateAPIHelper().getUpdatedInfo()
-        print(2)
     }
 
     override func didReceiveMemoryWarning() {
@@ -67,7 +63,12 @@ class MyTodoListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func setupDisplayItems() {
         selectedCellIndexPath = nil
-        data = actionItemModelHelper.getMyPendingItems()
+        if let projectId = selectedProjectId {
+            data = actionItemModelHelper.getMyPendingItems(projectId)
+            selectedCategory = nil
+        } else {
+            data = actionItemModelHelper.getMyPendingItems(nil)
+        }
         dataDictArray = sortActionItemListHelper.divideByDate(data)
         sectionKeyList = sortActionItemListHelper.getSectionKeyList(selectedCategory)
         sectionKeyTitleMapDict = sortActionItemListHelper.getSectionKeyTitleMappingDict(selectedCategory)
@@ -76,7 +77,7 @@ class MyTodoListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     @IBAction func showSideMenuButtonOnClick(sender: AnyObject) {
         appDelegate.drawerController.toggleDrawerSide(.Left, animated: true) { (complete) -> Void in
-            print(complete)
+            
         }
     }
 
@@ -322,9 +323,7 @@ class MyTodoListViewController: UIViewController, UITableViewDelegate, UITableVi
             print("Add Action into db")
             selectedCellIndexPath = nil
             TodoListAPIHelper().addAction(content, projectId: projectId, projectName: projectName, dueDate: dueDate, deferDate: deferDate, priority: priority)
-            data = actionItemModelHelper.getMyPendingItems()
-            dataDictArray = sortActionItemListHelper.divideByDate(data)
-            tableView.reloadData()
+            self.setupDisplayItems()
         }
     }
     

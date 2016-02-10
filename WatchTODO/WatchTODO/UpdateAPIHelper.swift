@@ -21,6 +21,7 @@ class UpdateAPIHelper: CallAPIHelperDelegate {
     let myUsername: String = UserDefaultsHelper().getUsername()!
     
     let friendModelHelper = FriendModelHelper()
+    let commentModelHelper = CommentModelHelper()
     
     init() {
         
@@ -50,6 +51,18 @@ class UpdateAPIHelper: CallAPIHelperDelegate {
         }
     }
     
+    private func handleUpdatedComments(updatedCommentsList: [[String: AnyObject]]) {
+        if updatedCommentsList.count != 0 {
+            for rowDict in updatedCommentsList {
+                let actionId = rowDict["action_id"] as! String
+                let message = rowDict["message"] as! String
+                // let timestamp = rowDict["timestamp"] as! String
+                let username = rowDict["username"] as! String
+                self.commentModelHelper.addComment(actionId, message: message, username: username, time: nil)
+            }
+        }
+    }
+    
     func beforeSendRequest(index: String?) {
         
     }
@@ -59,6 +72,10 @@ class UpdateAPIHelper: CallAPIHelperDelegate {
         let resDict = responseData as! [String: AnyObject]
         let updatedFriendList = resDict["updated_friends"] as! [[String: AnyObject]]
         self.handleUpdatedFriends(updatedFriendList)
+        let updatedCommentsListMe = resDict["updated_comments_me"] as! [[String: AnyObject]]
+        let updatedCommentsListWatch = resDict["updated_comments_watch"] as! [[String: AnyObject]]
+        self.handleUpdatedComments(updatedCommentsListMe)
+        self.handleUpdatedComments(updatedCommentsListWatch)
     }
     
     func apiReceiveError(error: ErrorType) {

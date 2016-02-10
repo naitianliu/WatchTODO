@@ -22,22 +22,30 @@ class CommentModel: Object {
 class CommentModelHelper {
     
     let timeNow = NSDate()
-    var username: String = ""
-    var nickname: String = ""
+    var myUsername: String = ""
+    var myNickname: String = ""
     
     init() {
         let userInfo: [String: String?] = UserDefaultsHelper().getUserInfo()
-        username = userInfo["username"]!!
-        nickname = userInfo["nickname"]!!
+        myUsername = userInfo["username"]!!
+        myNickname = userInfo["nickname"]!!
         PerformMigrations().setDefaultRealmForUser()
     }
     
-    func addComment(actionId: String, message: String) {
+    func addComment(actionId: String, message: String, username: String?, time: NSDate?) {
         let comment = CommentModel()
         comment.actionId = actionId
-        comment.username = username
+        if let tempUsername = username {
+            comment.username = tempUsername
+        } else {
+            comment.username = myUsername
+        }
         comment.message = message
-        comment.time = timeNow
+        if let tempTime = time {
+            comment.time = tempTime
+        } else {
+            comment.time = timeNow
+        }
         do {
             let realm = try Realm()
             try realm.write({ () -> Void in

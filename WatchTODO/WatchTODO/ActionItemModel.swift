@@ -92,11 +92,15 @@ class ActionItemModelHelper {
         }
     }
     
-    func getMyPendingItems() -> [[String:AnyObject]] {
+    func getMyPendingItems(projectId: String?) -> [[String:AnyObject]] {
         var pendingItems: [[String:AnyObject]] = []
         do {
             let realm = try Realm()
-            for item in realm.objects(ActionItemModel).filter("status != 2 AND me = \(self.me)") {
+            var queryString = "status != 2 AND me = \(self.me)"
+            if let tempProjectId = projectId {
+                queryString = "status != 2 AND me = \(self.me) AND projectId = '\(tempProjectId)'"
+            }
+            for item in realm.objects(ActionItemModel).filter(queryString) {
                 let itemDict = [
                     "uuid": item.uuid,
                     "content": item.content,
@@ -116,9 +120,10 @@ class ActionItemModelHelper {
         return pendingItems
     }
     
-    func getFriendsPendingItems() -> [[String:AnyObject]] {
+    func getFriendsPendingItems() -> [[String: AnyObject]] {
         let friendsMapDict = FriendModelHelper().getFriendsMapDict()
-        var pendingItems: [[String:AnyObject]] = []
+        print(friendsMapDict)
+        var pendingItems: [[String: AnyObject]] = []
         do {
             let realm = try Realm()
             for item in realm.objects(ActionItemModel).filter("status != 2 AND me = \(self.me)") {

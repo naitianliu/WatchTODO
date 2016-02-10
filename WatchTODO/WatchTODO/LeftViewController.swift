@@ -107,10 +107,19 @@ class LeftViewController: UIViewController, UITableViewDelegate, UITableViewData
         let centerTC = appDelegate.drawerController.centerViewController as! MainTabBarController
         let todoNC = centerTC.myTodoListNC as MyTodoListNavigationController
         let todoVC = todoNC.viewControllers[0] as! MyTodoListViewController
-        if indexPath.section == 0 && indexPath.row == 1 {
-            todoVC.selectedCategory = "today"
+        if indexPath.section == 0 {
+            todoVC.selectedProjectId = nil
+            if indexPath.row == 1 {
+                todoVC.selectedCategory = "today"
+            } else {
+                todoVC.selectedCategory = nil
+            }
         } else {
             todoVC.selectedCategory = nil
+            let rowDict = projects[indexPath.row]
+            let projectId: String = rowDict["uuid"]!
+            print(projectId)
+            todoVC.selectedProjectId = projectId
         }
         todoVC.setupDisplayItems()
         appDelegate.drawerController.closeDrawerAnimated(true) { (complete) -> Void in

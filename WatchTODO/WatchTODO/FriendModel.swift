@@ -150,7 +150,7 @@ class FriendModelHelper {
         let friendList = self.getAllFriendList()
         var mapDict = [String: String]()
         for item in friendList {
-            mapDict["username"] = item["nickname"]
+            mapDict[item["username"]!] = item["nickname"]
         }
         return mapDict
     }

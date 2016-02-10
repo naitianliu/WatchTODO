@@ -8,6 +8,10 @@
 
 import Foundation
 
+protocol WatchAPIHelperDelegate {
+    func didUpdateWatchItemList()
+}
+
 class WatchAPIHelper: CallAPIHelperDelegate {
     
     let apiURL_AddWatchers = "\(const_APIEndpoint)watch/add_watchers/"
@@ -20,6 +24,8 @@ class WatchAPIHelper: CallAPIHelperDelegate {
     
     let watcherModelHelper = WatcherModelHelper()
     let actionItemModelHelper = ActionItemModelHelper(me: false)
+    
+    var delegate: WatchAPIHelperDelegate?
     
     init() {
         
@@ -84,6 +90,7 @@ class WatchAPIHelper: CallAPIHelperDelegate {
                 let projectName = action["project_name"] as? String
                 self.actionItemModelHelper.addActionItem(actionId, username: username, content: content!, projectId: projectId, projectName: projectName, dueDate: dueDate, deferDate: deferDate, priority: priority)
             }
+            delegate?.didUpdateWatchItemList()
         }
     }
     

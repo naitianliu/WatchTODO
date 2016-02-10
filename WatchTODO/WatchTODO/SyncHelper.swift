@@ -16,6 +16,6 @@ class SyncHelper {
     func syncAfterLogin() {
         FriendAPIHelper().getFriendList()
         TodoListAPIHelper().getTodoList()
+        WatchAPIHelper().getUpdatedWatchList()
     }
-    
 }

@@ -68,7 +68,6 @@
                                         <connections>
                                             <outlet property="contentLabel" destination="TNz-hK-4zI" id="drr-Ay-268"/>
                                             <outlet property="nameLabel" destination="YYo-nK-wjO" id="F6D-e8-578"/>
-                                            <segue destination="qza-UJ-9RL" kind="show" identifier="WatchCommentsSegue" id="uNL-o3-ZiC"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -96,6 +95,7 @@
                     <connections>
                         <outlet property="tableView" destination="IcK-0L-fDQ" id="2KJ-N7-54j"/>
                         <segue destination="N4L-Tq-Bga" kind="show" identifier="WatchFriendSegue" id="y1N-xZ-vMx"/>
+                        <segue destination="qza-UJ-9RL" kind="show" identifier="WatchCommentsSegue" id="j3e-ar-gvZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="v8h-8B-mpV" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -260,7 +260,7 @@
         <!--Comments View Controller-->
         <scene sceneID="aUc-be-hne">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" hidesBottomBarWhenPushed="YES" id="qza-UJ-9RL" customClass="CommentsViewController" customModule="WatchTODO" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WatchCommentsViewController" automaticallyAdjustsScrollViewInsets="NO" hidesBottomBarWhenPushed="YES" id="qza-UJ-9RL" customClass="CommentsViewController" customModule="WatchTODO" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="neN-m6-X8l"/>
                         <viewControllerLayoutGuide type="bottom" id="cYO-eh-0TJ"/>
