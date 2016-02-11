@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import PNChart
 
 class LeftViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate {
 
@@ -33,20 +32,12 @@ class LeftViewController: UIViewController, UITableViewDelegate, UITableViewData
         super.viewDidLoad()
 
         tableView.tableFooterView = UIView()
-        self.initiateCompleteView()
         self.reloadProjects()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    func initiateCompleteView() {
-        let circleChart1 = PNCircleChart(frame: CGRect(x: 0, y: 0, width: todayCompleteView.frame.width, height: todayCompleteView.frame.height), total: NSNumber(integer: 100), current: NSNumber(integer: 60), clockwise: true)
-        circleChart1.backgroundColor = UIColor.clearColor()
-        circleChart1.strokeChart()
-        todayCompleteView.addSubview(circleChart1)
     }
     
     func reloadProjects() {
@@ -74,7 +65,7 @@ class LeftViewController: UIViewController, UITableViewDelegate, UITableViewData
         if section == 0 {
             return selectionList.count
         } else {
-            return projects.count
+            return projects.count + 1
         }
     }
     
@@ -85,11 +76,17 @@ class LeftViewController: UIViewController, UITableViewDelegate, UITableViewData
             cell.textLabel?.text = rowDict["name"]
             cell.imageView?.image = UIImage(named: rowDict["icon"]!)
             return cell
-        } else {
+        } else if indexPath.row < projects.count {
             let cell = UITableViewCell(style: .Default, reuseIdentifier: cellIdentifier2)
             let rowDict = projects[indexPath.row]
             let projectName: String = rowDict["name"]!
             cell.textLabel?.text = projectName
+            return cell
+        } else {
+            let cell = UITableViewCell(style: .Default, reuseIdentifier: "addProjectCell")
+            cell.imageView?.image = UIImage(named: "plus")
+            cell.textLabel?.text = "New"
+            cell.textLabel?.textColor = const_ThemeColor
             return cell
         }
     }
@@ -114,16 +111,41 @@ class LeftViewController: UIViewController, UITableViewDelegate, UITableViewData
             } else {
                 todoVC.selectedCategory = nil
             }
-        } else {
+            todoVC.setupDisplayItems()
+            appDelegate.drawerController.closeDrawerAnimated(true) { (complete) -> Void in
+                
+            }
+        } else if indexPath.row < projects.count {
             todoVC.selectedCategory = nil
             let rowDict = projects[indexPath.row]
             let projectId: String = rowDict["uuid"]!
             print(projectId)
             todoVC.selectedProjectId = projectId
+            todoVC.setupDisplayItems()
+            appDelegate.drawerController.closeDrawerAnimated(true) { (complete) -> Void in
+                
+            }
+        } else {
+            self.showAddNewProjectAlertController()
         }
-        todoVC.setupDisplayItems()
-        appDelegate.drawerController.closeDrawerAnimated(true) { (complete) -> Void in
-            
+        
+    }
+    
+    private func showAddNewProjectAlertController() {
+        let alertController = UIAlertController(title: "Create New Project", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+        alertController.addTextFieldWithConfigurationHandler { (textField) -> Void in
+            textField.placeholder = "Project Name"
         }
+        let actionConfirm = UIAlertAction(title: "Confirm", style: UIAlertActionStyle.Default) { (action) -> Void in
+            let projectName = alertController.textFields![0].text
+            if let tempProjectName = projectName {
+                ProjectAPIHelper().addProject(tempProjectName)
+                self.reloadProjects()
+            }
+        }
+        let actionCancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil)
+        alertController.addAction(actionConfirm)
+        alertController.addAction(actionCancel)
+        self.presentViewController(alertController, animated: true, completion: nil)
     }
 }

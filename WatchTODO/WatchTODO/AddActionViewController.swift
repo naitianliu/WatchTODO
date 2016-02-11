@@ -21,8 +21,8 @@ class AddActionViewController: UIViewController, UITableViewDataSource, UITableV
     var actionContent: String?
     var projectId: String?
     var projectName: String?
-    var dueDate: String?
-    var deferDate: String?
+    var dueDate: NSDate?
+    var deferDate: NSDate?
     var priority: Int?
     var delegate: AddActionVCDelegate?
     
@@ -48,7 +48,9 @@ class AddActionViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     @IBAction func addButtonOnClick(sender: AnyObject) {
-        delegate?.didAddAction(actionContent, projectId: projectId, projectName: projectName, dueDate: dueDate, deferDate: deferDate, priority: priority)
+        let dueDateEpoch: String? = DateTimeHelper().convertDateToEpoch(dueDate)
+        let deferDateEpoch: String? = DateTimeHelper().convertDateToEpoch(deferDate)
+        delegate?.didAddAction(actionContent, projectId: projectId, projectName: projectName, dueDate: dueDateEpoch, deferDate: deferDateEpoch, priority: priority)
         self.dismissViewControllerAnimated(true) { () -> Void in
             
         }
@@ -94,16 +96,16 @@ class AddActionViewController: UIViewController, UITableViewDataSource, UITableV
             let cell = UITableViewCell(style: .Value1, reuseIdentifier: "AddActionDefaultCell")
             cell.accessoryType = .DisclosureIndicator
             cell.textLabel?.text = "Defer Until"
-            if let deferDateString = deferDate {
-                cell.detailTextLabel?.text = deferDateString
+            if let tempDeferDate = deferDate {
+                cell.detailTextLabel?.text = DateTimeHelper().convertDateToStringMediumStyle(tempDeferDate)
             }
             return cell
         case (1, 1):
             let cell = UITableViewCell(style: .Value1, reuseIdentifier: "AddActionDefaultCell")
             cell.accessoryType = .DisclosureIndicator
             cell.textLabel?.text = "Due Date"
-            if let dueDateString = dueDate {
-                cell.detailTextLabel?.text = dueDateString
+            if let tempDueDate = dueDate {
+                cell.detailTextLabel?.text = DateTimeHelper().convertDateToStringMediumStyle(tempDueDate)
             }
             return cell
         case (2, 0):
@@ -152,38 +154,24 @@ class AddActionViewController: UIViewController, UITableViewDataSource, UITableV
     private func setupDate(dateType:String) {
         let datePicker = ActionSheetDatePicker(title: nil, datePickerMode: .Date, selectedDate: NSDate(), doneBlock: { (picker, value, index) -> Void in
             let datetime = value as! NSDate
-            let formatter = NSDateFormatter()
-            formatter.dateFormat = "YYYY-MM-DD"
-            let dateString: String = formatter.stringFromDate(datetime)
-            self.setDateValue(dateType, dateString: dateString)
+            self.setDateValue(dateType, date: datetime)
             }, cancelBlock: nil, origin: self.view)
         datePicker.addCustomButtonWithTitle("Today", actionBlock: { () -> Void in
-            self.setDateValue(dateType, dateString: "today")
+            self.setDateValue(dateType, date: NSDate())
         })
         datePicker.addCustomButtonWithTitle("Tomorrow", actionBlock: { () -> Void in
-            self.setDateValue(dateType, dateString: "tomorrow")
-        })
-        datePicker.addCustomButtonWithTitle("Everyday", actionBlock: { () -> Void in
-            self.setDateValue(dateType, dateString: "everyday")
+            self.setDateValue(dateType, date: NSDate().dateByAddingDays(1))
         })
         datePicker.minimumDate = NSDate(timeInterval: 0, sinceDate: NSDate())
         datePicker.minuteInterval = 1440
         datePicker.showActionSheetPicker()
     }
     
-    private func setDateValue(dateType: String, dateString: String) {
-        let formatter = NSDateFormatter()
-        formatter.dateFormat = "YYYY-MM-DD"
-        var newDateString = dateString
-        if dateString == "today" {
-            newDateString = formatter.stringFromDate(NSDate())
-        } else if dateString == "tomorrow" {
-            newDateString = formatter.stringFromDate(NSDate().dateByAddingDays(1))
-        }
+    private func setDateValue(dateType: String, date: NSDate) {
         if dateType == "due" {
-            dueDate = newDateString
+            dueDate = date
         } else if dateType == "defer" {
-            deferDate = newDateString
+            deferDate = date
         }
         print(dueDate)
         print(deferDate)

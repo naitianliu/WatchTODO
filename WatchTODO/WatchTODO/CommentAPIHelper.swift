@@ -22,7 +22,7 @@ class CommentAPIHelper: CallAPIHelperDelegate {
     
     func addComment(actionId: String, message: String) {
         print(message)
-        commentModelHelper.addComment(actionId, message: message, username: nil, time: nil)
+        commentModelHelper.addComment(actionId, message: message, username: nil, timestamp: nil)
         let data: [String: AnyObject] = [
             "action_id": actionId,
             "message": message

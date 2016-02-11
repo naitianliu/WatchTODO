@@ -7,9 +7,11 @@
 //
 
 import Foundation
-
+import UIKit
 
 // let const_APIEndpoint = "http://localhost:9000/"
 let const_APIEndpoint = "http://apiqa.wedo.knockfuture.com/"
 
-let const_RealmSchemaVersion: UInt64 = 3
+let const_RealmSchemaVersion: UInt64 = 4
+
+let const_ThemeColor: UIColor = UIColor(red: 0, green: 175/255, blue: 240/255, alpha: 1)

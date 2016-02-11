@@ -36,7 +36,7 @@ class SortActionItemListHelper {
     }
     
     func getSectionKeyList(category: String?) -> [String] {
-        if let category = category {
+        if let _ = category {
             let dateFormatter = NSDateFormatter()
             dateFormatter.dateFormat = "YYYY-MM-DD"
             let key = dateFormatter.stringFromDate(NSDate())
@@ -88,14 +88,17 @@ class SortActionItemListHelper {
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "YYYY-MM-DD"
         for itemDict in data {
-            let dueDateString: String = itemDict["dueDate"] as! String
-            if newDateDictArray[dueDateString] != nil {
-                newDateDictArray[dueDateString]?.append(itemDict)
+            let dueDateEpoch: String = itemDict["dueDate"] as! String
+            let dueDate: NSDate = DateTimeHelper().convertEpochToDate(dueDateEpoch)
+            let dateString: String = dateFormatter.stringFromDate(dueDate)
+            if newDateDictArray[dateString] != nil {
+                newDateDictArray[dateString]?.append(itemDict)
             } else {
-                let dueDate: NSDate = dateFormatter.dateFromString(dueDateString)!
-                if dueDate.isEarlierThan(NSDate()) {
+                let dueDate: NSDate = DateTimeHelper().convertEpochToDate(dueDateEpoch)
+                let startOfToday = DateTimeHelper().getDateStartOfToday()
+                if dueDate.isEarlierThan(startOfToday) {
                     newDateDictArray["overdue"]?.append(itemDict)
-                } else if dueDate.isLaterThan(NSDate().dateByAddingWeeks(1)) {
+                } else if dueDate.isLaterThan(startOfToday.dateByAddingWeeks(1)) {
                     newDateDictArray["weeklater"]?.append(itemDict)
                 }
             }

@@ -14,14 +14,14 @@ class CommentModel: Object {
     dynamic var actionId: String = ""
     dynamic var username: String = ""
     dynamic var message: String = ""
-    dynamic var time: NSDate = NSDate()
+    dynamic var timestamp: String = ""
     
 }
 
 
 class CommentModelHelper {
     
-    let timeNow = NSDate()
+    let timeNow = DateTimeHelper().convertDateToEpoch(NSDate())!
     var myUsername: String = ""
     var myNickname: String = ""
     
@@ -32,7 +32,7 @@ class CommentModelHelper {
         PerformMigrations().setDefaultRealmForUser()
     }
     
-    func addComment(actionId: String, message: String, username: String?, time: NSDate?) {
+    func addComment(actionId: String, message: String, username: String?, timestamp: String?) {
         let comment = CommentModel()
         comment.actionId = actionId
         if let tempUsername = username {
@@ -41,10 +41,10 @@ class CommentModelHelper {
             comment.username = myUsername
         }
         comment.message = message
-        if let tempTime = time {
-            comment.time = tempTime
+        if let tempTime = timestamp {
+            comment.timestamp = tempTime
         } else {
-            comment.time = timeNow
+            comment.timestamp = timeNow
         }
         do {
             let realm = try Realm()
@@ -63,18 +63,16 @@ class CommentModelHelper {
         do {
             let realm = try Realm()
             for item in realm.objects(CommentModel).filter("actionId = '\(actionId)'") {
-                let time: NSDate = item.time
-                let timeInt = Int(time.timeIntervalSince1970)
-                let timeString = String(timeInt)
-                keyList.append(timeInt)
+                let timestamp = item.timestamp
+                keyList.append(Int(timestamp)!)
                 let commentDict = [
                     "actionId": item.actionId,
                     "username": item.username,
                     "nickname": item.username,
                     "message": item.message,
-                    "time": timeString
+                    "timestamp": item.timestamp
                 ]
-                tempDict[timeString] = commentDict
+                tempDict[timestamp] = commentDict
             }
             keyList = keyList.sort()
             for keyInt in keyList {

@@ -36,10 +36,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginVCDelegate {
             UIApplication.sharedApplication().registerForRemoteNotifications()
             self.window?.rootViewController = drawerController
             WatchAPIHelper().updateDeviceToken()
+            // perform database migrations
+            PerformMigrations().migrate()
         }
-        
-        // perform database migrations
-        PerformMigrations().migrate()
         
         return true
     }
@@ -97,7 +96,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginVCDelegate {
         var str: String = String()
         let p = UnsafePointer<UInt8>(data.bytes)
         let len = data.length
-        
         for var i=0; i<len; ++i {
             str += String(format: "%02.2X", p[i])
         }

@@ -58,7 +58,7 @@ class UpdateAPIHelper: CallAPIHelperDelegate {
                 let message = rowDict["message"] as! String
                 // let timestamp = rowDict["timestamp"] as! String
                 let username = rowDict["username"] as! String
-                self.commentModelHelper.addComment(actionId, message: message, username: username, time: nil)
+                self.commentModelHelper.addComment(actionId, message: message, username: username, timestamp: nil)
             }
         }
     }
