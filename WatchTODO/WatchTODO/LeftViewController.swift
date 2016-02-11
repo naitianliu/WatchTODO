@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LeftViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate {
+class LeftViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var todayCompleteView: UIView!
@@ -46,15 +46,19 @@ class LeftViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     @IBAction func logoutButtonOnClick(sender: AnyObject) {
-        let actionSheet = UIActionSheet(title: "Confirm to Logout", delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: "Logout")
-        actionSheet.showInView(self.view)
+        self.showLogoutActionSheet()
     }
     
-    func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
-        if buttonIndex == 0 {
+    private func showLogoutActionSheet() {
+        let alertController = UIAlertController(title: "Confirm to Logout", message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
+        let actionConfirm = UIAlertAction(title: "Confirm", style: UIAlertActionStyle.Destructive) { (action) -> Void in
             UserDefaultsHelper().removeUserInfo()
-            appDelegate.switchToLoginVC()
+            self.appDelegate.switchToLoginVC()
         }
+        let actionCancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil)
+        alertController.addAction(actionConfirm)
+        alertController.addAction(actionCancel)
+        self.presentViewController(alertController, animated: true, completion: nil)
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
