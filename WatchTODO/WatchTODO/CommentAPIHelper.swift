@@ -14,18 +14,21 @@ class CommentAPIHelper: CallAPIHelperDelegate {
     
     let index_AddComment = "AddComment"
     
-    let commentModelHelper = CommentModelHelper()
+    
     
     init() {
         
     }
     
-    func addComment(actionId: String, message: String) {
+    func addComment(uuid: String?, actionId: String, message: String) {
         print(message)
-        commentModelHelper.addComment(actionId, message: message, username: nil, timestamp: nil)
+        let commentModelHelper = CommentModelHelper()
+        let commentId = commentModelHelper.addComment(uuid, actionId: actionId, message: message, username: nil, timestamp: nil)
         let data: [String: AnyObject] = [
+            "comment_id": commentId,
             "action_id": actionId,
-            "message": message
+            "message": message,
+            "timestamp": commentModelHelper.timeNow
         ]
         CallAPIHelper(url: apiURL_AddComment, data: data, delegate: self).POST(index_AddComment)
     }

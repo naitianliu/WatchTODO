@@ -49,6 +49,7 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewWillAppear(animated: Bool) {
         self.textFieldBarButtonItem.width = self.view.frame.width - self.sendButton.width - 80
         self.inputTextField.placeholder = "Comment"
+        self.view.backgroundColor = const_CommentsBgColor
     }
 
     override func didReceiveMemoryWarning() {
@@ -58,7 +59,7 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
     
     @IBAction func sendMessageButtonOnClick(sender: AnyObject) {
         if let message = inputTextField.text {
-            CommentAPIHelper().addComment(actionId, message: message)
+            CommentAPIHelper().addComment(nil, actionId: actionId, message: message)
             data = CommentModelHelper().getCommentListByActionId(actionId)
             self.reloadTable()
             inputTextField.text = nil

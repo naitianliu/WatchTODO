@@ -28,6 +28,11 @@ class PerformMigrations {
                         newObject!["me"] = true
                     })
                 }
+                if (oldSchemaVersion < 5) {
+                    migration.enumerate(CommentModel.className(), { (oldObject, newObject) -> Void in
+                        newObject!["uuid"] = NSUUID().UUIDString
+                    })
+                }
             }
         )
         Realm.Configuration.defaultConfiguration = config

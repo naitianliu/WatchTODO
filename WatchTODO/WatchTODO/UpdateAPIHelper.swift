@@ -54,11 +54,12 @@ class UpdateAPIHelper: CallAPIHelperDelegate {
     private func handleUpdatedComments(updatedCommentsList: [[String: AnyObject]]) {
         if updatedCommentsList.count != 0 {
             for rowDict in updatedCommentsList {
+                let commentId = rowDict["comment_id"] as! String
                 let actionId = rowDict["action_id"] as! String
                 let message = rowDict["message"] as! String
-                // let timestamp = rowDict["timestamp"] as! String
+                let timestamp = rowDict["timestamp"] as! String
                 let username = rowDict["username"] as! String
-                self.commentModelHelper.addComment(actionId, message: message, username: username, timestamp: nil)
+                self.commentModelHelper.addComment(commentId, actionId: actionId, message: message, username: username, timestamp: timestamp)
             }
         }
     }
@@ -68,7 +69,6 @@ class UpdateAPIHelper: CallAPIHelperDelegate {
     }
     
     func afterReceiveResponse(responseData: AnyObject, index: String?) {
-        print(responseData)
         let resDict = responseData as! [String: AnyObject]
         let updatedFriendList = resDict["updated_friends"] as! [[String: AnyObject]]
         self.handleUpdatedFriends(updatedFriendList)

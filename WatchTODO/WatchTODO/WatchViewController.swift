@@ -75,14 +75,10 @@ class WatchViewController: UIViewController, UITableViewDelegate, UITableViewDat
         print(rowDict)
         let actionId = rowDict["uuid"] as! String
         selectedActionId = actionId
-        self.performSegueWithIdentifier("WatchCommentsSegue", sender: nil)
-    }
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "WatchCommentsSegue" {
-            let commentsVC = segue.destinationViewController as! CommentsViewController
-            commentsVC.actionId = selectedActionId!
-        }
+        let todoListStoryboard = UIStoryboard(name: "MyTodoList", bundle: nil)
+        let commentsVC = todoListStoryboard.instantiateViewControllerWithIdentifier("CommentsViewController") as! CommentsViewController
+        commentsVC.actionId = selectedActionId!
+        self.navigationController?.pushViewController(commentsVC, animated: true)
     }
     
     func didUpdateWatchItemList() {

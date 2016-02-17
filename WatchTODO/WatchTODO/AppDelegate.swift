@@ -69,6 +69,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginVCDelegate {
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
         let deviceTokenString = self.dataToHex(deviceToken)
         print(deviceTokenString)
+        UserDefaultsHelper().updateDeviceToken(deviceTokenString)
+        WatchAPIHelper().updateDeviceToken()
     }
     
     func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {

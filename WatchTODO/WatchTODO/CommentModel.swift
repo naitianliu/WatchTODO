@@ -11,11 +11,15 @@ import RealmSwift
 
 class CommentModel: Object {
     
+    dynamic var uuid: String = ""
     dynamic var actionId: String = ""
     dynamic var username: String = ""
     dynamic var message: String = ""
     dynamic var timestamp: String = ""
-    
+
+    override static func primaryKey() -> String {
+        return "uuid"
+    }
 }
 
 
@@ -32,8 +36,13 @@ class CommentModelHelper {
         PerformMigrations().setDefaultRealmForUser()
     }
     
-    func addComment(actionId: String, message: String, username: String?, timestamp: String?) {
+    func addComment(uuid: String?, actionId: String, message: String, username: String?, timestamp: String?) -> String {
         let comment = CommentModel()
+        var commentUUID = NSUUID().UUIDString
+        if let tempUUID = uuid {
+            commentUUID = tempUUID
+        }
+        comment.uuid = commentUUID
         comment.actionId = actionId
         if let tempUsername = username {
             comment.username = tempUsername
@@ -49,11 +58,12 @@ class CommentModelHelper {
         do {
             let realm = try Realm()
             try realm.write({ () -> Void in
-                realm.add(comment)
+                realm.add(comment, update: true)
             })
         } catch {
             print(error)
         }
+        return commentUUID
     }
     
     func getCommentListByActionId(actionId: String) -> [[String: String]] {
