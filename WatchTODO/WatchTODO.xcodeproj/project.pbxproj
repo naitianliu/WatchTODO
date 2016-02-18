@@ -28,6 +28,8 @@
 		46B17DD31C657DD70006EEB3 /* DateTimeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B17DD21C657DD70006EEB3 /* DateTimeHelper.swift */; };
 		46B17DD51C65B53A0006EEB3 /* SyncHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B17DD41C65B53A0006EEB3 /* SyncHelper.swift */; };
 		46B17DD71C6725F50006EEB3 /* WatchAPIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B17DD61C6725F50006EEB3 /* WatchAPIHelper.swift */; };
+		46B17DE01C758CE60006EEB3 /* Message.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 46B17DDF1C758CE60006EEB3 /* Message.storyboard */; };
+		46B17DE31C758D120006EEB3 /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B17DE21C758D120006EEB3 /* MessageViewController.swift */; };
 		46B3DFF41C534A83002A6769 /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B3DFF31C534A83002A6769 /* FriendsViewController.swift */; };
 		46B3DFF61C547F3C002A6769 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B3DFF51C547F3C002A6769 /* Constant.swift */; };
 		46B3DFF81C547FB4002A6769 /* CallAPIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B3DFF71C547FB4002A6769 /* CallAPIHelper.swift */; };
@@ -109,6 +111,8 @@
 		46B17DD21C657DD70006EEB3 /* DateTimeHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateTimeHelper.swift; sourceTree = "<group>"; };
 		46B17DD41C65B53A0006EEB3 /* SyncHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncHelper.swift; sourceTree = "<group>"; };
 		46B17DD61C6725F50006EEB3 /* WatchAPIHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchAPIHelper.swift; sourceTree = "<group>"; };
+		46B17DDF1C758CE60006EEB3 /* Message.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Message.storyboard; sourceTree = "<group>"; };
+		46B17DE21C758D120006EEB3 /* MessageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageViewController.swift; sourceTree = "<group>"; };
 		46B3DFF31C534A83002A6769 /* FriendsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsViewController.swift; sourceTree = "<group>"; };
 		46B3DFF51C547F3C002A6769 /* Constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		46B3DFF71C547FB4002A6769 /* CallAPIHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallAPIHelper.swift; sourceTree = "<group>"; };
@@ -208,6 +212,23 @@
 			name = Views;
 			sourceTree = "<group>";
 		};
+		46B17DDE1C758CC10006EEB3 /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				46B17DE11C758CF70006EEB3 /* View Controllers */,
+				46B17DDF1C758CE60006EEB3 /* Message.storyboard */,
+			);
+			name = Message;
+			sourceTree = "<group>";
+		};
+		46B17DE11C758CF70006EEB3 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				46B17DE21C758D120006EEB3 /* MessageViewController.swift */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
 		46B3DFF21C534A5B002A6769 /* Friends */ = {
 			isa = PBXGroup;
 			children = (
@@ -260,6 +281,7 @@
 				46B3DFF91C5483F7002A6769 /* Auth */,
 				46EE9DF11C4B12AA0062D644 /* MyTodoList */,
 				46EE9DF51C4B139B0062D644 /* Watch */,
+				46B17DDE1C758CC10006EEB3 /* Message */,
 				46EE9DF81C4B13EC0062D644 /* Settings */,
 				46EE9DC81C4ADDDA0062D644 /* Assets.xcassets */,
 				46EE9DCA1C4ADDDA0062D644 /* LaunchScreen.storyboard */,
@@ -531,6 +553,7 @@
 				46EE9DF31C4B13800062D644 /* MyTodoList.storyboard in Resources */,
 				46EE9DF01C4AE9CC0062D644 /* Podfile in Resources */,
 				46EE9DC71C4ADDDA0062D644 /* Main.storyboard in Resources */,
+				46B17DE01C758CE60006EEB3 /* Message.storyboard in Resources */,
 				46EE9DFB1C4B14000062D644 /* Settings.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -617,6 +640,7 @@
 				46EE9E051C4B15090062D644 /* MainTabBarController.swift in Sources */,
 				4600E6761C59D77A0007696F /* TodoUnfoldTableViewCell.swift in Sources */,
 				46EE9DC21C4ADDDA0062D644 /* AppDelegate.swift in Sources */,
+				46B17DE31C758D120006EEB3 /* MessageViewController.swift in Sources */,
 				465DB0DF1C5DADBB00DAD91F /* CommentAPIHelper.swift in Sources */,
 				46EE9E031C4B14800062D644 /* SettingsViewController.swift in Sources */,
 				46902CA31C509B1D00F07EF9 /* WatchTableViewCell.swift in Sources */,
