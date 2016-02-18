@@ -10,6 +10,10 @@ import UIKit
 import MMDrawerController
 import RealmSwift
 
+protocol APNSNotificationDelegate {
+    func didReceiveCommentNotification(actionId: String)
+}
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, LoginVCDelegate {
 
@@ -17,6 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginVCDelegate {
     let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
     let todoStoryboard = UIStoryboard(name: "MyTodoList", bundle: nil)
     var drawerController: MMDrawerController!
+    
+    var apnsDelegate: APNSNotificationDelegate?
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
@@ -35,7 +41,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginVCDelegate {
             UIApplication.sharedApplication().registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [.Badge, .Alert, .Sound], categories: nil))
             UIApplication.sharedApplication().registerForRemoteNotifications()
             self.window?.rootViewController = drawerController
-            WatchAPIHelper().updateDeviceToken()
             // perform database migrations
             PerformMigrations().migrate()
         }
@@ -78,14 +83,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginVCDelegate {
     }
     
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
-        
+        print(userInfo)
+        let actionId: String = userInfo["action_id"] as! String
+        self.apnsDelegate?.didReceiveCommentNotification(actionId)
     }
     
     func didLoginToSwitchRootVC(username: String) {
         self.window?.rootViewController = drawerController
         ProjectAPIHelper().initiateDefaultProjects()
         SyncHelper().syncAfterLogin()
-        WatchAPIHelper().updateDeviceToken()
     }
 
     func switchToLoginVC() {

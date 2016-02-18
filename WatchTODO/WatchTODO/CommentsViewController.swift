@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CommentsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class CommentsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, APNSNotificationDelegate, CommentAPIHelperDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     
@@ -30,10 +30,12 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
     var data: [[String: String]] = []
     var actionId: String = ""
     
+    var appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        data = CommentModelHelper().getCommentListByActionId(actionId)
+        print("comment view did load")
         
         tableView.estimatedRowHeight = 44
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -44,12 +46,23 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
         let tap:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: Selector("dismissKeyboard"))
         self.view.addGestureRecognizer(tap)
         
+        self.appDelegate.apnsDelegate = self
+        
+        self.reloadTable()
+        
     }
     
     override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         self.textFieldBarButtonItem.width = self.view.frame.width - self.sendButton.width - 80
         self.inputTextField.placeholder = "Comment"
         self.view.backgroundColor = const_CommentsBgColor
+        
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        self.reloadTable()
     }
 
     override func didReceiveMemoryWarning() {
@@ -102,10 +115,11 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func reloadTable() {
+        data = CommentModelHelper().getCommentListByActionId(actionId)
         tableView.reloadData()
         if data.count > 0 {
             let ipath:NSIndexPath = NSIndexPath(forRow: data.count - 1, inSection: 0)
-            tableView.scrollToRowAtIndexPath(ipath, atScrollPosition: UITableViewScrollPosition.Top, animated: true)
+            tableView.scrollToRowAtIndexPath(ipath, atScrollPosition: UITableViewScrollPosition.Top, animated: false)
         }
     }
     
@@ -133,6 +147,18 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
             cell.nameLabel.text = nickname
             return cell
         }
+    }
+    
+    func didReceiveCommentNotification(actionId: String) {
+        print("action id: \(actionId)")
+        let commentAPIHelper = CommentAPIHelper()
+        commentAPIHelper.delegate = self
+        commentAPIHelper.getCommentList(actionId)
+    }
+    
+    func didGetCommentList() {
+        print("did get comment list")
+        self.reloadTable()
     }
 
 }

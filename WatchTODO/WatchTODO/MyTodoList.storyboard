@@ -573,7 +573,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="106" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hTc-b1-soH">
-                                <rect key="frame" x="0.0" y="64" width="600" height="482"/>
+                                <rect key="frame" x="0.0" y="64" width="600" height="492"/>
                                 <color key="backgroundColor" red="0.96470588239999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ChatBubbleCell1" rowHeight="106" id="dKc-zd-WKp" customClass="ChatBubbleTableViewCell" customModule="WatchTODO" customModuleProvider="target">
@@ -761,7 +761,7 @@
                             <constraint firstItem="MOt-UP-n7L" firstAttribute="bottom" secondItem="mnx-QP-Ndy" secondAttribute="bottomMargin" id="B03-wY-cFB"/>
                             <constraint firstAttribute="trailingMargin" secondItem="MOt-UP-n7L" secondAttribute="trailing" constant="-20" id="Cli-6p-ymu"/>
                             <constraint firstItem="hTc-b1-soH" firstAttribute="bottom" secondItem="mnx-QP-Ndy" secondAttribute="bottomMargin" id="cDY-vu-u86"/>
-                            <constraint firstItem="MOt-UP-n7L" firstAttribute="top" secondItem="hTc-b1-soH" secondAttribute="bottom" constant="10" id="mjt-Oz-Jrg"/>
+                            <constraint firstItem="MOt-UP-n7L" firstAttribute="top" secondItem="hTc-b1-soH" secondAttribute="bottom" id="mjt-Oz-Jrg"/>
                             <constraint firstAttribute="trailingMargin" secondItem="hTc-b1-soH" secondAttribute="trailing" constant="-20" id="xbL-9h-RaI"/>
                         </constraints>
                         <variation key="default">
