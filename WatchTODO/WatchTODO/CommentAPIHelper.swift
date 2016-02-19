@@ -28,7 +28,7 @@ class CommentAPIHelper: CallAPIHelperDelegate {
     
     func addComment(uuid: String?, actionId: String, message: String) {
         let commentModelHelper = CommentModelHelper()
-        let commentId = commentModelHelper.addComment(uuid, actionId: actionId, message: message, username: nil, timestamp: nil)
+        let commentId = commentModelHelper.addComment(uuid, actionId: actionId, message: message, username: nil, timestamp: nil, read: true)
         let data: [String: AnyObject] = [
             "comment_id": commentId,
             "action_id": actionId,
@@ -48,6 +48,7 @@ class CommentAPIHelper: CallAPIHelperDelegate {
     }
     
     func afterReceiveResponse(responseData: AnyObject, index: String?) {
+        print(responseData)
         if index == index_AddComment {
             
         } else if index == index_GetCommentList {
@@ -59,7 +60,7 @@ class CommentAPIHelper: CallAPIHelperDelegate {
                 let username: String = commentDict["username"]!
                 let message: String = commentDict["message"]!
                 let timestamp: String = commentDict["timestamp"]!
-                commentModelHelper.addComment(commentId, actionId: actionId, message: message, username: username, timestamp: timestamp)
+                commentModelHelper.addComment(commentId, actionId: actionId, message: message, username: username, timestamp: timestamp, read: false)
             }
             self.delegate?.didGetCommentList()
         }

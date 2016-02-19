@@ -147,4 +147,29 @@ class ActionItemModelHelper {
         }
         return pendingItems
     }
+    
+    func getAllPendingActionIdList() -> [String] {
+        var pendingActionIdList: [String] = []
+        do {
+            let realm = try Realm()
+            for item in realm.objects(ActionItemModel).filter("status != 2") {
+                pendingActionIdList.append(item.uuid)
+            }
+        }catch {
+
+        }
+        return pendingActionIdList
+    }
+    
+    func getActionContentByActionId(actionId: String) -> String {
+        var actionContent: String = ""
+        do {
+            let realm = try Realm()
+            let actionItem = realm.objectForPrimaryKey(ActionItemModel.self, key: actionId)
+            actionContent = actionItem!.content
+        } catch {
+            print(error)
+        }
+        return actionContent
+    }
 }

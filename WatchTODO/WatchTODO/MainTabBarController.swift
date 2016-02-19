@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MainTabBarController: UITabBarController {
+class MainTabBarController: UITabBarController, MessageVCDelegate {
     
     let myTodoListStoryboard = UIStoryboard(name: "MyTodoList", bundle: nil)
     let messageStoryboard = UIStoryboard(name: "Message", bundle: nil)
@@ -34,7 +34,9 @@ class MainTabBarController: UITabBarController {
         messageNC = messageStoryboard.instantiateViewControllerWithIdentifier("MessageNavigationController") as! UINavigationController
         messageNC.tabBarItem.title = "Message"
         messageNC.tabBarItem.image = UIImage(named: "tab_message")
-        messageNC.tabBarItem.badgeValue = "1"
+        let messageVC = messageNC.viewControllers[0] as! MessageViewController
+        messageVC.delegate = self
+        messageVC.appDelegate.apnsDelegate = messageVC.self
         
         watchNC = watchStoryboard.instantiateViewControllerWithIdentifier("WatchNavigationController") as! UINavigationController
         watchNC.tabBarItem.title = "Watch"
@@ -51,6 +53,19 @@ class MainTabBarController: UITabBarController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func toSetTabBage() {
+        if let badgeString = messageNC.tabBarItem.badgeValue {
+            messageNC.tabBarItem.badgeValue = String(Int(badgeString)! + 1)
+        } else {
+            messageNC.tabBarItem.badgeValue = "1"
+        }
+        
+    }
+    
+    func toCleanTabBadge() {
+        messageNC.tabBarItem.badgeValue = nil
     }
 
 }

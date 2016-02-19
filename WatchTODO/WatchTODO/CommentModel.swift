@@ -16,6 +16,7 @@ class CommentModel: Object {
     dynamic var username: String = ""
     dynamic var message: String = ""
     dynamic var timestamp: String = ""
+    dynamic var read: Bool = false
 
     override static func primaryKey() -> String {
         return "uuid"
@@ -36,7 +37,7 @@ class CommentModelHelper {
         PerformMigrations().setDefaultRealmForUser()
     }
     
-    func addComment(uuid: String?, actionId: String, message: String, username: String?, timestamp: String?) -> String {
+    func addComment(uuid: String?, actionId: String, message: String, username: String?, timestamp: String?, read: Bool) -> String {
         let comment = CommentModel()
         var commentUUID = NSUUID().UUIDString
         if let tempUUID = uuid {
@@ -55,6 +56,7 @@ class CommentModelHelper {
         } else {
             comment.timestamp = timeNow
         }
+        comment.read = read
         do {
             let realm = try Realm()
             try realm.write({ () -> Void in
@@ -64,6 +66,21 @@ class CommentModelHelper {
             print(error)
         }
         return commentUUID
+    }
+    
+    func setReadByActionId(actionId: String) {
+        do {
+            let realm = try Realm()
+            for comment in realm.objects(CommentModel).filter("actionId = '\(actionId)'") {
+                if !comment.read {
+                    try realm.write({ () -> Void in
+                        comment.setValue(true, forKeyPath: "read")
+                    })
+                }
+            }
+        } catch {
+            print(error)
+        }
     }
     
     func getCommentListByActionId(actionId: String) -> [[String: String]] {
@@ -76,6 +93,7 @@ class CommentModelHelper {
                 let timestamp = item.timestamp
                 keyList.append(Int(timestamp)!)
                 let commentDict = [
+                    "commentId": item.uuid,
                     "actionId": item.actionId,
                     "username": item.username,
                     "nickname": item.username,
@@ -92,5 +110,46 @@ class CommentModelHelper {
             print(error)
         }
         return commentList
+    }
+    
+    func getLatestCommentsByActions(actionIdList: [String]) -> [[String: AnyObject]] {
+        var latestComments: [[String: AnyObject]] = []
+        do {
+            let realm = try Realm()
+            for actionId in actionIdList {
+                var unreadCount = 0
+                var tempTime: Int = 0
+                var latestComment: [String: String]?
+                for comment in realm.objects(CommentModel).filter("actionId = '\(actionId)' AND read = false") {
+                    unreadCount += 1
+                    let timestamp: Int = Int(comment.timestamp)!
+                    if timestamp > tempTime {
+                        tempTime = timestamp
+                        latestComment = [
+                            "commentId": comment.uuid,
+                            "actionId": comment.actionId,
+                            "username": comment.username,
+                            "nickname": comment.username,
+                            "message": comment.message,
+                            "timestamp": comment.timestamp
+                        ]
+                    }
+                    
+                }
+                if let comment = latestComment {
+                    let itemDict: [String: AnyObject] = [
+                        "type": "comment",
+                        "latestComment": comment,
+                        "timestamp": String(tempTime),
+                        "actionId": actionId
+                    ]
+                    latestComments.append(itemDict)
+                }
+            }
+            
+        } catch {
+            print(error)
+        }
+        return latestComments
     }
 }

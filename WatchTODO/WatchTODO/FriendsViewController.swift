@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating, UISearchBarDelegate, AddFriendVCDelegate, CallAPIHelperDelegate {
+class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating, UISearchBarDelegate, AddFriendVCDelegate, CallAPIHelperDelegate, UpdateAPIHelperDelegate {
     
     let apiURL_GetFriendList = "\(const_APIEndpoint)friends/get_friend_list/"
     let apiURL_GetUserListByKeyword = "\(const_APIEndpoint)friends/get_user_list_by_keyword/"
@@ -30,8 +30,6 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        
         let searchResultsController = self.storyboard?.instantiateViewControllerWithIdentifier("AddFriendNavigationController") as! UINavigationController
         addFriendVC = searchResultsController.viewControllers[0] as! AddFriendViewController
         addFriendVC.delegate = self
@@ -47,6 +45,10 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
         friendTableView.tableFooterView = UIView()
         
         self.reloadTable()
+        
+        let updateAPIHelper = UpdateAPIHelper()
+        updateAPIHelper.delegate = self
+        updateAPIHelper.getUpdatedInfo()
         
     }
 
@@ -183,6 +185,10 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
         alertController.addAction(actionDecline)
         alertController.addAction(actionCancel)
         self.presentViewController(alertController, animated: true, completion: nil)
+    }
+    
+    func didFriendsUpdated() {
+        self.reloadTable()
     }
     
     func beforeSendRequest(index: String?) {

@@ -62,7 +62,14 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        self.appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        appDelegate.apnsDelegate = self
         self.reloadTable()
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        appDelegate.apnsDelegate = nil
     }
 
     override func didReceiveMemoryWarning() {

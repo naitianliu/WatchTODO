@@ -10,8 +10,9 @@ import UIKit
 import MMDrawerController
 import RealmSwift
 
-protocol APNSNotificationDelegate {
-    func didReceiveCommentNotification(actionId: String)
+@objc protocol APNSNotificationDelegate {
+    optional func didReceiveCommentNotification(actionId: String)
+    optional func didReceiveFriendNotification(subtype: String)
 }
 
 @UIApplicationMain
@@ -84,12 +85,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginVCDelegate {
     
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
         print(userInfo)
-        let actionId: String = userInfo["action_id"] as! String
-        self.apnsDelegate?.didReceiveCommentNotification(actionId)
+        let type: String = userInfo["type"] as! String
+        if type == "comment" {
+            let actionId: String = userInfo["action_id"] as! String
+            self.apnsDelegate?.didReceiveCommentNotification!(actionId)
+        } else if type == "friend" {
+            let subtype: String = userInfo["subtype"] as! String
+            self.apnsDelegate?.didReceiveFriendNotification!(subtype)
+        }
+        
     }
     
     func didLoginToSwitchRootVC(username: String) {
         self.window?.rootViewController = drawerController
+        UIApplication.sharedApplication().registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [.Badge, .Alert, .Sound], categories: nil))
+        UIApplication.sharedApplication().registerForRemoteNotifications()
         ProjectAPIHelper().initiateDefaultProjects()
         SyncHelper().syncAfterLogin()
     }

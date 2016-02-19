@@ -48,6 +48,7 @@ class UpdateAPIHelper: CallAPIHelperDelegate {
                     friendModelHelper.updateStatus(accepterUsername!)
                 }
             }
+            delegate?.didFriendsUpdated()
         }
     }
     
@@ -59,7 +60,7 @@ class UpdateAPIHelper: CallAPIHelperDelegate {
                 let message = rowDict["message"] as! String
                 let timestamp = rowDict["timestamp"] as! String
                 let username = rowDict["username"] as! String
-                self.commentModelHelper.addComment(commentId, actionId: actionId, message: message, username: username, timestamp: timestamp)
+                self.commentModelHelper.addComment(commentId, actionId: actionId, message: message, username: username, timestamp: timestamp, read: false)
             }
         }
     }
