@@ -45,15 +45,18 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
         tableView.estimatedRowHeight = 44
         tableView.rowHeight = UITableViewAutomaticDimension
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardShown:", name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShown:", name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardDidShown:", name: UIKeyboardDidShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHidden:", name: UIKeyboardWillHideNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardDidHidden:", name: UIKeyboardDidHideNotification, object: nil)
         
         let tap:UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: Selector("dismissKeyboard"))
         self.view.addGestureRecognizer(tap)
         
         self.appDelegate.apnsDelegate = self
         
-        self.reloadTable()
-        
+        data = CommentModelHelper().getCommentListByActionId(actionId)
+        tableView.reloadData()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -62,6 +65,7 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
         self.inputTextField.placeholder = "Comment"
         self.view.backgroundColor = const_CommentsBgColor
         self.toolbar.translucent = false
+        
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -69,6 +73,14 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
         self.appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         appDelegate.apnsDelegate = self
         self.originViewFrame = self.view.frame
+        self.scrollTableViewToBottom(true)
+        
+        UIView.setAnimationsEnabled(false)
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        UIView.setAnimationsEnabled(true)
     }
     
     override func viewDidDisappear(animated: Bool) {
@@ -95,7 +107,8 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     
-    func keyboardShown(notification:NSNotification) {
+    func keyboardWillShown(notification:NSNotification) {
+        UIView.setAnimationsEnabled(false)
         let info = notification.userInfo!
         let value:AnyObject = info[UIKeyboardFrameEndUserInfoKey]!
         let rawFrame = value.CGRectValue
@@ -103,7 +116,20 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
         self.viewMoveUp()
     }
     
+    func keyboardDidShown(notification:NSNotification) {
+        UIView.setAnimationsEnabled(false)
+    }
+    
+    func keyboardWillHidden(notification:NSNotification) {
+        UIView.setAnimationsEnabled(false)
+    }
+    
+    func keyboardDidHidden(notification:NSNotification) {
+        UIView.setAnimationsEnabled(false)
+    }
+    
     func dismissKeyboard() {
+        // UIView.setAnimationsEnabled(false)
         self.inputTextField.resignFirstResponder()
         if keyboardShown {
             self.viewMoveDown()
@@ -111,20 +137,22 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func viewMoveUp() {
-        UIView.animateWithDuration(0.5, animations: { () -> Void in
+        UIView.setAnimationsEnabled(false)
+        UIView.animateWithDuration(0, animations: { () -> Void in
             var newFrame:CGRect = self.view.frame
             newFrame.size.height -= self.keyboardFrame.size.height
             self.view.frame = newFrame
             }) { (complete) -> Void in
                 if complete {
-                    self.reloadTable()
+                    self.scrollTableViewToBottom(false)
                 }
         }
         keyboardShown = true
     }
     
     func viewMoveDown() {
-        UIView.animateWithDuration(0.5) { () -> Void in
+        UIView.setAnimationsEnabled(false)
+        UIView.animateWithDuration(0) { () -> Void in
             self.view.frame = self.originViewFrame
         }
         keyboardShown = false
@@ -133,9 +161,13 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
     func reloadTable() {
         data = CommentModelHelper().getCommentListByActionId(actionId)
         tableView.reloadData()
+        self.scrollTableViewToBottom(false)
+    }
+    
+    private func scrollTableViewToBottom(animated: Bool) {
         if data.count > 0 {
             let ipath:NSIndexPath = NSIndexPath(forRow: data.count - 1, inSection: 1)
-            tableView.scrollToRowAtIndexPath(ipath, atScrollPosition: UITableViewScrollPosition.Top, animated: false)
+            tableView.scrollToRowAtIndexPath(ipath, atScrollPosition: UITableViewScrollPosition.Top, animated: animated)
         }
     }
     
