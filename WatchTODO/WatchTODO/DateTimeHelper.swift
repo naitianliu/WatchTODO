@@ -55,6 +55,27 @@ class DateTimeHelper {
         let startOfToday = NSCalendar.currentCalendar().startOfDayForDate(NSDate())
         return startOfToday
     }
+    
+    func convertEpochToHumanFriendlyTime(epoch: String) -> String {
+        let nowDate: NSDate = NSDate()
+        let date: NSDate = self.convertEpochToDate(epoch)
+        var result: String = "Just now"
+        if date.isLaterThanOrEqualTo(nowDate.dateBySubtractingSeconds(10)) {
+            result = "Just now"
+        } else if date.isLaterThanOrEqualTo(nowDate.dateBySubtractingMinutes(10)) {
+            result = date.timeAgoSinceNow()
+        } else if date.isLaterThanOrEqualTo(self.getDateStartOfToday()) {
+            let formatter = NSDateFormatter()
+            formatter.timeStyle = NSDateFormatterStyle.ShortStyle
+            result = formatter.stringFromDate(date)
+        } else {
+            let formatter = NSDateFormatter()
+            formatter.dateStyle = NSDateFormatterStyle.MediumStyle
+            formatter.timeStyle = NSDateFormatterStyle.ShortStyle
+            result = formatter.stringFromDate(date)
+        }
+        return result
+    }
 }
 
 

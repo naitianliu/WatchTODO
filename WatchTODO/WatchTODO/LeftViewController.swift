@@ -30,7 +30,15 @@ class LeftViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        self.navigationController?.navigationBar.translucent = false
+        tableView.tableFooterView = UIView()
+        self.reloadProjects()
+        
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         tableView.tableFooterView = UIView()
         self.reloadProjects()
     }
@@ -85,6 +93,7 @@ class LeftViewController: UIViewController, UITableViewDelegate, UITableViewData
             let rowDict = projects[indexPath.row]
             let projectName: String = rowDict["name"]!
             cell.textLabel?.text = projectName
+            cell.imageView?.image = UIImage(named: "inbox-icon")
             return cell
         } else {
             let cell = UITableViewCell(style: .Default, reuseIdentifier: "addProjectCell")
@@ -140,7 +149,7 @@ class LeftViewController: UIViewController, UITableViewDelegate, UITableViewData
         alertController.addTextFieldWithConfigurationHandler { (textField) -> Void in
             textField.placeholder = "Project Name"
         }
-        let actionConfirm = UIAlertAction(title: "Confirm", style: UIAlertActionStyle.Default) { (action) -> Void in
+        let actionConfirm = UIAlertAction(title: "Logout", style: UIAlertActionStyle.Default) { (action) -> Void in
             let projectName = alertController.textFields![0].text
             if let tempProjectName = projectName {
                 ProjectAPIHelper().addProject(tempProjectName)

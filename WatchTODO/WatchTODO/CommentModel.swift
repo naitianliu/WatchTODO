@@ -59,9 +59,11 @@ class CommentModelHelper {
         comment.read = read
         do {
             let realm = try Realm()
-            try realm.write({ () -> Void in
-                realm.add(comment, update: true)
-            })
+            if realm.objectForPrimaryKey(CommentModel.self, key: commentUUID) == nil {
+                try realm.write({ () -> Void in
+                    realm.add(comment, update: true)
+                })
+            }
         } catch {
             print(error)
         }
@@ -120,8 +122,10 @@ class CommentModelHelper {
                 var unreadCount = 0
                 var tempTime: Int = 0
                 var latestComment: [String: String]?
-                for comment in realm.objects(CommentModel).filter("actionId = '\(actionId)' AND read = false") {
-                    unreadCount += 1
+                for comment in realm.objects(CommentModel).filter("actionId = '\(actionId)'") {
+                    if !comment.read {
+                        unreadCount += 1
+                    }
                     let timestamp: Int = Int(comment.timestamp)!
                     if timestamp > tempTime {
                         tempTime = timestamp
@@ -131,7 +135,8 @@ class CommentModelHelper {
                             "username": comment.username,
                             "nickname": comment.username,
                             "message": comment.message,
-                            "timestamp": comment.timestamp
+                            "timestamp": comment.timestamp,
+                            "unreadCount": String(unreadCount)
                         ]
                     }
                     

@@ -29,16 +29,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginVCDelegate {
         // Override point for customization after application launch.
         
         let mainTabBarController = mainStoryboard.instantiateViewControllerWithIdentifier("MainTabBarController") as! MainTabBarController
-        let projectsNavigationController = todoStoryboard.instantiateViewControllerWithIdentifier("ProjectsNavigationController") as! UINavigationController
-        drawerController = MMDrawerController(centerViewController: mainTabBarController, leftDrawerViewController: projectsNavigationController)
+        // let projectsNavigationController = todoStoryboard.instantiateViewControllerWithIdentifier("ProjectsNavigationController") as! UINavigationController
+        let leftVC = todoStoryboard.instantiateViewControllerWithIdentifier("LeftViewController") as! LeftViewController
+        drawerController = MMDrawerController(centerViewController: mainTabBarController, leftDrawerViewController: leftVC)
+        drawerController.maximumLeftDrawerWidth = UIScreen.mainScreen().bounds.width * 0.6
+        // drawerController.openDrawerGestureModeMask = .PanningCenterView
+        drawerController.closeDrawerGestureModeMask = .All
         drawerController.showsShadow = false
-        drawerController.maximumLeftDrawerWidth = UIScreen.mainScreen().bounds.width / 2
         // login view controller
         let isLogin = UserDefaultsHelper().checkIfLogin()
         if !isLogin {
             self.switchToLoginVC()
         } else {
-            
             UIApplication.sharedApplication().registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [.Badge, .Alert, .Sound], categories: nil))
             UIApplication.sharedApplication().registerForRemoteNotifications()
             self.window?.rootViewController = drawerController

@@ -223,7 +223,38 @@ class MyTodoListViewController: UIViewController, UITableViewDelegate, UITableVi
         return nil
     }
     
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        if let selectedIndexPath = selectedCellIndexPath {
+            if selectedIndexPath.section == indexPath.section && indexPath.row == selectedIndexPath.row + 1 {
+                return false
+            } else {
+                return true
+            }
+        } else {
+            return true
+        }
+    }
+    
+    func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
+        return .Delete
+    }
+    
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete {
+            if let selectedIndexPath = selectedCellIndexPath {
+                if selectedIndexPath == indexPath {
+                    self.performDidSelectRow(tableView, didSelectRowAtIndexPath: indexPath)
+                }
+            }
+            self.showConfirmDeleteActionItemActionSheet()
+        }
+    }
+    
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        self.performDidSelectRow(tableView, didSelectRowAtIndexPath: indexPath)
+    }
+    
+    private func performDidSelectRow(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if selectedCellIndexPath == nil {
             selectedCellIndexPath = indexPath
             let targetIndexPath = NSIndexPath(forRow: indexPath.row + 1, inSection: indexPath.section)
@@ -265,6 +296,19 @@ class MyTodoListViewController: UIViewController, UITableViewDelegate, UITableVi
                 tableView.endUpdates()
             }
         }
+    }
+    
+    private func showConfirmDeleteActionItemActionSheet() {
+        let alertController = UIAlertController(title: "Delete Action", message: "Are you sure you want to delete this action?", preferredStyle: UIAlertControllerStyle.ActionSheet)
+        let deleteAction = UIAlertAction(title: "Delete", style: UIAlertActionStyle.Destructive) { (action) -> Void in
+            
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) { (action) -> Void in
+            
+        }
+        alertController.addAction(deleteAction)
+        alertController.addAction(cancelAction)
+        self.presentViewController(alertController, animated: true, completion: nil)
     }
     
     func updateButtonOnClick(sender: UIButton!) {

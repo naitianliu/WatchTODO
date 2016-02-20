@@ -1,18 +1,16 @@
 //
-//  ChatBubbleTableViewCell2.swift
+//  ActionInfoTableViewCell.swift
 //  WatchTODO
 //
-//  Created by Liu, Naitian on 1/28/16.
+//  Created by Liu, Naitian on 2/19/16.
 //  Copyright © 2016 naitianliu. All rights reserved.
 //
 
 import UIKit
 
-class ChatBubbleTableViewCell2: UITableViewCell {
+class ActionInfoTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var contentLabel: UILabel!
-    @IBOutlet weak var timeLabel: UILabel!
-    @IBOutlet weak var bubbleView: UIView!
+    @IBOutlet weak var actionContentLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

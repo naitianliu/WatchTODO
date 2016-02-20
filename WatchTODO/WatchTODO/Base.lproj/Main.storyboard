@@ -32,7 +32,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="comment" translatesAutoresizingMaskIntoConstraints="NO" id="hmF-l6-54t">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="logo_slogan" translatesAutoresizingMaskIntoConstraints="NO" id="hmF-l6-54t">
                                 <rect key="frame" x="180" y="28" width="240" height="128"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="ATk-KX-j7X"/>
@@ -45,7 +45,7 @@
                                     <constraint firstAttribute="height" constant="40" id="dLJ-Wo-jbB"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" spellCheckingType="no"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="DUm-YG-kuQ">
                                 <rect key="frame" x="162" y="250" width="282" height="30"/>
@@ -54,7 +54,7 @@
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FAv-kj-HhI">
                                 <rect key="frame" x="201" y="317" width="180" height="36"/>
-                                <color key="backgroundColor" red="0.6588235294117647" green="0.75686274509803919" blue="0.87058823529411766" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.2981615762" green="0.74215316099999995" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="5X6-d7-sel"/>
                                 </constraints>
@@ -142,7 +142,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="week-icon" translatesAutoresizingMaskIntoConstraints="NO" id="1rX-Jb-9xb">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="logo_slogan" translatesAutoresizingMaskIntoConstraints="NO" id="1rX-Jb-9xb">
                                 <rect key="frame" x="193" y="35" width="240" height="128"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="RfU-Dz-4ZO"/>
@@ -155,7 +155,7 @@
                                     <constraint firstAttribute="height" constant="40" id="W3D-FU-mnm"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" spellCheckingType="no"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Qk1-QO-VS0">
                                 <rect key="frame" x="175" y="257" width="282" height="30"/>
@@ -211,7 +211,7 @@
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lES-M7-sZs">
                                 <rect key="frame" x="215" y="475" width="180" height="36"/>
-                                <color key="backgroundColor" red="0.6588235294" green="0.75686274509999996" blue="0.87058823529999996" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.2981615762" green="0.74215316099999995" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="b7M-XN-wY1"/>
                                     <constraint firstAttribute="height" constant="40" id="vsD-MC-a63"/>
@@ -281,7 +281,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="comment" width="50" height="50"/>
-        <image name="week-icon" width="25" height="25"/>
+        <image name="logo_slogan" width="250" height="150"/>
     </resources>
 </document>

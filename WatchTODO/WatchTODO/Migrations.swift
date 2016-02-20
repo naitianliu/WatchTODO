@@ -33,6 +33,11 @@ class PerformMigrations {
                         newObject!["uuid"] = NSUUID().UUIDString
                     })
                 }
+                if (oldSchemaVersion < 7) {
+                    migration.enumerate(FriendModel.className(), { (oldObject, newObject) -> Void in
+                        newObject!["timestamp"] = DateTimeHelper().convertDateToEpoch(NSDate())!
+                    })
+                }
             }
         )
         Realm.Configuration.defaultConfiguration = config

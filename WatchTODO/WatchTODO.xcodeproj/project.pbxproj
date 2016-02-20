@@ -31,6 +31,8 @@
 		46B17DE01C758CE60006EEB3 /* Message.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 46B17DDF1C758CE60006EEB3 /* Message.storyboard */; };
 		46B17DE31C758D120006EEB3 /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B17DE21C758D120006EEB3 /* MessageViewController.swift */; };
 		46B17DE51C76726C0006EEB3 /* SortMessagesHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B17DE41C76726C0006EEB3 /* SortMessagesHelper.swift */; };
+		46B17DE91C77C2540006EEB3 /* ActionInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B17DE81C77C2540006EEB3 /* ActionInfoTableViewCell.swift */; };
+		46B17DEC1C77F9070006EEB3 /* NewMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B17DEB1C77F9070006EEB3 /* NewMessageTableViewCell.swift */; };
 		46B3DFF41C534A83002A6769 /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B3DFF31C534A83002A6769 /* FriendsViewController.swift */; };
 		46B3DFF61C547F3C002A6769 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B3DFF51C547F3C002A6769 /* Constant.swift */; };
 		46B3DFF81C547FB4002A6769 /* CallAPIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B3DFF71C547FB4002A6769 /* CallAPIHelper.swift */; };
@@ -115,6 +117,8 @@
 		46B17DDF1C758CE60006EEB3 /* Message.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Message.storyboard; sourceTree = "<group>"; };
 		46B17DE21C758D120006EEB3 /* MessageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageViewController.swift; sourceTree = "<group>"; };
 		46B17DE41C76726C0006EEB3 /* SortMessagesHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortMessagesHelper.swift; sourceTree = "<group>"; };
+		46B17DE81C77C2540006EEB3 /* ActionInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionInfoTableViewCell.swift; sourceTree = "<group>"; };
+		46B17DEB1C77F9070006EEB3 /* NewMessageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewMessageTableViewCell.swift; sourceTree = "<group>"; };
 		46B3DFF31C534A83002A6769 /* FriendsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsViewController.swift; sourceTree = "<group>"; };
 		46B3DFF51C547F3C002A6769 /* Constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		46B3DFF71C547FB4002A6769 /* CallAPIHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallAPIHelper.swift; sourceTree = "<group>"; };
@@ -217,6 +221,7 @@
 		46B17DDE1C758CC10006EEB3 /* Message */ = {
 			isa = PBXGroup;
 			children = (
+				46B17DEA1C77F7C10006EEB3 /* Views */,
 				46B17DE11C758CF70006EEB3 /* View Controllers */,
 				46B17DDF1C758CE60006EEB3 /* Message.storyboard */,
 			);
@@ -229,6 +234,14 @@
 				46B17DE21C758D120006EEB3 /* MessageViewController.swift */,
 			);
 			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		46B17DEA1C77F7C10006EEB3 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				46B17DEB1C77F9070006EEB3 /* NewMessageTableViewCell.swift */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 		46B3DFF21C534A5B002A6769 /* Friends */ = {
@@ -397,6 +410,7 @@
 				4600E6771C59E5380007696F /* RenderCommentView.swift */,
 				465DB0D81C5B029F00DAD91F /* ChatBubbleTableViewCell.swift */,
 				465DB0DC1C5B41C200DAD91F /* ChatBubbleTableViewCell2.swift */,
+				46B17DE81C77C2540006EEB3 /* ActionInfoTableViewCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -630,6 +644,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				46B17DEC1C77F9070006EEB3 /* NewMessageTableViewCell.swift in Sources */,
 				46EE9E0F1C4B485C0062D644 /* EditActionContentViewController.swift in Sources */,
 				46B17DD71C6725F50006EEB3 /* WatchAPIHelper.swift in Sources */,
 				46E98E9B1C559ABA00CE83EA /* FriendModel.swift in Sources */,
@@ -665,6 +680,7 @@
 				46E98EA31C55E48100CE83EA /* WatchItemDetailCommentTableViewCell.swift in Sources */,
 				46EE9E0D1C4B3BF70062D644 /* AddActionViewController.swift in Sources */,
 				46EE9E1E1C4C67BA0062D644 /* ProjectModel.swift in Sources */,
+				46B17DE91C77C2540006EEB3 /* ActionInfoTableViewCell.swift in Sources */,
 				46EE9E1C1C4C4F460062D644 /* ActionItemModel.swift in Sources */,
 				46B3DFF81C547FB4002A6769 /* CallAPIHelper.swift in Sources */,
 				4600E67C1C5AD5940007696F /* CommentModel.swift in Sources */,
@@ -824,9 +840,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = WatchTODO/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.naitianliu.WatchTODO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -837,9 +855,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = WatchTODO/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.naitianliu.WatchTODO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

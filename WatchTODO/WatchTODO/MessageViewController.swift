@@ -59,11 +59,7 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func reloadTable() {
-        self.messages = SortMessagesHelper().getUnsortedCommentMessages()
-        if FriendModelHelper().getPendingFriendList().count > 0 {
-            let friendMessage: [String: AnyObject] = ["type": "friend", "message": "Friend Invitation Updated"]
-            self.messages.insert(friendMessage, atIndex: 0)
-        }
+        self.messages = SortMessagesHelper().getTimeSortedMessages()
         tableView.reloadData()
     }
     
@@ -79,12 +75,22 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
         let messageDict = self.messages[indexPath.row]
         let type: String = messageDict["type"] as! String
         if type == "comment" {
-            let cell = tableView.dequeueReusableCellWithIdentifier("MessageNewMessageCell")!
+            let cell = tableView.dequeueReusableCellWithIdentifier("MessageNewMessageCell") as! NewMessageTableViewCell
             let commentDict = messageDict["latestComment"] as! [String: String]
             let commentMessage = commentDict["message"]!
             let actionId: String = commentDict["actionId"]!
-            cell.textLabel?.text = commentMessage
-            cell.detailTextLabel?.text = self.actionItemModelHelper.getActionContentByActionId(actionId)
+            let timestamp: String = commentDict["timestamp"]!
+            let nickname: String = commentDict["nickname"]!
+            let unreadCount: String = commentDict["unreadCount"]!
+            cell.messageLabel.text = commentMessage
+            cell.contentLabel.text = self.actionItemModelHelper.getActionContentByActionId(actionId)
+            cell.timeLabel.text = DateTimeHelper().convertEpochToHumanFriendlyTime(timestamp)
+            cell.nameLabel.text = nickname
+            if unreadCount == "0" {
+                cell.iconImageView.image = UIImage(named: "new_message")
+            } else {
+                cell.iconImageView.image = UIImage(named: "new_message_unread")
+            }
             return cell
         } else if type == "friend" {
             let cell = tableView.dequeueReusableCellWithIdentifier("MessageAddFriendCell")!
@@ -114,7 +120,15 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 60
+        let messageDict = self.messages[indexPath.row]
+        let type: String = messageDict["type"] as! String
+        if type == "comment" {
+            return 80
+        } else if type == "friend" {
+            return 60
+        } else {
+            return 60
+        }
     }
     
     func didReceiveCommentNotification(actionId: String) {

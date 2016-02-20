@@ -16,6 +16,7 @@ class FriendModel: Object {
     dynamic var profileImageURL: String = ""
     dynamic var pending: Bool = true
     dynamic var role: String = ""
+    dynamic var timestamp: String = ""
     
     override static func primaryKey() -> String {
         return "username"
@@ -23,6 +24,9 @@ class FriendModel: Object {
 }
 
 class FriendModelHelper {
+    
+    let timestampNow: String = DateTimeHelper().convertDateToEpoch(NSDate())!
+    
     init() {
         PerformMigrations().setDefaultRealmForUser()
     }
@@ -34,6 +38,7 @@ class FriendModelHelper {
         friend.username = username
         friend.nickname = nickname
         friend.pending = false
+        friend.timestamp = self.timestampNow
         do {
             let realm = try Realm()
             try realm.write({ () -> Void in
@@ -69,7 +74,8 @@ class FriendModelHelper {
                 let itemDict = [
                     "username": item.username,
                     "nickname": item.nickname,
-                    "role": item.role
+                    "role": item.role,
+                    "timestamp": item.timestamp
                 ]
                 friendList.append(itemDict)
             }
@@ -87,6 +93,7 @@ class FriendModelHelper {
         friend.nickname = nickname
         friend.pending = true
         friend.role = role
+        friend.timestamp = self.timestampNow
         do {
             let realm = try Realm()
             try realm.write({ () -> Void in
@@ -105,6 +112,7 @@ class FriendModelHelper {
         friend.nickname = nickname
         friend.role = "accepter"
         friend.pending = true
+        friend.timestamp = self.timestampNow
         do {
             let realm = try Realm()
             try realm.write({ () -> Void in
@@ -124,6 +132,7 @@ class FriendModelHelper {
         friend.nickname = nickname
         friend.role = "requester"
         friend.pending = false
+        friend.timestamp = self.timestampNow
         do {
             let realm = try Realm()
             try realm.write({ () -> Void in
@@ -140,6 +149,7 @@ class FriendModelHelper {
             let friendItem = realm.objectForPrimaryKey(FriendModel.self, key: username)
             try realm.write({ () -> Void in
                 friendItem?.setValue(false, forKeyPath: "pending")
+                friendItem?.setValue(self.timestampNow, forKeyPath: "timestamp")
             })
         } catch {
             print(error)

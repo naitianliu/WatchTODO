@@ -19,8 +19,6 @@ class ChatBubbleTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         self.nameLabel.font = UIFont.boldSystemFontOfSize(15)
-        self.bubbleView.layer.borderWidth = 1.0
-        self.bubbleView.layer.borderColor = UIColor.lightGrayColor().CGColor
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
