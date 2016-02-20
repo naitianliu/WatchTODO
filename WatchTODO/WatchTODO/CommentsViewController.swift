@@ -25,6 +25,7 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
     let kOFFSET_FOR_KEYBOARD:CGFloat = 20
     var keyboardFrame:CGRect = CGRect(x: 0, y: 0, width: 0, height: 0)
     var originViewFrame:CGRect!
+    var currentKeyboardHeight:CGFloat = 0
     
     var keyboardShown: Bool = false
     
@@ -122,6 +123,7 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
     
     func keyboardWillHidden(notification:NSNotification) {
         UIView.setAnimationsEnabled(false)
+        self.dismissKeyboard()
     }
     
     func keyboardDidHidden(notification:NSNotification) {
@@ -140,13 +142,14 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
         UIView.setAnimationsEnabled(false)
         UIView.animateWithDuration(0, animations: { () -> Void in
             var newFrame:CGRect = self.view.frame
-            newFrame.size.height -= self.keyboardFrame.size.height
+            newFrame.size.height -= self.keyboardFrame.size.height - self.currentKeyboardHeight
             self.view.frame = newFrame
             }) { (complete) -> Void in
                 if complete {
                     self.scrollTableViewToBottom(false)
                 }
         }
+        self.currentKeyboardHeight = self.keyboardFrame.size.height
         keyboardShown = true
     }
     
@@ -155,6 +158,7 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
         UIView.animateWithDuration(0) { () -> Void in
             self.view.frame = self.originViewFrame
         }
+        self.currentKeyboardHeight = 0
         keyboardShown = false
     }
     
