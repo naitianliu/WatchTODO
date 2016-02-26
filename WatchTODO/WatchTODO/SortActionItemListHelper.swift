@@ -78,7 +78,8 @@ class SortActionItemListHelper {
         return keyTitleDict
     }
     
-    func divideByDate(data: [[String: AnyObject]]) -> [String: [[String: AnyObject]]] {
+    func divideByDate(data: [[String: AnyObject]], category: String?) -> ([String: [[String: AnyObject]]], [String]) {
+        var keyList: [String] = []
         var newDateDictArray = Dictionary<String, [[String: AnyObject]]>()
         newDateDictArray["overdue"] = []
         newDateDictArray["weeklater"] = []
@@ -103,6 +104,26 @@ class SortActionItemListHelper {
                 }
             }
         }
-        return newDateDictArray
+        for dateString in self.getSectionKeyList(category) {
+            if newDateDictArray[dateString]?.count != 0 {
+                keyList.append(dateString)
+            }
+        }
+        return (newDateDictArray, keyList)
+    }
+    
+    func dividedByFriend(data: [[String: AnyObject]]) -> ([String: [[String: AnyObject]]], [String]) {
+        var newDictArray = Dictionary<String, [[String: AnyObject]]>()
+        var usernameArray: [String] = []
+        for itemDict in data {
+            let username: String = itemDict["username"] as! String
+            if newDictArray[username] == nil {
+                newDictArray[username] = [itemDict]
+                usernameArray.append(username)
+            } else {
+                newDictArray[username]?.append(itemDict)
+            }
+        }
+        return (newDictArray, usernameArray)
     }
 }

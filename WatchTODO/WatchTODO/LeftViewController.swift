@@ -17,6 +17,7 @@ class LeftViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     let cellIdentifier1 = "SelectionCell"
     let cellIdentifier2 = "ProjectCell"
+    let cellIdentifier3 = "AddNewProjectCell"
     
     let selectionList = [
         ["name": "Inbox", "icon": "inbox-icon"],
@@ -33,6 +34,7 @@ class LeftViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         self.navigationController?.navigationBar.translucent = false
         tableView.tableFooterView = UIView()
+        tableView.selectRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0), animated: false, scrollPosition: UITableViewScrollPosition.None)
         self.reloadProjects()
         
     }
@@ -83,23 +85,20 @@ class LeftViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
-            let cell = UITableViewCell(style: .Default, reuseIdentifier: cellIdentifier1)
+            let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier1)!
             let rowDict = selectionList[indexPath.row]
-            cell.textLabel?.text = rowDict["name"]
-            cell.imageView?.image = UIImage(named: rowDict["icon"]!)
+            cell.textLabel!.text = rowDict["name"]
+            cell.imageView!.image = UIImage(named: rowDict["icon"]!)
             return cell
         } else if indexPath.row < projects.count {
-            let cell = UITableViewCell(style: .Default, reuseIdentifier: cellIdentifier2)
+            let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier2)!
             let rowDict = projects[indexPath.row]
             let projectName: String = rowDict["name"]!
-            cell.textLabel?.text = projectName
-            cell.imageView?.image = UIImage(named: "inbox-icon")
+            cell.textLabel!.text = projectName
+            cell.imageView!.image = UIImage(named: "inbox-icon")
             return cell
         } else {
-            let cell = UITableViewCell(style: .Default, reuseIdentifier: "addProjectCell")
-            cell.imageView?.image = UIImage(named: "plus")
-            cell.textLabel?.text = "New"
-            cell.textLabel?.textColor = const_ThemeColor
+            let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier3)!
             return cell
         }
     }
@@ -113,7 +112,6 @@ class LeftViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
         let centerTC = appDelegate.drawerController.centerViewController as! MainTabBarController
         let todoNC = centerTC.myTodoListNC as MyTodoListNavigationController
         let todoVC = todoNC.viewControllers[0] as! MyTodoListViewController

@@ -122,7 +122,6 @@ class ActionItemModelHelper {
     
     func getFriendsPendingItems() -> [[String: AnyObject]] {
         let friendsMapDict = FriendModelHelper().getFriendsMapDict()
-        print(friendsMapDict)
         var pendingItems: [[String: AnyObject]] = []
         do {
             let realm = try Realm()

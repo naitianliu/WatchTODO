@@ -9,8 +9,9 @@
 import UIKit
 import Toast
 import CZPicker
+import DZNEmptyDataSet
 
-class MyTodoListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, AddActionVCDelegate, CZPickerViewDelegate, CZPickerViewDataSource {
+class MyTodoListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, AddActionVCDelegate, CZPickerViewDelegate, CZPickerViewDataSource, DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
     
     let colorP1: UIColor = UIColor.redColor()
     let colorP2: UIColor = UIColor.orangeColor()
@@ -47,10 +48,15 @@ class MyTodoListViewController: UIViewController, UITableViewDelegate, UITableVi
         friends = FriendModelHelper().getAllFriendList()
         
         selectedCategory = "today"
+        
+        tableView.emptyDataSetDelegate = self
+        tableView.emptyDataSetSource = self
+        
         self.setupDisplayItems()
         
         tableView.estimatedRowHeight = 120
         tableView.rowHeight = UITableViewAutomaticDimension
+        
         tableView.tableFooterView = UIView(frame: CGRect.zero)
         
         UpdateAPIHelper().getUpdatedInfo()
@@ -69,8 +75,9 @@ class MyTodoListViewController: UIViewController, UITableViewDelegate, UITableVi
         } else {
             data = actionItemModelHelper.getMyPendingItems(nil)
         }
-        dataDictArray = sortActionItemListHelper.divideByDate(data)
-        sectionKeyList = sortActionItemListHelper.getSectionKeyList(selectedCategory)
+        let dataTup = sortActionItemListHelper.divideByDate(data, category: selectedCategory)
+        dataDictArray = dataTup.0
+        sectionKeyList = dataTup.1
         sectionKeyTitleMapDict = sortActionItemListHelper.getSectionKeyTitleMappingDict(selectedCategory)
         tableView.reloadData()
     }
@@ -345,6 +352,8 @@ class MyTodoListViewController: UIViewController, UITableViewDelegate, UITableVi
         picker.delegate = self
         picker.dataSource = self
         picker.allowMultipleSelection = true
+        picker.headerBackgroundColor = const_ThemeColor
+        picker.confirmButtonBackgroundColor = const_ThemeColor
         let sectionKey = sectionKeyList[selectedCellIndexPath!.section]
         let dataArray: [[String: AnyObject]] = dataDictArray[sectionKey]!
         let actionId: String = dataArray[selectedCellIndexPath!.row]["uuid"] as! String
@@ -387,5 +396,15 @@ class MyTodoListViewController: UIViewController, UITableViewDelegate, UITableVi
             watchers.append(friends[row as! Int])
         }
         WatchAPIHelper().addWatchers(selectedActionId!, watchers: watchers)
+    }
+    
+    func imageForEmptyDataSet(scrollView: UIScrollView!) -> UIImage! {
+        return UIImage(named: "empty-check")
+    }
+    
+    func titleForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
+        let text: String = "No Pending Action"
+        let attributes: [String: AnyObject] = [NSFontAttributeName: UIFont.boldSystemFontOfSize(18), NSForegroundColorAttributeName: UIColor.darkGrayColor()]
+        return NSAttributedString(string: text, attributes: attributes)
     }
 }

@@ -48,6 +48,12 @@ class MainTabBarController: UITabBarController, MessageVCDelegate {
         
         self.viewControllers = [myTodoListNC, messageNC, watchNC, settingsNC]
         
+        let addButton = UIButton(type: UIButtonType.Custom)
+        addButton.frame = CGRect(x: 0, y: 200, width: 50, height: 50)
+        addButton.imageView?.image = UIImage(named: "plus")
+        addButton.backgroundColor = UIColor.redColor()
+        self.tabBar.addSubview(addButton)
+        
     }
 
     override func didReceiveMemoryWarning() {

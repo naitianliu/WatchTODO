@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Watch-->
+        <!--Watch View Controller-->
         <scene sceneID="CUe-5b-Wlt">
             <objects>
                 <viewController storyboardIdentifier="WatchViewController" automaticallyAdjustsScrollViewInsets="NO" id="j8w-qn-GdM" customClass="WatchViewController" customModule="WatchTODO" customModuleProvider="target" sceneMemberID="viewController">
@@ -21,7 +20,6 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="131" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="IcK-0L-fDQ">
                                 <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="sectionIndexBackgroundColor" red="0.92549019607843142" green="0.92549019607843142" blue="0.92549019607843142" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="WatchCell" rowHeight="131" id="ny3-g6-20a" customClass="WatchTableViewCell" customModule="WatchTODO" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="600" height="131"/>
@@ -64,11 +62,34 @@
                                                 <constraint firstItem="YYo-nK-wjO" firstAttribute="leading" secondItem="dTV-46-jid" secondAttribute="leadingMargin" constant="20" id="x5c-Eb-gXg"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.92549019610000005" green="0.92549019610000005" blue="0.92549019610000005" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <outlet property="contentLabel" destination="TNz-hK-4zI" id="drr-Ay-268"/>
                                             <outlet property="nameLabel" destination="YYo-nK-wjO" id="F6D-e8-578"/>
                                         </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="WatchByFriendCell" textLabel="WE1-6W-gcZ" detailTextLabel="UYX-Lu-egU" rowHeight="79" style="IBUITableViewCellStyleSubtitle" id="GZa-h4-kfB">
+                                        <rect key="frame" x="0.0" y="159" width="600" height="79"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GZa-h4-kfB" id="UXX-qF-lT7">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="78"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="WE1-6W-gcZ">
+                                                    <rect key="frame" x="15" y="22" width="32" height="20"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="UYX-Lu-egU">
+                                                    <rect key="frame" x="15" y="42" width="41" height="14"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -85,14 +106,29 @@
                             <constraint firstItem="IcK-0L-fDQ" firstAttribute="leading" secondItem="Tko-sB-dAQ" secondAttribute="leadingMargin" constant="-20" id="q01-Qb-h9M"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Watch" id="gbD-ln-gQy">
+                    <navigationItem key="navigationItem" id="gbD-ln-gQy">
+                        <nil key="title"/>
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="FRo-Ka-cT1">
+                            <rect key="frame" x="180" y="7" width="240" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segments>
+                                <segment title="Timeline"/>
+                                <segment title="Friend"/>
+                            </segments>
+                            <color key="tintColor" red="0.2981615762" green="0.74215316099999995" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="segmentedControlValueChanged:" destination="j8w-qn-GdM" eventType="valueChanged" id="xxS-71-zyd"/>
+                            </connections>
+                        </segmentedControl>
                         <barButtonItem key="rightBarButtonItem" image="friends" id="BHy-XA-vaV">
+                            <color key="tintColor" red="0.2981615762" green="0.74215316099999995" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <segue destination="8aP-HW-86a" kind="show" id="8fd-gf-gDU"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="segmentedControl" destination="FRo-Ka-cT1" id="xb8-fr-Gpy"/>
                         <outlet property="tableView" destination="IcK-0L-fDQ" id="2KJ-N7-54j"/>
                         <segue destination="N4L-Tq-Bga" kind="show" identifier="WatchFriendSegue" id="y1N-xZ-vMx"/>
                     </connections>

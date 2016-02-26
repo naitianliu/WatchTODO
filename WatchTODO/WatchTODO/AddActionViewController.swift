@@ -86,6 +86,7 @@ class AddActionViewController: UIViewController, UITableViewDataSource, UITableV
             let cell = UITableViewCell(style: .Value1, reuseIdentifier: "AddActionDefaultCell")
             cell.accessoryType = .DisclosureIndicator
             cell.textLabel?.text = "Project"
+            cell.imageView?.image = UIImage(named: "opened_folder")
             if let projectName = projectName {
                 cell.detailTextLabel?.text = projectName
             } else {
@@ -96,6 +97,7 @@ class AddActionViewController: UIViewController, UITableViewDataSource, UITableV
             let cell = UITableViewCell(style: .Value1, reuseIdentifier: "AddActionDefaultCell")
             cell.accessoryType = .DisclosureIndicator
             cell.textLabel?.text = "Defer Until"
+            cell.imageView?.image = UIImage(named: "calendar")
             if let tempDeferDate = deferDate {
                 cell.detailTextLabel?.text = DateTimeHelper().convertDateToStringMediumStyle(tempDeferDate)
             }
@@ -104,6 +106,7 @@ class AddActionViewController: UIViewController, UITableViewDataSource, UITableV
             let cell = UITableViewCell(style: .Value1, reuseIdentifier: "AddActionDefaultCell")
             cell.accessoryType = .DisclosureIndicator
             cell.textLabel?.text = "Due Date"
+            cell.imageView?.image = UIImage(named: "calendar")
             if let tempDueDate = dueDate {
                 cell.detailTextLabel?.text = DateTimeHelper().convertDateToStringMediumStyle(tempDueDate)
             }
@@ -122,6 +125,8 @@ class AddActionViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.reloadData()
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
         switch (indexPath.section, indexPath.row) {
         case (0, 0):
             // self.performSegueWithIdentifier("EditActionContentSegue", sender: nil)
@@ -180,9 +185,8 @@ class AddActionViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
-        print(text)
+        actionContent = textView.text
         if text == "\n" {
-            actionContent = textView.text
             textView.resignFirstResponder()
             return false
         }

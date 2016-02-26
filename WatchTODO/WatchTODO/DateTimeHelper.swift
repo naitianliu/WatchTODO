@@ -25,8 +25,13 @@ class DateTimeHelper {
     }
     
     func convertEpochToDate(epoch: String) -> NSDate {
-        let date: NSDate = NSDate(timeIntervalSince1970: NSTimeInterval(epoch)!)
-        return date
+        if epoch == "" {
+            let date: NSDate = NSDate()
+            return date
+        } else {
+            let date: NSDate = NSDate(timeIntervalSince1970: NSTimeInterval(epoch)!)
+            return date
+        }
     }
     
     func convertDateToStringMediumStyle(date: NSDate) -> String {
