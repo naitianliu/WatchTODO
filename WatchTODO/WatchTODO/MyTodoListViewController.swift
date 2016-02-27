@@ -11,7 +11,7 @@ import Toast
 import CZPicker
 import DZNEmptyDataSet
 
-class MyTodoListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, AddActionVCDelegate, CZPickerViewDelegate, CZPickerViewDataSource, DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
+class MyTodoListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CZPickerViewDelegate, CZPickerViewDataSource, DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
     
     let colorP1: UIColor = UIColor.redColor()
     let colorP2: UIColor = UIColor.orangeColor()
@@ -84,16 +84,6 @@ class MyTodoListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     @IBAction func showSideMenuButtonOnClick(sender: AnyObject) {
         appDelegate.drawerController.toggleDrawerSide(.Left, animated: true) { (complete) -> Void in
-            
-        }
-    }
-
-    @IBAction func addButtonOnClick(sender: AnyObject) {
-        let AddActionNC = self.storyboard?.instantiateViewControllerWithIdentifier("AddActionNavigationController") as! UINavigationController
-        AddActionNC.modalTransitionStyle = .CoverVertical
-        let AddActionVC = AddActionNC.viewControllers[0] as! AddActionViewController
-        AddActionVC.delegate = self
-        self.presentViewController(AddActionNC, animated: true) { () -> Void in
             
         }
     }
@@ -369,15 +359,6 @@ class MyTodoListViewController: UIViewController, UITableViewDelegate, UITableVi
         picker.setSelectedRows(selectedRows)
         picker.show()
         
-    }
-    
-    func didAddAction(actionContent: String?, projectId: String?, projectName: String?, dueDate: String?, deferDate: String?, priority: Int?) {
-        if let content = actionContent {
-            print("Add Action into db")
-            selectedCellIndexPath = nil
-            TodoListAPIHelper().addAction(content, projectId: projectId, projectName: projectName, dueDate: dueDate, deferDate: deferDate, priority: priority)
-            self.setupDisplayItems()
-        }
     }
     
     func numberOfRowsInPickerView(pickerView: CZPickerView!) -> Int {

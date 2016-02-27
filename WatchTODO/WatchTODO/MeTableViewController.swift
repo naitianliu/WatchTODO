@@ -17,7 +17,10 @@ class MeTableViewController: UITableViewController {
         ["icon": "complete-icon", "title": "Complete Actions"],
         ["icon": "calendar", "title": "Calendar"],
     ]
-
+    let settingsIconTitleArray = [
+        ["icon": "bell-icon", "title": "Notification"],
+        ["icon": "settings", "title": "Settings"],
+    ]
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -26,6 +29,7 @@ class MeTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -37,7 +41,7 @@ class MeTableViewController: UITableViewController {
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 2
+        return 3
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -46,6 +50,8 @@ class MeTableViewController: UITableViewController {
         case 0:
             return 1
         case 1:
+            return 2
+        case 2:
             return 2
         default:
             return 0
@@ -59,7 +65,10 @@ class MeTableViewController: UITableViewController {
             return 44
         }
     }
-
+    
+    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return nil
+    }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
@@ -70,8 +79,15 @@ class MeTableViewController: UITableViewController {
             return cell
         } else if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier2, forIndexPath: indexPath)
-            let icon: String = self.iconTitleArray[indexPath.row]["icon"]!
+            let icon: String = iconTitleArray[indexPath.row]["icon"]!
             let title: String = iconTitleArray[indexPath.row]["title"]!
+            cell.imageView?.image = UIImage(named: icon)
+            cell.textLabel?.text = title
+            return cell
+        } else if indexPath.section == 2 {
+            let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier2, forIndexPath: indexPath)
+            let icon: String = settingsIconTitleArray[indexPath.row]["icon"]!
+            let title: String = settingsIconTitleArray[indexPath.row]["title"]!
             cell.imageView?.image = UIImage(named: icon)
             cell.textLabel?.text = title
             return cell
@@ -81,6 +97,9 @@ class MeTableViewController: UITableViewController {
         }
     }
     
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
 
     /*
     // Override to support conditional editing of the table view.
