@@ -12,6 +12,8 @@ import CNPPopupController
 import SVPullToRefresh
 
 class WatchViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, WatchAPIHelperDelegate {
+    
+    let cellIdentifier_WatchUpdate = "WatchUpdateCell"
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
@@ -22,7 +24,10 @@ class WatchViewController: UIViewController, UITableViewDelegate, UITableViewDat
     var dataDictArray: [String: [[String: AnyObject]]]!
     var usernameList: [String] = []
     
+    var data0: [[String: AnyObject]] = []
+    
     let actionItemModelHelper = ActionItemModelHelper(me: false)
+    let updateModelHelper = UpdateModelHelper()
     let watchAPIHelper = WatchAPIHelper()
     
     var selectedActionId: String?
@@ -32,8 +37,8 @@ class WatchViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         self.watchAPIHelper.delegate = self
         
-        self.segmentedControl.selectedSegmentIndex = 1
-
+        self.segmentedControl.selectedSegmentIndex = 0
+        
         tableView.estimatedRowHeight = 44
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.tableFooterView = UIView()
@@ -55,62 +60,103 @@ class WatchViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     @IBAction func segmentedControlValueChanged(sender: AnyObject) {
-        
+        self.reloadTable()
     }
     
     func reloadTable() {
-        data = self.actionItemModelHelper.getFriendsPendingItems()
-        let resultTup = SortActionItemListHelper().dividedByFriend(data)
-        dataDictArray = resultTup.0
-        usernameList = resultTup.1
+        if self.segmentedControl.selectedSegmentIndex == 0 {
+            data0 = self.updateModelHelper.getUpdateList()
+        } else {
+            data = self.actionItemModelHelper.getFriendsPendingItems()
+            let resultTup = SortActionItemListHelper().dividedByFriend(data)
+            dataDictArray = resultTup.0
+            usernameList = resultTup.1
+        }
         tableView.reloadData()
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return self.usernameList.count
+        if self.segmentedControl.selectedSegmentIndex == 0 {
+            return 1
+        } else {
+            return self.usernameList.count
+        }
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let username = self.usernameList[section]
-        let itemArray: [[String: AnyObject]] = self.dataDictArray[username]!
-        return itemArray.count
+        if self.segmentedControl.selectedSegmentIndex == 0 {
+            return data0.count
+        } else {
+            let username = self.usernameList[section]
+            let itemArray: [[String: AnyObject]] = self.dataDictArray[username]!
+            return itemArray.count
+        }
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let username = self.usernameList[indexPath.section]
-        let itemArray: [[String: AnyObject]] = self.dataDictArray[username]!
-        let rowDict = itemArray[indexPath.row]
-        let content = rowDict["content"] as! String
-        let status = rowDict["status"] as! Int
-        
-        let cell = tableView.dequeueReusableCellWithIdentifier("WatchByFriendCell")!
-        cell.textLabel!.text = content
-        switch status {
-        case 0:
-            cell.imageView?.image = UIImage(named: "dot-gray")
-            break
-        case 1:
-            cell.imageView?.image = UIImage(named: "dot-yellow")
-            break
-        case 2:
-            cell.imageView?.image = UIImage(named: "dot-green")
-            break
-        default:
-            break
+        if self.segmentedControl.selectedSegmentIndex == 0 {
+            let rowDict: [String: AnyObject] = self.data0[indexPath.row]
+            let actionId: String = rowDict["actionId"] as! String
+            let timestamp: String = rowDict["timestamp"] as! String
+            let code: String = rowDict["code"] as! String
+            let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier_WatchUpdate) as! WatchUpdateTableViewCell
+            if let actionInfo = self.actionItemModelHelper.getActionInfoByActionId(actionId) {
+                cell.actionContentLabel.text = actionInfo["content"] as? String
+                cell.creatorLabel.text = actionInfo["nickname"] as? String
+                let priority: Int = actionInfo["priority"] as! Int
+                cell.priority = priority
+            }
+            cell.nameLabel.text = rowDict["updatedBy"] as? String
+            cell.updateLabel.text = rowDict["message"] as? String
+            cell.code = code
+            cell.timeLabel.text = DateTimeHelper().convertEpochToHumanFriendlyTime(timestamp)
+            return cell
+        } else {
+            let username = self.usernameList[indexPath.section]
+            let itemArray: [[String: AnyObject]] = self.dataDictArray[username]!
+            let rowDict = itemArray[indexPath.row]
+            let content = rowDict["content"] as! String
+            let status = rowDict["status"] as! Int
+            let cell = tableView.dequeueReusableCellWithIdentifier("WatchByFriendCell")!
+            cell.textLabel!.text = content
+            switch status {
+            case 0:
+                cell.imageView?.image = UIImage(named: "dot-gray")
+                break
+            case 1:
+                cell.imageView?.image = UIImage(named: "dot-yellow")
+                break
+            case 2:
+                cell.imageView?.image = UIImage(named: "dot-green")
+                break
+            default:
+                break
+            }
+            return cell
         }
-        return cell
     }
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return self.usernameList[section]
+        if self.segmentedControl.selectedSegmentIndex == 0 {
+            return nil
+        } else {
+            return self.usernameList[section]
+        }
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        let rowDict = data[indexPath.row]
-        print(rowDict)
-        let actionId = rowDict["uuid"] as! String
-        selectedActionId = actionId
+        if self.segmentedControl.selectedSegmentIndex == 0 {
+            let rowDict: [String: AnyObject] = self.data0[indexPath.row]
+            let actionId: String = rowDict["actionId"] as! String
+            selectedActionId = actionId
+        } else {
+            let username = self.usernameList[indexPath.section]
+            let itemArray: [[String: AnyObject]] = self.dataDictArray[username]!
+            let rowDict = itemArray[indexPath.row]
+            let actionId = rowDict["uuid"] as! String
+            selectedActionId = actionId
+        }
         let todoListStoryboard = UIStoryboard(name: "MyTodoList", bundle: nil)
         let commentsVC = todoListStoryboard.instantiateViewControllerWithIdentifier("CommentsViewController") as! CommentsViewController
         commentsVC.actionId = selectedActionId!

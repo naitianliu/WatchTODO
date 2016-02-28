@@ -171,4 +171,27 @@ class ActionItemModelHelper {
         }
         return actionContent
     }
+    
+    func getActionInfoByActionId(actionId: String) -> [String: AnyObject]? {
+        let friendsMapDict = FriendModelHelper().getFriendsMapDict()
+        do {
+            let realm = try Realm()
+            let item = realm.objectForPrimaryKey(ActionItemModel.self, key: actionId)!
+            let actionInfo: [String: AnyObject] = [
+                "content": item.content,
+                "projectId": item.projectId,
+                "projectName": item.projectName,
+                "dueDate": item.dueDate,
+                "deferDate": item.deferDate,
+                "priority": item.priority,
+                "status": item.status,
+                "everyday": item.everyday,
+                "username": item.username,
+                "nickname": friendsMapDict[item.username]!
+            ]
+            return actionInfo
+        } catch {
+            return nil
+        }
+    }
 }

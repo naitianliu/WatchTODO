@@ -37,17 +37,20 @@ class MainTabBarController: UITabBarController, MessageVCDelegate, AddActionVCDe
         messageNC = messageStoryboard.instantiateViewControllerWithIdentifier("MessageNavigationController") as! UINavigationController
         messageNC.tabBarItem.title = "Message"
         messageNC.tabBarItem.image = UIImage(named: "tab_message")
+        messageNC.tabBarItem.selectedImage = UIImage(named: "tab_message_selected")
         let messageVC = messageNC.viewControllers[0] as! MessageViewController
         messageVC.delegate = self
         messageVC.appDelegate.apnsDelegate = messageVC.self
         
         watchNC = watchStoryboard.instantiateViewControllerWithIdentifier("WatchNavigationController") as! UINavigationController
         watchNC.tabBarItem.title = "Watch"
-        watchNC.tabBarItem.image = UIImage(named: "tab_watch")
+        watchNC.tabBarItem.image = UIImage(named: "tab_eye")
+        watchNC.tabBarItem.selectedImage = UIImage(named: "tab_eye_selected")
         
         settingsNC = settingsStoryboard.instantiateViewControllerWithIdentifier("SettingsNavigationController") as! UINavigationController
-        settingsNC.tabBarItem.title = "Settings"
-        settingsNC.tabBarItem.image = UIImage(named: "tab_settings")
+        settingsNC.tabBarItem.title = "Me"
+        settingsNC.tabBarItem.image = UIImage(named: "tab_profile")
+        settingsNC.tabBarItem.selectedImage = UIImage(named: "tab_profile_selected")
         
         let emptyVC = UIViewController()
         emptyVC.tabBarItem.enabled = false
