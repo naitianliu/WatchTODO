@@ -44,6 +44,9 @@
 		46E6C5871C8023BC00A6C416 /* MeInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E6C5861C8023BC00A6C416 /* MeInfoTableViewCell.swift */; };
 		46E6C5891C82899300A6C416 /* WatchUpdateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E6C5881C82899300A6C416 /* WatchUpdateTableViewCell.swift */; };
 		46E6C58B1C82BC1400A6C416 /* UpdateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E6C58A1C82BC1400A6C416 /* UpdateModel.swift */; };
+		46E6C58E1C83A20400A6C416 /* DropdownActionInfoViewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E6C58D1C83A20400A6C416 /* DropdownActionInfoViewHelper.swift */; };
+		46E6C5901C83B44600A6C416 /* WatchByFriendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E6C58F1C83B44600A6C416 /* WatchByFriendTableViewCell.swift */; };
+		46E6C5921C83C3CE00A6C416 /* FriendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E6C5911C83C3CE00A6C416 /* FriendTableViewCell.swift */; };
 		46E98E9B1C559ABA00CE83EA /* FriendModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E98E9A1C559ABA00CE83EA /* FriendModel.swift */; };
 		46E98E9D1C55DA3B00CE83EA /* WatchItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E98E9C1C55DA3B00CE83EA /* WatchItemDetailViewController.swift */; };
 		46E98E9F1C55DAEE00CE83EA /* WatchFriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E98E9E1C55DAEE00CE83EA /* WatchFriendViewController.swift */; };
@@ -133,6 +136,9 @@
 		46E6C5861C8023BC00A6C416 /* MeInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeInfoTableViewCell.swift; sourceTree = "<group>"; };
 		46E6C5881C82899300A6C416 /* WatchUpdateTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchUpdateTableViewCell.swift; sourceTree = "<group>"; };
 		46E6C58A1C82BC1400A6C416 /* UpdateModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateModel.swift; sourceTree = "<group>"; };
+		46E6C58D1C83A20400A6C416 /* DropdownActionInfoViewHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropdownActionInfoViewHelper.swift; sourceTree = "<group>"; };
+		46E6C58F1C83B44600A6C416 /* WatchByFriendTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchByFriendTableViewCell.swift; sourceTree = "<group>"; };
+		46E6C5911C83C3CE00A6C416 /* FriendTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendTableViewCell.swift; sourceTree = "<group>"; };
 		46E98E9A1C559ABA00CE83EA /* FriendModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendModel.swift; sourceTree = "<group>"; };
 		46E98E9C1C55DA3B00CE83EA /* WatchItemDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchItemDetailViewController.swift; sourceTree = "<group>"; };
 		46E98E9E1C55DAEE00CE83EA /* WatchFriendViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchFriendViewController.swift; sourceTree = "<group>"; };
@@ -221,6 +227,8 @@
 				46E98EA01C55DF1700CE83EA /* WatchItemDetailContentTableViewCell.swift */,
 				46E98EA21C55E48100CE83EA /* WatchItemDetailCommentTableViewCell.swift */,
 				46E6C5881C82899300A6C416 /* WatchUpdateTableViewCell.swift */,
+				46E6C58F1C83B44600A6C416 /* WatchByFriendTableViewCell.swift */,
+				46E6C5911C83C3CE00A6C416 /* FriendTableViewCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -276,6 +284,14 @@
 				46E6C5861C8023BC00A6C416 /* MeInfoTableViewCell.swift */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		46E6C58C1C83A1C300A6C416 /* DropdownActionInfoView */ = {
+			isa = PBXGroup;
+			children = (
+				46E6C58D1C83A20400A6C416 /* DropdownActionInfoViewHelper.swift */,
+			);
+			name = DropdownActionInfoView;
 			sourceTree = "<group>";
 		};
 		46EE9DB51C4ADDDA0062D644 = {
@@ -418,6 +434,7 @@
 		46EE9E131C4B56680062D644 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				46E6C58C1C83A1C300A6C416 /* DropdownActionInfoView */,
 				46EE9E161C4B58970062D644 /* AddActionContentTableViewCell1.swift */,
 				46EE9E181C4C2A8C0062D644 /* TodoActionItemTableViewCell.swift */,
 				4600E66F1C5721110007696F /* AddActionContentTableViewCell.swift */,
@@ -682,10 +699,13 @@
 				46E6C5871C8023BC00A6C416 /* MeInfoTableViewCell.swift in Sources */,
 				46EE9E271C4DA4260062D644 /* SortActionItemListHelper.swift in Sources */,
 				46EE9E221C4C7DA20062D644 /* SelectProjectViewController.swift in Sources */,
+				46E6C58E1C83A20400A6C416 /* DropdownActionInfoViewHelper.swift in Sources */,
 				46EE9E191C4C2A8C0062D644 /* TodoActionItemTableViewCell.swift in Sources */,
 				46B3E0071C54ABF8002A6769 /* AddFriendViewController.swift in Sources */,
 				4600E6781C59E5380007696F /* RenderCommentView.swift in Sources */,
 				46B3DFFB1C548415002A6769 /* LoginViewController.swift in Sources */,
+				46E6C5901C83B44600A6C416 /* WatchByFriendTableViewCell.swift in Sources */,
+				46E6C5921C83C3CE00A6C416 /* FriendTableViewCell.swift in Sources */,
 				46EE9E091C4B26870062D644 /* MyTodoListNavigationController.swift in Sources */,
 				465B55ED1C61270500C75FC9 /* ProjectAPIHelper.swift in Sources */,
 				46B3DFFF1C5486A5002A6769 /* UserDefaultsHelper.swift in Sources */,

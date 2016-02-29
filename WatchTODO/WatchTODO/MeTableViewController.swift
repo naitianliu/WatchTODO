@@ -21,6 +21,9 @@ class MeTableViewController: UITableViewController {
         ["icon": "bell-icon", "title": "Notification"],
         ["icon": "settings", "title": "Settings"],
     ]
+    
+    var countNumberDict = ActionItemModelHelper(me: true).countNumber()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -30,6 +33,12 @@ class MeTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        countNumberDict = ActionItemModelHelper(me: true).countNumber()
+        self.tableView.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -77,9 +86,9 @@ class MeTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier1, forIndexPath: indexPath) as! MeInfoTableViewCell
-            cell.label1.text = "12"
-            cell.label2.text = "4"
-            cell.label3.text = "200"
+            cell.label1.text = self.countNumberDict["0"]
+            cell.label2.text = self.countNumberDict["1"]
+            cell.label3.text = self.countNumberDict["2"]
             return cell
         } else if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier2, forIndexPath: indexPath)

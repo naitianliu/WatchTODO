@@ -9,6 +9,7 @@
 import UIKit
 import ActionSheetPicker_3_0
 import DateTools
+import Toast
 
 protocol AddActionVCDelegate {
     func didAddAction(actionContent:String?, projectId:String?, projectName:String?, dueDate:String?, deferDate:String?, priority: Int?)
@@ -48,12 +49,18 @@ class AddActionViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     @IBAction func addButtonOnClick(sender: AnyObject) {
-        let dueDateEpoch: String? = DateTimeHelper().convertDateToEpoch(dueDate)
-        let deferDateEpoch: String? = DateTimeHelper().convertDateToEpoch(deferDate)
-        delegate?.didAddAction(actionContent, projectId: projectId, projectName: projectName, dueDate: dueDateEpoch, deferDate: deferDateEpoch, priority: priority)
-        self.dismissViewControllerAnimated(true) { () -> Void in
-            
+        if actionContent != nil && actionContent != "" {
+            let dueDateEpoch: String? = DateTimeHelper().convertDateToEpoch(dueDate)
+            let deferDateEpoch: String? = DateTimeHelper().convertDateToEpoch(deferDate)
+            delegate?.didAddAction(actionContent, projectId: projectId, projectName: projectName, dueDate: dueDateEpoch, deferDate: deferDateEpoch, priority: priority)
+            self.dismissViewControllerAnimated(true) { () -> Void in
+                
+            }
+        } else {
+            let message = "Empty content is not allowed."
+            self.view.makeToast(message, duration: 3.0, position: CSToastPositionCenter)
         }
+        
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -193,12 +200,20 @@ class AddActionViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
-        actionContent = textView.text
         if text == "\n" {
+            actionContent = textView.text
             textView.resignFirstResponder()
             return false
         }
         return true
+    }
+    
+    func textViewDidChange(textView: UITextView) {
+        actionContent = textView.text
+    }
+    
+    func textViewDidEndEditing(textView: UITextView) {
+        actionContent = textView.text
     }
     
     func didEditActionContent(content: String) {

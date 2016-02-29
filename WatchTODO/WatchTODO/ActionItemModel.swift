@@ -194,4 +194,27 @@ class ActionItemModelHelper {
             return nil
         }
     }
+    
+    func countNumber() -> [String: String] {
+        do {
+            let realm = try Realm()
+            let initiatedCount = realm.objects(ActionItemModel).filter("status = 0 AND me = true").count
+            let pendingCount = realm.objects(ActionItemModel).filter("status = 1 AND me = true").count
+            let completeCount = realm.objects(ActionItemModel).filter("status = 2 AND me = true").count
+            let countNumberDict = [
+                "0": String(initiatedCount),
+                "1": String(pendingCount),
+                "2": String(completeCount)
+            ]
+            return countNumberDict
+        } catch {
+            print(error)
+            let countNumberDict = [
+                "0": "0",
+                "1": "0",
+                "2": "0"
+            ]
+            return countNumberDict
+        }
+    }
 }

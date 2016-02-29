@@ -37,9 +37,9 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("comment view did load")
-        
         self.navigationController?.navigationBar.translucent = false
+        
+        self.navigationItem.title = "\(myUsername!)'s"
         
         CommentModelHelper().setReadByActionId(actionId)
         

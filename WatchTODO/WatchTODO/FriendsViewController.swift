@@ -43,6 +43,7 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.definesPresentationContext = true
         
         friendTableView.tableFooterView = UIView()
+        friendTableView.estimatedRowHeight = 200
         
         self.reloadTable()
         
@@ -88,32 +89,34 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return UITableViewAutomaticDimension
+    }
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "FriendCell")
+        let cell = tableView.dequeueReusableCellWithIdentifier("FriendCell") as! FriendTableViewCell
         if pendingFriends.count == 0 {
             let rowDict = friends[indexPath.row]
             let username = rowDict["username"]!
             let nickname = rowDict["nickname"]!
-            cell.textLabel?.text = nickname
-            cell.detailTextLabel?.text = username
+            cell.nicknameLabel.text = nickname
+            cell.usernameLabel.text = username
         } else {
             if indexPath.section == 0 {
                 let rowDict = pendingFriends[indexPath.row]
                 // let username = rowDict["username"]!
                 let nickname = rowDict["nickname"]!
-                let role = rowDict["role"]!
-                cell.textLabel?.text = nickname
-                if role == "accepter" {
-                    cell.detailTextLabel?.text = "Waiting for his action"
-                } else {
-                    cell.detailTextLabel?.text = "Need your action to accept"
-                }
+                let username = rowDict["username"]!
+                cell.nicknameLabel.text = nickname
+                cell.usernameLabel.text = username
+                cell.status = "waiting"
             } else {
                 let rowDict = friends[indexPath.row]
                 let username = rowDict["username"]!
                 let nickname = rowDict["nickname"]!
-                cell.textLabel?.text = nickname
-                cell.detailTextLabel?.text = username
+                cell.nicknameLabel.text = nickname
+                cell.usernameLabel.text = username
+                cell.status = "connected"
             }
         }
         return cell

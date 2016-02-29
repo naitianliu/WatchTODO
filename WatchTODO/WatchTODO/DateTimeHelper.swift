@@ -81,6 +81,12 @@ class DateTimeHelper {
         }
         return result
     }
+    
+    func convertEpochToHumanFriendlyDay(epoch: String) -> String {
+        let date = self.convertEpochToDate(epoch)
+        let dayString = self.convertDateToStringMediumStyle(date)
+        return dayString
+    }
 }
 
 

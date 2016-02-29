@@ -14,6 +14,7 @@ import SVPullToRefresh
 class WatchViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, WatchAPIHelperDelegate {
     
     let cellIdentifier_WatchUpdate = "WatchUpdateCell"
+    let cellIdentifier_WatchByFriend = "WatchByFriendCell"
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
@@ -117,21 +118,13 @@ class WatchViewController: UIViewController, UITableViewDelegate, UITableViewDat
             let rowDict = itemArray[indexPath.row]
             let content = rowDict["content"] as! String
             let status = rowDict["status"] as! Int
-            let cell = tableView.dequeueReusableCellWithIdentifier("WatchByFriendCell")!
-            cell.textLabel!.text = content
-            switch status {
-            case 0:
-                cell.imageView?.image = UIImage(named: "dot-gray")
-                break
-            case 1:
-                cell.imageView?.image = UIImage(named: "dot-yellow")
-                break
-            case 2:
-                cell.imageView?.image = UIImage(named: "dot-green")
-                break
-            default:
-                break
-            }
+            let priority = rowDict["priority"] as! Int
+            let dueDate = rowDict["dueDate"] as! String
+            let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier_WatchByFriend) as! WatchByFriendTableViewCell
+            cell.actionContentLabel.text = content
+            cell.dateLabel.text = DateTimeHelper().convertEpochToHumanFriendlyDay(dueDate)
+            cell.status = status
+            cell.priority = priority
             return cell
         }
     }
