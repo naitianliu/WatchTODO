@@ -29,6 +29,8 @@ class MainTabBarController: UITabBarController, MessageVCDelegate, AddActionVCDe
         
         self.tabBar.tintColor = const_ThemeColor
         
+        UINavigationBar.appearance().tintColor = const_ThemeColor
+        
         myTodoListNC = myTodoListStoryboard.instantiateViewControllerWithIdentifier("MyTodoListNavigationController") as! MyTodoListNavigationController
         myTodoListNC.tabBarItem.title = "My Todo List"
         myTodoListNC.tabBarItem.image = UIImage(named: "tab_todo_list")
@@ -118,11 +120,11 @@ class MainTabBarController: UITabBarController, MessageVCDelegate, AddActionVCDe
         }
     }
     
-    func didAddAction(actionContent: String?, projectId: String?, projectName: String?, dueDate: String?, deferDate: String?, priority: Int?) {
+    func didAddAction(actionContent: String?, projectId: String?, projectName: String?, dueDate: String?, deferDate: String?, priority: Int?, watchers: [String]) {
         if let content = actionContent {
             print("Add Action into db")
             self.myTodoListVC.selectedCellIndexPath = nil
-            TodoListAPIHelper().addAction(content, projectId: projectId, projectName: projectName, dueDate: dueDate, deferDate: deferDate, priority: priority)
+            TodoListAPIHelper().addAction(content, projectId: projectId, projectName: projectName, dueDate: dueDate, deferDate: deferDate, priority: priority, watchers: watchers)
             self.myTodoListVC.setupDisplayItems()
         }
     }

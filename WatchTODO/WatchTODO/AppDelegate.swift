@@ -102,7 +102,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginVCDelegate {
         self.window?.rootViewController = drawerController
         UIApplication.sharedApplication().registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [.Badge, .Alert, .Sound], categories: nil))
         UIApplication.sharedApplication().registerForRemoteNotifications()
-        ProjectAPIHelper().initiateDefaultProjects()
+        ProjectAPIHelper().getAllProjects()
         SyncHelper().syncAfterLogin()
     }
 

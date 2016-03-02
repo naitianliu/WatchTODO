@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LeftViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class LeftViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, AddProjectVCDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var todayCompleteView: UIView!
@@ -95,10 +95,12 @@ class LeftViewController: UIViewController, UITableViewDelegate, UITableViewData
             let rowDict = projects[indexPath.row]
             let projectName: String = rowDict["name"]!
             cell.textLabel!.text = projectName
-            cell.imageView!.image = UIImage(named: "inbox-icon")
+            cell.imageView!.image = UIImage(named: "folder-icon")
             return cell
         } else {
             let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier3)!
+            cell.textLabel?.text = "Add Project"
+            cell.imageView?.image = UIImage(named: "plus-white")
             return cell
         }
     }
@@ -112,6 +114,7 @@ class LeftViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
         let centerTC = appDelegate.drawerController.centerViewController as! MainTabBarController
         let todoNC = centerTC.myTodoListNC as MyTodoListNavigationController
         let todoVC = todoNC.viewControllers[0] as! MyTodoListViewController
@@ -136,27 +139,23 @@ class LeftViewController: UIViewController, UITableViewDelegate, UITableViewData
             appDelegate.drawerController.closeDrawerAnimated(true) { (complete) -> Void in
                 
             }
-        } else {
-            self.showAddNewProjectAlertController()
+        } else if indexPath.row == projects.count {
+            self.presentAddNewProjectVC()
         }
         
     }
     
-    private func showAddNewProjectAlertController() {
-        let alertController = UIAlertController(title: "Create New Project", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-        alertController.addTextFieldWithConfigurationHandler { (textField) -> Void in
-            textField.placeholder = "Project Name"
+    private func presentAddNewProjectVC() {
+        let addProjectNC = self.storyboard?.instantiateViewControllerWithIdentifier("AddProjectNavigationController") as! UINavigationController
+        addProjectNC.modalTransitionStyle = .CoverVertical
+        let addProjectVC = addProjectNC.viewControllers[0] as! AddProjectViewController
+        addProjectVC.delegate = self
+        self.presentViewController(addProjectNC, animated: true) { () -> Void in
+            
         }
-        let actionConfirm = UIAlertAction(title: "Logout", style: UIAlertActionStyle.Default) { (action) -> Void in
-            let projectName = alertController.textFields![0].text
-            if let tempProjectName = projectName {
-                ProjectAPIHelper().addProject(tempProjectName)
-                self.reloadProjects()
-            }
-        }
-        let actionCancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil)
-        alertController.addAction(actionConfirm)
-        alertController.addAction(actionCancel)
-        self.presentViewController(alertController, animated: true, completion: nil)
+    }
+    
+    func didAddNewProject() {
+        self.reloadProjects()
     }
 }

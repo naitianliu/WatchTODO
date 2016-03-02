@@ -12,7 +12,6 @@ class WatcherModel: Object {
     
     dynamic var actionId: String = ""
     dynamic var username: String = ""
-    dynamic var nickname: String = ""
     
 }
 
@@ -21,34 +20,25 @@ class WatcherModelHelper {
         PerformMigrations().setDefaultRealmForUser()
     }
     
-    func addUpdateWatchers(actionId: String, watchers: [[String: String]]) {
+    func addUpdateWatchers(actionId: String, watchers: [String]) {
         do {
-            var mapDict = [String: String]()
-            var watcherUsernames: [String] = []
-            for watcherDict in watchers {
-                let username = watcherDict["username"]!
-                let nickname = watcherDict["nickname"]!
-                watcherUsernames.append(username)
-                mapDict[username] = nickname
-            }
-            var duplicatedWatcherUsernames: [String] = []
+            var duplicatedWatchers: [String] = []
             let realm = try Realm()
             for item in realm.objects(WatcherModel).filter("actionId = '\(actionId)'") {
                 let username = item.username
-                if watcherUsernames.contains(username) {
-                    duplicatedWatcherUsernames.append(username)
+                if watchers.contains(username) {
+                    duplicatedWatchers.append(username)
                 } else {
                     try realm.write({ () -> Void in
                         realm.delete(item)
                     })
                 }
             }
-            let newWatcherUsernames: [String] = Array(Set(watcherUsernames).subtract(Set(duplicatedWatcherUsernames)))
-            for username in newWatcherUsernames {
+            let newWatchers: [String] = Array(Set(watchers).subtract(Set(duplicatedWatchers)))
+            for username in newWatchers {
                 let newWatcher = WatcherModel()
-                newWatcher.actionId = actionId
                 newWatcher.username = username
-                newWatcher.nickname = mapDict[username]!
+                newWatcher.actionId = actionId
                 try realm.write({ () -> Void in
                     realm.add(newWatcher)
                 })
@@ -58,29 +48,16 @@ class WatcherModelHelper {
         }
     }
     
-    func getWatchers(actionId: String) -> [[String: String]] {
-        var watchers: [[String: String]] = []
+    func getWatchers(actionId: String) -> [String] {
+        var watchers: [String] = []
         do {
             let realm = try Realm()
             for item in realm.objects(WatcherModel).filter("actionId = '\(actionId)'") {
-                let itemDict = [
-                    "username": item.username,
-                    "nickname": item.nickname
-                ]
-                watchers.append(itemDict)
+                watchers.append(item.username)
             }
         } catch {
             print(error)
         }
         return watchers
-    }
-    
-    func getWatcherUsernames(actionId: String) -> [String] {
-        var watcherUsernames: [String] = []
-        for itemDict in self.getWatchers(actionId) {
-            let username = itemDict["username"]!
-            watcherUsernames.append(username)
-        }
-        return watcherUsernames
     }
 }

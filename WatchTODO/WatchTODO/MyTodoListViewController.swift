@@ -190,10 +190,10 @@ class MyTodoListViewController: UIViewController, UITableViewDelegate, UITableVi
             cell.updateButton.setBackgroundImage(UIImage(named: "unchecked"), forState: .Normal)
             break
         case 1:
-            cell.updateButton.setBackgroundImage(UIImage(named: "inprogress"), forState: .Normal)
+            cell.updateButton.setBackgroundImage(UIImage(named: "update-progress"), forState: .Normal)
             break
         case 2:
-            cell.updateButton.setBackgroundImage(UIImage(named: "checked"), forState: .Normal)
+            cell.updateButton.setBackgroundImage(UIImage(named: "update-complete"), forState: .Normal)
             break
         default:
             break
@@ -347,7 +347,7 @@ class MyTodoListViewController: UIViewController, UITableViewDelegate, UITableVi
         let sectionKey = sectionKeyList[selectedCellIndexPath!.section]
         let dataArray: [[String: AnyObject]] = dataDictArray[sectionKey]!
         let actionId: String = dataArray[selectedCellIndexPath!.row]["uuid"] as! String
-        let watcherUsernames: [String] = WatcherModelHelper().getWatcherUsernames(actionId)
+        let watcherUsernames: [String] = WatcherModelHelper().getWatchers(actionId)
         selectedActionId = actionId
         var selectedRows: [Int] = []
         for (var i=0; i<self.friends.count; i++) {
@@ -372,11 +372,11 @@ class MyTodoListViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func czpickerView(pickerView: CZPickerView!, didConfirmWithItemsAtRows rows: [AnyObject]!) {
-        var watchers: [[String: String]] = []
+        var watcherArray: [String] = []
         for row in rows {
-            watchers.append(friends[row as! Int])
+            watcherArray.append(friends[row as! Int]["username"]!)
         }
-        WatchAPIHelper().addWatchers(selectedActionId!, watchers: watchers)
+        WatchAPIHelper().addWatchers(selectedActionId!, watchers: watcherArray)
     }
     
     func imageForEmptyDataSet(scrollView: UIScrollView!) -> UIImage! {

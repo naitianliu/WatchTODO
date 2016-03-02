@@ -9,7 +9,7 @@
 import UIKit
 
 protocol SelectProjectVCDelegate {
-    func didSelectProject(projectId:String, projectName:String)
+    func didSelectProject(projectId:String, projectName:String, watchers: [String])
 }
 
 class SelectProjectViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, AddProjectVCDelegate {
@@ -56,11 +56,17 @@ class SelectProjectViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .Default, reuseIdentifier: "SelectProjectCell")
+        let cell = UITableViewCell(style: .Value1, reuseIdentifier: "SelectProjectCell")
         if indexPath.section == 0 {
+            cell.imageView?.image = UIImage(named: "inbox-blue")
             cell.textLabel?.text = "Inbox"
         } else {
-            cell.textLabel?.text = projects[indexPath.row]["name"]
+            let projectName = projects[indexPath.row]["name"]!
+            let projectId = projects[indexPath.row]["uuid"]!
+            cell.imageView?.image = UIImage(named: "folder-blue")
+            cell.textLabel?.text = projectName
+            let watchers = ProjectModelHelper().getWatchersByProjectId(projectId)
+            cell.detailTextLabel?.text = String(watchers.count)
         }
         return cell
     }
@@ -72,7 +78,11 @@ class SelectProjectViewController: UIViewController, UITableViewDelegate, UITabl
             projectName = projects[indexPath.row]["name"]!
             projectId = projects[indexPath.row]["uuid"]!
         }
-        delegate?.didSelectProject(projectId, projectName: projectName)
+        var watchers: [String] = []
+        if projectId != "0" {
+            watchers = ProjectModelHelper().getWatchersByProjectId(projectId)
+        }
+        delegate?.didSelectProject(projectId, projectName: projectName, watchers: watchers)
         self.navigationController?.popViewControllerAnimated(true)
     }
     
@@ -84,8 +94,7 @@ class SelectProjectViewController: UIViewController, UITableViewDelegate, UITabl
         }
     }
     
-    func didAddNewProject(projectName: String) {
-        ProjectAPIHelper().addProject(projectName)
+    func didAddNewProject() {
         projects = projectModelHelper.getAllProjects()
         tableView.reloadData()
     }

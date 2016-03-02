@@ -47,6 +47,7 @@
 		46E6C58E1C83A20400A6C416 /* DropdownActionInfoViewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E6C58D1C83A20400A6C416 /* DropdownActionInfoViewHelper.swift */; };
 		46E6C5901C83B44600A6C416 /* WatchByFriendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E6C58F1C83B44600A6C416 /* WatchByFriendTableViewCell.swift */; };
 		46E6C5921C83C3CE00A6C416 /* FriendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E6C5911C83C3CE00A6C416 /* FriendTableViewCell.swift */; };
+		46E6C5951C8555A800A6C416 /* NewProjectTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E6C5941C8555A800A6C416 /* NewProjectTableViewCell.swift */; };
 		46E98E9B1C559ABA00CE83EA /* FriendModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E98E9A1C559ABA00CE83EA /* FriendModel.swift */; };
 		46E98E9D1C55DA3B00CE83EA /* WatchItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E98E9C1C55DA3B00CE83EA /* WatchItemDetailViewController.swift */; };
 		46E98E9F1C55DAEE00CE83EA /* WatchFriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E98E9E1C55DAEE00CE83EA /* WatchFriendViewController.swift */; };
@@ -67,7 +68,6 @@
 		46EE9E051C4B15090062D644 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EE9E041C4B15090062D644 /* MainTabBarController.swift */; };
 		46EE9E091C4B26870062D644 /* MyTodoListNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EE9E081C4B26870062D644 /* MyTodoListNavigationController.swift */; };
 		46EE9E0D1C4B3BF70062D644 /* AddActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EE9E0C1C4B3BF70062D644 /* AddActionViewController.swift */; };
-		46EE9E0F1C4B485C0062D644 /* EditActionContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EE9E0E1C4B485C0062D644 /* EditActionContentViewController.swift */; };
 		46EE9E121C4B535C0062D644 /* AddActionCellHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EE9E111C4B535C0062D644 /* AddActionCellHelper.swift */; };
 		46EE9E171C4B58970062D644 /* AddActionContentTableViewCell1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EE9E161C4B58970062D644 /* AddActionContentTableViewCell1.swift */; };
 		46EE9E191C4C2A8C0062D644 /* TodoActionItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46EE9E181C4C2A8C0062D644 /* TodoActionItemTableViewCell.swift */; };
@@ -139,6 +139,7 @@
 		46E6C58D1C83A20400A6C416 /* DropdownActionInfoViewHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropdownActionInfoViewHelper.swift; sourceTree = "<group>"; };
 		46E6C58F1C83B44600A6C416 /* WatchByFriendTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchByFriendTableViewCell.swift; sourceTree = "<group>"; };
 		46E6C5911C83C3CE00A6C416 /* FriendTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendTableViewCell.swift; sourceTree = "<group>"; };
+		46E6C5941C8555A800A6C416 /* NewProjectTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewProjectTableViewCell.swift; sourceTree = "<group>"; };
 		46E98E9A1C559ABA00CE83EA /* FriendModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendModel.swift; sourceTree = "<group>"; };
 		46E98E9C1C55DA3B00CE83EA /* WatchItemDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchItemDetailViewController.swift; sourceTree = "<group>"; };
 		46E98E9E1C55DAEE00CE83EA /* WatchFriendViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchFriendViewController.swift; sourceTree = "<group>"; };
@@ -165,7 +166,6 @@
 		46EE9E041C4B15090062D644 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		46EE9E081C4B26870062D644 /* MyTodoListNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyTodoListNavigationController.swift; sourceTree = "<group>"; };
 		46EE9E0C1C4B3BF70062D644 /* AddActionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddActionViewController.swift; sourceTree = "<group>"; };
-		46EE9E0E1C4B485C0062D644 /* EditActionContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditActionContentViewController.swift; sourceTree = "<group>"; };
 		46EE9E111C4B535C0062D644 /* AddActionCellHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddActionCellHelper.swift; sourceTree = "<group>"; };
 		46EE9E161C4B58970062D644 /* AddActionContentTableViewCell1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddActionContentTableViewCell1.swift; sourceTree = "<group>"; };
 		46EE9E181C4C2A8C0062D644 /* TodoActionItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoActionItemTableViewCell.swift; sourceTree = "<group>"; };
@@ -292,6 +292,14 @@
 				46E6C58D1C83A20400A6C416 /* DropdownActionInfoViewHelper.swift */,
 			);
 			name = DropdownActionInfoView;
+			sourceTree = "<group>";
+		};
+		46E6C5931C85558700A6C416 /* Add Project */ = {
+			isa = PBXGroup;
+			children = (
+				46E6C5941C8555A800A6C416 /* NewProjectTableViewCell.swift */,
+			);
+			name = "Add Project";
 			sourceTree = "<group>";
 		};
 		46EE9DB51C4ADDDA0062D644 = {
@@ -423,7 +431,6 @@
 			isa = PBXGroup;
 			children = (
 				46EE9E0C1C4B3BF70062D644 /* AddActionViewController.swift */,
-				46EE9E0E1C4B485C0062D644 /* EditActionContentViewController.swift */,
 				46EE9E111C4B535C0062D644 /* AddActionCellHelper.swift */,
 				46EE9E211C4C7DA20062D644 /* SelectProjectViewController.swift */,
 				46EE9E231C4C82190062D644 /* AddProjectViewController.swift */,
@@ -434,6 +441,7 @@
 		46EE9E131C4B56680062D644 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				46E6C5931C85558700A6C416 /* Add Project */,
 				46E6C58C1C83A1C300A6C416 /* DropdownActionInfoView */,
 				46EE9E161C4B58970062D644 /* AddActionContentTableViewCell1.swift */,
 				46EE9E181C4C2A8C0062D644 /* TodoActionItemTableViewCell.swift */,
@@ -679,7 +687,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				46B17DEC1C77F9070006EEB3 /* NewMessageTableViewCell.swift in Sources */,
-				46EE9E0F1C4B485C0062D644 /* EditActionContentViewController.swift in Sources */,
 				46B17DD71C6725F50006EEB3 /* WatchAPIHelper.swift in Sources */,
 				46E98E9B1C559ABA00CE83EA /* FriendModel.swift in Sources */,
 				46EE9DFD1C4B14350062D644 /* MyTodoListViewController.swift in Sources */,
@@ -711,6 +718,7 @@
 				46B3DFFF1C5486A5002A6769 /* UserDefaultsHelper.swift in Sources */,
 				4600E67A1C5AA48A0007696F /* Migrations.swift in Sources */,
 				4600E6721C5721D50007696F /* AddActionPriorityTableViewCell.swift in Sources */,
+				46E6C5951C8555A800A6C416 /* NewProjectTableViewCell.swift in Sources */,
 				465DB0E11C5DE42800DAD91F /* LeftViewController.swift in Sources */,
 				465DB0DB1C5B220900DAD91F /* CommentsViewController.swift in Sources */,
 				46B17DD31C657DD70006EEB3 /* DateTimeHelper.swift in Sources */,

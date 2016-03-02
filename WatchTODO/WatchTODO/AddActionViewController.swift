@@ -9,13 +9,14 @@
 import UIKit
 import ActionSheetPicker_3_0
 import DateTools
+import CZPicker
 import Toast
 
 protocol AddActionVCDelegate {
-    func didAddAction(actionContent:String?, projectId:String?, projectName:String?, dueDate:String?, deferDate:String?, priority: Int?)
+    func didAddAction(actionContent:String?, projectId:String?, projectName:String?, dueDate:String?, deferDate:String?, priority: Int?, watchers: [String])
 }
 
-class AddActionViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, EditActionContentVCDelegate, SelectProjectVCDelegate, UITextViewDelegate {
+class AddActionViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, SelectProjectVCDelegate, UITextViewDelegate, CZPickerViewDelegate, CZPickerViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
     
@@ -25,10 +26,16 @@ class AddActionViewController: UIViewController, UITableViewDataSource, UITableV
     var dueDate: NSDate?
     var deferDate: NSDate?
     var priority: Int?
+    var watchers: [String] = []
     var delegate: AddActionVCDelegate?
+    
+    var friends: [[String: String]] = []
+    let friendsMapDict = FriendModelHelper().getFriendsMapDict()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        friends = FriendModelHelper().getAllFriendList()
         
         tableView.registerNib(UINib(nibName: "AddActionContentTableViewCell", bundle: nil), forCellReuseIdentifier: "AddActionContentTableViewCell")
 
@@ -52,19 +59,19 @@ class AddActionViewController: UIViewController, UITableViewDataSource, UITableV
         if actionContent != nil && actionContent != "" {
             let dueDateEpoch: String? = DateTimeHelper().convertDateToEpoch(dueDate)
             let deferDateEpoch: String? = DateTimeHelper().convertDateToEpoch(deferDate)
-            delegate?.didAddAction(actionContent, projectId: projectId, projectName: projectName, dueDate: dueDateEpoch, deferDate: deferDateEpoch, priority: priority)
+            delegate?.didAddAction(actionContent, projectId: projectId, projectName: projectName, dueDate: dueDateEpoch, deferDate: deferDateEpoch, priority: priority, watchers: watchers)
             self.dismissViewControllerAnimated(true) { () -> Void in
                 
             }
         } else {
             let message = "Empty content is not allowed."
-            self.view.makeToast(message, duration: 3.0, position: CSToastPositionCenter)
+            self.view.makeToast(message, duration: 2.0, position: CSToastPositionCenter)
         }
         
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 3
+        return 5
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -75,17 +82,32 @@ class AddActionViewController: UIViewController, UITableViewDataSource, UITableV
             return 2
         case 2:
             return 1
+        case 3:
+            return 1
+        case 4:
+            return self.watchers.count
         default:
             return 0
         }
     }
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 1
+        if section == 0 {
+            return 1
+        } else if section == 4 {
+            return 20
+        } else {
+            return 2
+        }
     }
     
-    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 15
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == 4 {
+            let title = "Watchers Added"
+            return title
+        } else {
+            return nil
+        }
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -133,9 +155,26 @@ class AddActionViewController: UIViewController, UITableViewDataSource, UITableV
             }
             cell.prioritySegmentedControl.addTarget(self, action: Selector("segmentedControlValueChanged:"), forControlEvents: .ValueChanged)
             return cell
-        default:
-            let cell = UITableViewCell(style: .Value1, reuseIdentifier: "AddActionDefaultCell")
+        case (3, 0):
+            let cell = UITableViewCell(style: .Value1, reuseIdentifier: "AddActionAddWatchersCell")
+            cell.accessoryType = .DisclosureIndicator
+            cell.imageView?.image = UIImage(named: "update-add_watcher")
+            cell.textLabel?.text = "Add Watchers"
+            cell.detailTextLabel?.text = String(self.watchers.count)
             return cell
+        default:
+            if indexPath.section == 4 {
+                let username = self.watchers[indexPath.row]
+                let nickname = self.friendsMapDict[username]
+                let cell = UITableViewCell(style: .Default, reuseIdentifier: "AddActionWatcherCell")
+                cell.selectionStyle = .None
+                cell.imageView?.image = UIImage(named: "watcher")
+                cell.textLabel?.text = nickname
+                return cell
+            } else {
+                let cell = UITableViewCell(style: .Value1, reuseIdentifier: "AddActionDefaultCell")
+                return cell
+            }
         }
     }
     
@@ -152,16 +191,15 @@ class AddActionViewController: UIViewController, UITableViewDataSource, UITableV
             self.setupDate("defer")
         case (1, 1):
             self.setupDate("due")
+        case (3, 0):
+            self.showAddWatchersPickerView()
         default:
             break
         }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "EditActionContentSegue" {
-            let editActionContentVC = segue.destinationViewController as! EditActionContentViewController
-            editActionContentVC.delegate = self
-        } else if segue.identifier == "SelectProjectSegue" {
+        if segue.identifier == "SelectProjectSegue" {
             let selectProjectVC = segue.destinationViewController as! SelectProjectViewController
             selectProjectVC.delegate = self
         }
@@ -193,9 +231,6 @@ class AddActionViewController: UIViewController, UITableViewDataSource, UITableV
         } else if dateType == "defer" {
             deferDate = date
         }
-        print(dueDate)
-        print(deferDate)
-        print(dateType)
         tableView.reloadData()
     }
     
@@ -216,15 +251,52 @@ class AddActionViewController: UIViewController, UITableViewDataSource, UITableV
         actionContent = textView.text
     }
     
-    func didEditActionContent(content: String) {
-        print(content)
-        actionContent = content
+    func didSelectProject(projectId: String, projectName: String, watchers: [String]) {
+        self.projectId = projectId
+        self.projectName = projectName
+        for username in watchers {
+            if !self.watchers.contains(username) {
+                self.watchers.append(username)
+            }
+        }
         tableView.reloadData()
     }
     
-    func didSelectProject(projectId: String, projectName: String) {
-        self.projectId = projectId
-        self.projectName = projectName
+    private func showAddWatchersPickerView() {
+        let picker: CZPickerView = CZPickerView(headerTitle: "Select friends to watch", cancelButtonTitle: "Cancel", confirmButtonTitle: "Confirm")
+        picker.delegate = self
+        picker.dataSource = self
+        picker.allowMultipleSelection = true
+        picker.headerBackgroundColor = const_ThemeColor
+        picker.confirmButtonBackgroundColor = const_ThemeColor
+        var selectedRows: [Int] = []
+        for (var i=0; i<self.friends.count; i++) {
+            let username = friends[i]["username"]!
+            if self.watchers.contains(username) {
+                selectedRows.append(i)
+            }
+        }
+        picker.setSelectedRows(selectedRows)
+        picker.show()
+    }
+    
+    func numberOfRowsInPickerView(pickerView: CZPickerView!) -> Int {
+        return self.friends.count
+    }
+    
+    func czpickerView(pickerView: CZPickerView!, titleForRow row: Int) -> String! {
+        let rowDict = friends[row]
+        let nickname = rowDict["nickname"]
+        return nickname
+    }
+    
+    func czpickerView(pickerView: CZPickerView!, didConfirmWithItemsAtRows rows: [AnyObject]!) {
+        var watcherArray: [String] = []
+        for row in rows {
+            watcherArray.append(friends[row as! Int]["username"]!)
+        }
+        self.watchers = watcherArray
         tableView.reloadData()
     }
+    
 }

@@ -18,28 +18,29 @@ class ProjectModel: Object {
     }
 }
 
+class WatcherProjectModel: Object {
+    dynamic var projectId: String = ""
+    dynamic var username: String = ""
+}
+
 class ProjectModelHelper {
-    
-    let defaultProjectNames = ["Personal", "Family", "Work", "Shopping", "Books to read", "Movies to watch"]
     
     init() {
         PerformMigrations().setDefaultRealmForUser()
     }
     
-    func addProject(projectName:String) -> String {
-        let uuid = NSUUID().UUIDString
+    func addProject(projectId: String, projectName: String) {
         let project = ProjectModel()
-        project.uuid = uuid
+        project.uuid = projectId
         project.name = projectName
         do {
             let realm = try Realm()
             try realm.write({ () -> Void in
-                realm.add(project)
+                realm.add(project, update: true)
             })
         } catch {
             print(error)
         }
-        return uuid
     }
     
     func getAllProjects() -> [[String:String]] {
@@ -71,25 +72,45 @@ class ProjectModelHelper {
         }
     }
     
-    func initiateDefaultProjects() -> [[String: String]] {
-        var defaultProjects: [[String: String]] = []
-        var projectCount = 0
+    func addUpdateWatchersIntoProject(projectId: String, watchers: [String]) {
         do {
+            var duplicatedWatchers: [String] = []
             let realm = try Realm()
-            projectCount = realm.objects(ProjectModel).count
+            for item in realm.objects(WatcherProjectModel).filter("projectId = '\(projectId)'") {
+                let username = item.username
+                if watchers.contains(username) {
+                    duplicatedWatchers.append(username)
+                } else {
+                    try realm.write({ () -> Void in
+                        realm.delete(item)
+                    })
+                }
+            }
+            let newWatchers: [String] = Array(Set(watchers).subtract(Set(duplicatedWatchers)))
+            for username in newWatchers {
+                let newWatcher = WatcherProjectModel()
+                newWatcher.username = username
+                newWatcher.projectId = projectId
+                try realm.write({ () -> Void in
+                    realm.add(newWatcher)
+                })
+            }
         } catch {
             print(error)
         }
-        if projectCount == 0 {
-            for projectName in defaultProjectNames {
-                let projectId = self.addProject(projectName)
-                let projectDict = [
-                    "project_id": projectId,
-                    "project_name": projectName
-                ]
-                defaultProjects.append(projectDict)
+    }
+    
+    func getWatchersByProjectId(projectId: String) -> [String] {
+        var watchers: [String] = []
+        do {
+            let realm = try Realm()
+            for item in realm.objects(WatcherProjectModel).filter("projectId = '\(projectId)'") {
+                let username = item.username
+                watchers.append(username)
             }
+        } catch {
+            print(error)
         }
-        return defaultProjects
+        return watchers
     }
 }

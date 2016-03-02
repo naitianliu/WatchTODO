@@ -34,14 +34,9 @@ class WatchAPIHelper: CallAPIHelperDelegate {
         
     }
     
-    func addWatchers(actionId: String, watchers: [[String: String]]) {
+    func addWatchers(actionId: String, watchers: [String]) {
         self.watcherModelHelper.addUpdateWatchers(actionId, watchers: watchers)
-        var watcherUsernames: [String] = []
-        for item in watchers {
-            let username = item["username"]!
-            watcherUsernames.append(username)
-        }
-        let data: [String: AnyObject] = ["action_id": actionId, "watchers": watcherUsernames]
+        let data: [String: AnyObject] = ["action_id": actionId, "watchers": watchers]
         CallAPIHelper(url: apiURL_AddWatchers, data: data, delegate: self).POST(index_AddWatchers)
     }
     
