@@ -21,7 +21,7 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
     var selectedAddFriendUsername: String?
     var selectedAddFriendNickname: String?
     
-    var pendingFriends: [[String: String]] = []
+    var pendingFriends: [[String: AnyObject]] = []
     var friends: [[String: String]] = []
     let friendModelHelper = FriendModelHelper()
     
@@ -97,23 +97,23 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
         let cell = tableView.dequeueReusableCellWithIdentifier("FriendCell") as! FriendTableViewCell
         if pendingFriends.count == 0 {
             let rowDict = friends[indexPath.row]
-            let username = rowDict["username"]!
-            let nickname = rowDict["nickname"]!
+            let username = rowDict["username"]
+            let nickname = rowDict["nickname"]
             cell.nicknameLabel.text = nickname
             cell.usernameLabel.text = username
         } else {
             if indexPath.section == 0 {
                 let rowDict = pendingFriends[indexPath.row]
                 // let username = rowDict["username"]!
-                let nickname = rowDict["nickname"]!
-                let username = rowDict["username"]!
+                let nickname = rowDict["nickname"] as! String
+                let username = rowDict["username"] as! String
                 cell.nicknameLabel.text = nickname
                 cell.usernameLabel.text = username
                 cell.status = "waiting"
             } else {
                 let rowDict = friends[indexPath.row]
-                let username = rowDict["username"]!
-                let nickname = rowDict["nickname"]!
+                let username = rowDict["username"]
+                let nickname = rowDict["nickname"]
                 cell.nicknameLabel.text = nickname
                 cell.usernameLabel.text = username
                 cell.status = "connected"
@@ -126,9 +126,9 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.friendTableView.deselectRowAtIndexPath(indexPath, animated: true)
         if pendingFriends.count != 0 && indexPath.section == 0 {
             let rowDict = pendingFriends[indexPath.row]
-            let username = rowDict["username"]!
-            let nickname = rowDict["nickname"]!
-            let role = rowDict["role"]!
+            let username = rowDict["username"] as! String
+            let nickname = rowDict["nickname"] as! String
+            let role = rowDict["role"] as! String
             if role == "requester" {
                 self.showAcceptAlertController(username, nickname: nickname)
             }

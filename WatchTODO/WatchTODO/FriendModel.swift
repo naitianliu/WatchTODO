@@ -16,7 +16,7 @@ class FriendModel: Object {
     dynamic var profileImageURL: String = ""
     dynamic var pending: Bool = true
     dynamic var role: String = ""
-    dynamic var timestamp: String = ""
+    dynamic var timestamp: Int = 0
     
     override static func primaryKey() -> String {
         return "username"
@@ -25,7 +25,7 @@ class FriendModel: Object {
 
 class FriendModelHelper {
     
-    let timestampNow: String = DateTimeHelper().convertDateToEpoch(NSDate())!
+    let timestampNow: Int = DateTimeHelper().convertDateToEpoch(NSDate())!
     
     init() {
         PerformMigrations().setDefaultRealmForUser()
@@ -66,8 +66,8 @@ class FriendModelHelper {
         return friendList
     }
     
-    func getPendingFriendList() -> [[String: String]] {
-        var friendList: [[String: String]] = []
+    func getPendingFriendList() -> [[String: AnyObject]] {
+        var friendList: [[String: AnyObject]] = []
         do {
             let realm = try Realm()
             for item in realm.objects(FriendModel).filter("pending = true") {
@@ -77,7 +77,7 @@ class FriendModelHelper {
                     "role": item.role,
                     "timestamp": item.timestamp
                 ]
-                friendList.append(itemDict)
+                friendList.append(itemDict as! [String : AnyObject])
             }
         } catch {
             print(error)

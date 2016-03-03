@@ -53,13 +53,13 @@ class CommentAPIHelper: CallAPIHelperDelegate {
             
         } else if index == index_GetCommentList {
             let commentModelHelper = CommentModelHelper()
-            let resDict = responseData as! [String: [[String: String]]]
+            let resDict = responseData as! [String: [[String: AnyObject]]]
             for commentDict in resDict["comments"]! {
-                let commentId: String = commentDict["comment_id"]!
-                let actionId: String = commentDict["action_id"]!
-                let username: String = commentDict["username"]!
-                let message: String = commentDict["message"]!
-                let timestamp: String = commentDict["timestamp"]!
+                let commentId: String = commentDict["comment_id"] as! String
+                let actionId: String = commentDict["action_id"] as! String
+                let username: String = commentDict["username"] as! String
+                let message: String = commentDict["message"] as! String
+                let timestamp: Int = commentDict["timestamp"] as! Int
                 commentModelHelper.addComment(commentId, actionId: actionId, message: message, username: username, timestamp: timestamp, read: false)
             }
             self.delegate?.didGetCommentList()

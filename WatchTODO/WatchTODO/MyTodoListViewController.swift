@@ -450,7 +450,7 @@ class MyTodoListViewController: UIViewController, UITableViewDelegate, UITableVi
         return NSAttributedString(string: text, attributes: attributes)
     }
     
-    func didAddAction(actionId: String?, actionContent: String?, projectId: String?, projectName: String?, dueDate: String?, deferDate: String?, priority: Int?, watchers: [String]) {
+    func didAddAction(actionId: String?, actionContent: String?, projectId: String?, projectName: String?, dueDate: Int?, deferDate: Int?, priority: Int?, watchers: [String]) {
         if let content = actionContent {
             TodoListAPIHelper().addAction(actionId, content: content, projectId: projectId, projectName: projectName, dueDate: dueDate, deferDate: deferDate, priority: priority, watchers: watchers)
             self.setupDisplayItems()

@@ -97,14 +97,14 @@ class WatchViewController: UIViewController, UITableViewDelegate, UITableViewDat
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if self.segmentedControl.selectedSegmentIndex == 0 {
             let rowDict: [String: AnyObject] = self.data0[indexPath.row]
-            let actionId: String = rowDict["actionId"] as! String
-            let timestamp: String = rowDict["timestamp"] as! String
+            let timestamp: Int = rowDict["timestamp"] as! Int
             let code: String = rowDict["code"] as! String
             let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier_WatchUpdate) as! WatchUpdateTableViewCell
-            if let actionInfo = self.actionItemModelHelper.getActionInfoByActionId(actionId) {
-                cell.actionContentLabel.text = actionInfo["content"] as? String
-                cell.creatorLabel.text = actionInfo["nickname"] as? String
-                let priority: Int = actionInfo["priority"] as! Int
+            if let actionInfo = rowDict["actionInfo"] {
+                let actionInfoDict = actionInfo as! [String: AnyObject]
+                cell.actionContentLabel.text = actionInfoDict["content"] as? String
+                cell.creatorLabel.text = actionInfoDict["nickname"] as? String
+                let priority: Int = actionInfoDict["priority"] as! Int
                 cell.priority = priority
             }
             cell.nameLabel.text = rowDict["updatedBy"] as? String
@@ -119,7 +119,7 @@ class WatchViewController: UIViewController, UITableViewDelegate, UITableViewDat
             let content = rowDict["content"] as! String
             let status = rowDict["status"] as! Int
             let priority = rowDict["priority"] as! Int
-            let dueDate = rowDict["dueDate"] as! String
+            let dueDate = rowDict["dueDate"] as! Int
             let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier_WatchByFriend) as! WatchByFriendTableViewCell
             cell.actionContentLabel.text = content
             cell.dateLabel.text = DateTimeHelper().convertEpochToHumanFriendlyDay(dueDate)

@@ -15,7 +15,7 @@ class CommentModel: Object {
     dynamic var actionId: String = ""
     dynamic var username: String = ""
     dynamic var message: String = ""
-    dynamic var timestamp: String = ""
+    dynamic var timestamp: Int = 0
     dynamic var read: Bool = false
 
     override static func primaryKey() -> String {
@@ -37,7 +37,7 @@ class CommentModelHelper {
         PerformMigrations().setDefaultRealmForUser()
     }
     
-    func addComment(uuid: String?, actionId: String, message: String, username: String?, timestamp: String?, read: Bool) -> String {
+    func addComment(uuid: String?, actionId: String, message: String, username: String?, timestamp: Int?, read: Bool) -> String {
         let comment = CommentModel()
         var commentUUID = NSUUID().UUIDString
         if let tempUUID = uuid {
@@ -85,16 +85,16 @@ class CommentModelHelper {
         }
     }
     
-    func getCommentListByActionId(actionId: String) -> [[String: String]] {
-        var commentList: [[String: String]] = []
+    func getCommentListByActionId(actionId: String) -> [[String: AnyObject]] {
+        var commentList: [[String: AnyObject]] = []
         var keyList: [Int] = []
-        var tempDict = [String: [String: String]]()
+        var tempDict = [String: [String: AnyObject]]()
         do {
             let realm = try Realm()
             for item in realm.objects(CommentModel).filter("actionId = '\(actionId)'") {
                 let timestamp = item.timestamp
-                keyList.append(Int(timestamp)!)
-                let commentDict = [
+                keyList.append(timestamp)
+                let commentDict: [String: AnyObject] = [
                     "commentId": item.uuid,
                     "actionId": item.actionId,
                     "username": item.username,
@@ -102,7 +102,7 @@ class CommentModelHelper {
                     "message": item.message,
                     "timestamp": item.timestamp
                 ]
-                tempDict[timestamp] = commentDict
+                tempDict[String(timestamp)] = commentDict
             }
             keyList = keyList.sort()
             for keyInt in keyList {
@@ -121,12 +121,12 @@ class CommentModelHelper {
             for actionId in actionIdList {
                 var unreadCount = 0
                 var tempTime: Int = 0
-                var latestComment: [String: String]?
+                var latestComment: [String: AnyObject]?
                 for comment in realm.objects(CommentModel).filter("actionId = '\(actionId)'") {
                     if !comment.read {
                         unreadCount += 1
                     }
-                    let timestamp: Int = Int(comment.timestamp)!
+                    let timestamp: Int = comment.timestamp
                     if timestamp > tempTime {
                         tempTime = timestamp
                         latestComment = [
@@ -145,7 +145,7 @@ class CommentModelHelper {
                     let itemDict: [String: AnyObject] = [
                         "type": "comment",
                         "latestComment": comment,
-                        "timestamp": String(tempTime),
+                        "timestamp": tempTime,
                         "actionId": actionId
                     ]
                     latestComments.append(itemDict)

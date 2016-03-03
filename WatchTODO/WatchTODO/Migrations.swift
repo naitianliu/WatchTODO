@@ -38,10 +38,24 @@ class PerformMigrations {
                         newObject!["timestamp"] = DateTimeHelper().convertDateToEpoch(NSDate())!
                     })
                 }
+                if (oldSchemaVersion < 9) {
+                    migration.enumerate(ActionItemModel.className(), { (oldObject, newObject) -> Void in
+                        newObject!["deferDate"] = oldObject!["deferDate"] as! Int
+                        newObject!["dueDate"] = oldObject!["dueDate"] as! Int
+                    })
+                    migration.enumerate(FriendModel.className(), { (oldObject, newObject) -> Void in
+                        newObject!["timestamp"] = oldObject!["timestamp"] as! Int
+                    })
+                    migration.enumerate(CommentModel.className(), { (oldObject, newObject) -> Void in
+                        newObject!["timestamp"] = oldObject!["timestamp"] as! Int
+                    })
+                    migration.enumerate(UpdateModel.className(), { (oldObject, newObject) -> Void in
+                        newObject!["timestamp"] = oldObject!["timestamp"] as! Int
+                    })
+                }
             }
         )
         Realm.Configuration.defaultConfiguration = config
-        print(config.path)
         let realm = try! Realm()
     }
     

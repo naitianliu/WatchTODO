@@ -1045,7 +1045,7 @@
         <image name="comment2" width="25" height="25"/>
         <image name="complete" width="50" height="50"/>
         <image name="delete-icon" width="26" height="26"/>
-        <image name="edit" width="50" height="50"/>
+        <image name="edit" width="26" height="26"/>
         <image name="priority-flag" width="24" height="24"/>
         <image name="reveal-icon" width="22" height="17"/>
         <image name="unchecked" width="25" height="25"/>

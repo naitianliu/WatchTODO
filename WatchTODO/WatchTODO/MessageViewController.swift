@@ -76,12 +76,12 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
         let type: String = messageDict["type"] as! String
         if type == "comment" {
             let cell = tableView.dequeueReusableCellWithIdentifier("MessageNewMessageCell") as! NewMessageTableViewCell
-            let commentDict = messageDict["latestComment"] as! [String: String]
-            let commentMessage = commentDict["message"]!
-            let actionId: String = commentDict["actionId"]!
-            let timestamp: String = commentDict["timestamp"]!
-            let nickname: String = commentDict["nickname"]!
-            let unreadCount: String = commentDict["unreadCount"]!
+            let commentDict = messageDict["latestComment"] as! [String: AnyObject]
+            let commentMessage: String = commentDict["message"] as! String
+            let actionId: String = commentDict["actionId"] as! String
+            let timestamp: Int = commentDict["timestamp"] as! Int
+            let nickname: String = commentDict["nickname"] as! String
+            let unreadCount: String = commentDict["unreadCount"] as! String
             cell.messageLabel.text = commentMessage
             cell.contentLabel.text = self.actionItemModelHelper.getActionContentByActionId(actionId)
             cell.timeLabel.text = DateTimeHelper().convertEpochToHumanFriendlyTime(timestamp)

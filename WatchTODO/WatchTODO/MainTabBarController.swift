@@ -120,7 +120,7 @@ class MainTabBarController: UITabBarController, MessageVCDelegate, AddActionVCDe
         }
     }
     
-    func didAddAction(actionId: String?, actionContent: String?, projectId: String?, projectName: String?, dueDate: String?, deferDate: String?, priority: Int?, watchers: [String]) {
+    func didAddAction(actionId: String?, actionContent: String?, projectId: String?, projectName: String?, dueDate: Int?, deferDate: Int?, priority: Int?, watchers: [String]) {
         if let content = actionContent {
             self.myTodoListVC.selectedCellIndexPath = nil
             TodoListAPIHelper().addAction(actionId, content: content, projectId: projectId, projectName: projectName, dueDate: dueDate, deferDate: deferDate, priority: priority, watchers: watchers)

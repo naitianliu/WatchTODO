@@ -14,9 +14,9 @@ class DateTimeHelper {
         
     }
     
-    func convertDateToEpoch(date: NSDate?) -> String? {
+    func convertDateToEpoch(date: NSDate?) -> Int? {
         if let tempDate = date {
-            let epoch: String = String(Int(tempDate.timeIntervalSince1970))
+            let epoch: Int = Int(tempDate.timeIntervalSince1970)
             print(epoch)
             return epoch
         } else {
@@ -24,12 +24,12 @@ class DateTimeHelper {
         }
     }
     
-    func convertEpochToDate(epoch: String) -> NSDate {
-        if epoch == "" {
+    func convertEpochToDate(epoch: Int) -> NSDate {
+        if epoch == 0 {
             let date: NSDate = NSDate()
             return date
         } else {
-            let date: NSDate = NSDate(timeIntervalSince1970: NSTimeInterval(epoch)!)
+            let date: NSDate = NSDate(timeIntervalSince1970: NSTimeInterval(epoch))
             return date
         }
     }
@@ -61,7 +61,7 @@ class DateTimeHelper {
         return startOfToday
     }
     
-    func convertEpochToHumanFriendlyTime(epoch: String) -> String {
+    func convertEpochToHumanFriendlyTime(epoch: Int) -> String {
         let nowDate: NSDate = NSDate()
         let date: NSDate = self.convertEpochToDate(epoch)
         var result: String = "Just now"
@@ -82,7 +82,7 @@ class DateTimeHelper {
         return result
     }
     
-    func convertEpochToHumanFriendlyDay(epoch: String) -> String {
+    func convertEpochToHumanFriendlyDay(epoch: Int) -> String {
         let date = self.convertEpochToDate(epoch)
         let dayString = self.convertDateToStringMediumStyle(date)
         return dayString

@@ -58,7 +58,8 @@ class UpdateAPIHelper: CallAPIHelperDelegate {
                 let commentId = rowDict["comment_id"] as! String
                 let actionId = rowDict["action_id"] as! String
                 let message = rowDict["message"] as! String
-                let timestamp = rowDict["timestamp"] as! String
+                let timestampString = rowDict["timestamp"] as! String
+                let timestamp = Int(timestampString)
                 let username = rowDict["username"] as! String
                 self.commentModelHelper.addComment(commentId, actionId: actionId, message: message, username: username, timestamp: timestamp, read: false)
             }

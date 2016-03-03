@@ -89,7 +89,7 @@ class SortActionItemListHelper {
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "YYYY-MM-DD"
         for itemDict in data {
-            let dueDateEpoch: String = itemDict["dueDate"] as! String
+            let dueDateEpoch: Int = itemDict["dueDate"] as! Int
             let dueDate: NSDate = DateTimeHelper().convertEpochToDate(dueDateEpoch)
             let dateString: String = dateFormatter.stringFromDate(dueDate)
             if newDateDictArray[dateString] != nil {

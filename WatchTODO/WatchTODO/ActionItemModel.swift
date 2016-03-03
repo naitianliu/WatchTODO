@@ -12,14 +12,13 @@ class ActionItemModel: Object {
     
     dynamic var uuid: String = ""
     dynamic var content: String = ""
-    dynamic var dueDate: String = ""
+    dynamic var deferDate: Int = 0
+    dynamic var dueDate: Int = 0
     dynamic var projectId: String = ""
     dynamic var projectName: String = ""
-    dynamic var deferDate: String = ""
     dynamic var priority: Int = 4
     // status 0: not started, 1: WorkInProgress, 2: complete, 3: deleted
     dynamic var status: Int = 0
-    dynamic var everyday: Bool = false
     dynamic var me: Bool = false
     dynamic var username: String = ""
     
@@ -37,7 +36,7 @@ class ActionItemModelHelper {
         PerformMigrations().setDefaultRealmForUser()
     }
     
-    func addActionItem(actionId: String?, username: String?, content:String, projectId:String?, projectName:String?, dueDate:String?, deferDate:String?, priority:Int?) -> String {
+    func addActionItem(actionId: String?, username: String?, content:String, projectId:String?, projectName:String?, dueDate:Int?, deferDate:Int?, priority:Int?) -> String {
         var uuid = NSUUID().UUIDString
         if let actionId = actionId {
             uuid = actionId
@@ -56,9 +55,6 @@ class ActionItemModelHelper {
             actionItem.projectName = projectName
         }
         if let dueDate = dueDate {
-            if dueDate == "everyday" {
-                actionItem.everyday = true
-            }
             actionItem.dueDate = dueDate
         }
         if let deferDate = deferDate {
@@ -109,8 +105,7 @@ class ActionItemModelHelper {
                     "dueDate": item.dueDate,
                     "deferDate": item.deferDate,
                     "priority": item.priority,
-                    "status": item.status,
-                    "everyday": item.everyday
+                    "status": item.status
                 ]
                 pendingItems.append(itemDict as! [String : AnyObject])
             }
@@ -135,7 +130,6 @@ class ActionItemModelHelper {
                     "deferDate": item.deferDate,
                     "priority": item.priority,
                     "status": item.status,
-                    "everyday": item.everyday,
                     "username": item.username,
                     "nickname": friendsMapDict[item.username]!
                 ]
@@ -184,8 +178,7 @@ class ActionItemModelHelper {
                 "dueDate": item.dueDate,
                 "deferDate": item.deferDate,
                 "priority": item.priority,
-                "status": item.status,
-                "everyday": item.everyday,
+                "status": item.status
             ]
             if !self.me {
                 actionInfo["username"] = item.username

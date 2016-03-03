@@ -73,17 +73,17 @@ class WatchAPIHelper: CallAPIHelperDelegate {
                 let actionId = action["action_id"] as! String
                 let actionInfo = action["info"] as! [String: String]
                 var content: String?
-                var dueDate: String?
-                var deferDate: String?
+                var dueDate: Int?
+                var deferDate: Int?
                 var priority: Int?
                 if let tempContent = actionInfo["content"] {
                     content = tempContent
                 }
                 if let tempDueDate = actionInfo["due_date"] {
-                    dueDate = tempDueDate
+                    dueDate = Int(tempDueDate)
                 }
                 if let tempDeferDate = actionInfo["defer_date"] {
-                    deferDate = tempDeferDate
+                    deferDate = Int(tempDeferDate)
                 }
                 if let tempPriority = actionInfo["priority"] {
                     priority = Int(tempPriority)
@@ -104,7 +104,8 @@ class WatchAPIHelper: CallAPIHelperDelegate {
                 let code: String = updateItem["code"] as! String
                 let message: String = updateItem["message"] as! String
                 let updatedBy: String = updateItem["updated_by"] as! String
-                let timestamp: String = updateItem["timestamp"] as! String
+                let timestampString: String = updateItem["timestamp"] as! String
+                let timestamp: Int = Int(timestampString)!
                 updateModelHelper.addUpdateItem(uuid, actionId: actionId, code: code, message: message, updatedBy: updatedBy, timestamp: timestamp)
             }
             delegate?.didUpdateWatchItemList!()
@@ -118,7 +119,8 @@ class WatchAPIHelper: CallAPIHelperDelegate {
                 let code: String = updateItem["code"] as! String
                 let message: String = updateItem["message"] as! String
                 let updatedBy: String = updateItem["updated_by"] as! String
-                let timestamp: String = updateItem["timestamp"] as! String
+                let timestampString: String = updateItem["timestamp"] as! String
+                let timestamp: Int = Int(timestampString)!
                 updateModelHelper.addUpdateItem(uuid, actionId: actionId, code: code, message: message, updatedBy: updatedBy, timestamp: timestamp)
             }
             delegate?.didGetUpdateList!()

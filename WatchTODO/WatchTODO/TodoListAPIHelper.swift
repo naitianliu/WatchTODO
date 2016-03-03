@@ -35,7 +35,7 @@ class TodoListAPIHelper: CallAPIHelperDelegate {
         CallAPIHelper(url: apiURL_GetTodoList, data: data, delegate: self).GET(index_GetTodoList)
     }
     
-    func addAction(actionId: String?, content: String, projectId: String?, projectName:String?, dueDate:String?, deferDate: String?, priority: Int?, watchers: [String]) {
+    func addAction(actionId: String?, content: String, projectId: String?, projectName:String?, dueDate:Int?, deferDate: Int?, priority: Int?, watchers: [String]) {
         let actionId = actionItemModelHelper.addActionItem(actionId, username: nil, content: content, projectId: projectId, projectName: projectName, dueDate: dueDate, deferDate: deferDate, priority: priority)
         WatcherModelHelper().addUpdateWatchers(actionId, watchers: watchers)
         var actionInfo: [String: String] = ["content": content]
@@ -46,10 +46,10 @@ class TodoListAPIHelper: CallAPIHelperDelegate {
             actionInfo["project_name"] = projectName
         }
         if let dueDate = dueDate {
-            actionInfo["due_date"] = dueDate
+            actionInfo["due_date"] = String(dueDate)
         }
         if let deferDate = deferDate {
-            actionInfo["defer_date"] = deferDate
+            actionInfo["defer_date"] = String(deferDate)
         }
         if let priority = priority {
             actionInfo["priority"] = String(priority)
@@ -107,13 +107,13 @@ class TodoListAPIHelper: CallAPIHelperDelegate {
                 if let tempProjectName = actionInfo["project_name"] {
                     projectName = tempProjectName
                 }
-                var dueDate: String?
+                var dueDate: Int?
                 if let tempDueDate = actionInfo["due_date"] {
-                    dueDate = tempDueDate
+                    dueDate = Int(tempDueDate)
                 }
-                var deferDate: String?
+                var deferDate: Int?
                 if let tempDeferDate = actionInfo["defer_date"] {
-                    deferDate = tempDeferDate
+                    deferDate = Int(tempDeferDate)
                 }
                 var priority = 4
                 if let tempPriority = actionInfo["priority"] {

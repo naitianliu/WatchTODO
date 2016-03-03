@@ -17,9 +17,10 @@ class SortMessagesHelper {
     func getTimeSortedMessages() -> [[String: AnyObject]] {
         let unsortedMessages: [[String: AnyObject]] = self.getCommentMessages() + self.getFriendMessages()
         let resultMessageList: [[String: AnyObject]] = unsortedMessages.sort { (element1, element2) -> Bool in
-            let timestamp1: String = element1["timestamp"] as! String
-            let timestamp2: String = element2["timestamp"] as! String
-            let result: Bool = Int(timestamp1)! > Int(timestamp2)!
+            print(element1["timestamp"])
+            let timestamp1 = element1["timestamp"] as! Int
+            let timestamp2 = element2["timestamp"] as! Int
+            let result: Bool = timestamp1 > timestamp2
             return result
         }
         return resultMessageList
@@ -34,13 +35,13 @@ class SortMessagesHelper {
     private func getFriendMessages() -> [[String: AnyObject]] {
         var tempTime: Int = 0
         for friend in FriendModelHelper().getPendingFriendList() {
-            let timestampInt: Int = Int(friend["timestamp"]!)!
+            let timestampInt: Int = friend["timestamp"] as! Int
             if timestampInt > tempTime {
                 tempTime = timestampInt
             }
         }
         if tempTime != 0 {
-            let friendMessage: [String: AnyObject] = ["type": "friend", "message": "Friend Invitation Updated", "timestamp": String(tempTime)]
+            let friendMessage: [String: AnyObject] = ["type": "friend", "message": "Friend Invitation Updated", "timestamp": tempTime]
             return [friendMessage]
         } else {
             return []

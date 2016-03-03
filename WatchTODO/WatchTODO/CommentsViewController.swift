@@ -29,7 +29,7 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
     
     var keyboardShown: Bool = false
     
-    var data: [[String: String]] = []
+    var data: [[String: AnyObject]] = []
     var actionId: String = ""
     
     var appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
@@ -195,10 +195,10 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
             return cell
         } else {
             let rowDict = data[indexPath.row]
-            let username = rowDict["username"]
-            let nickname = rowDict["nickname"]!
-            let message = rowDict["message"]
-            let timestamp = rowDict["timestamp"]!
+            let username = rowDict["username"] as! String
+            let nickname = rowDict["nickname"] as! String
+            let message = rowDict["message"] as! String
+            let timestamp = rowDict["timestamp"] as! Int
             if username == myUsername {
                 let cell = tableView.dequeueReusableCellWithIdentifier(commentCellIdentifier2) as! ChatBubbleTableViewCell2
                 cell.contentLabel.text = message

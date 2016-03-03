@@ -13,7 +13,7 @@ import CZPicker
 import Toast
 
 protocol AddActionVCDelegate {
-    func didAddAction(actionId:String?, actionContent:String?, projectId:String?, projectName:String?, dueDate:String?, deferDate:String?, priority: Int?, watchers: [String])
+    func didAddAction(actionId:String?, actionContent:String?, projectId:String?, projectName:String?, dueDate:Int?, deferDate:Int?, priority: Int?, watchers: [String])
 }
 
 class AddActionViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, SelectProjectVCDelegate, UITextViewDelegate, CZPickerViewDelegate, CZPickerViewDataSource {
@@ -66,8 +66,8 @@ class AddActionViewController: UIViewController, UITableViewDataSource, UITableV
     
     @IBAction func addButtonOnClick(sender: AnyObject) {
         if actionContent != nil && actionContent != "" {
-            let dueDateEpoch: String? = DateTimeHelper().convertDateToEpoch(dueDate)
-            let deferDateEpoch: String? = DateTimeHelper().convertDateToEpoch(deferDate)
+            let dueDateEpoch: Int? = DateTimeHelper().convertDateToEpoch(dueDate)
+            let deferDateEpoch: Int? = DateTimeHelper().convertDateToEpoch(deferDate)
             delegate?.didAddAction(actionId, actionContent: actionContent, projectId: projectId, projectName: projectName, dueDate: dueDateEpoch, deferDate: deferDateEpoch, priority: priority, watchers: watchers)
             self.dismissViewControllerAnimated(true) { () -> Void in
                 
@@ -84,8 +84,8 @@ class AddActionViewController: UIViewController, UITableViewDataSource, UITableV
         self.actionContent = actionInfo["content"] as? String
         self.projectId = actionInfo["projectId"] as? String
         self.projectName = actionInfo["projectName"] as? String
-        let dueDateEpoch: String = actionInfo["dueDate"] as! String
-        let deferDateEpoch: String = actionInfo["deferDate"] as! String
+        let dueDateEpoch: Int = actionInfo["dueDate"] as! Int
+        let deferDateEpoch: Int = actionInfo["deferDate"] as! Int
         self.dueDate = DateTimeHelper().convertEpochToDate(dueDateEpoch)
         self.deferDate = DateTimeHelper().convertEpochToDate(deferDateEpoch)
         self.priority = actionInfo["priority"] as? Int

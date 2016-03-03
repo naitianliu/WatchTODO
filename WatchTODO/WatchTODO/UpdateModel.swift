@@ -16,7 +16,7 @@ class UpdateModel: Object {
     dynamic var code: String = ""
     dynamic var message: String = ""
     dynamic var updatedBy: String = ""
-    dynamic var timestamp: String = ""
+    dynamic var timestamp: Int = 0
     
     override static func primaryKey() -> String {
         return "uuid"
@@ -28,7 +28,7 @@ class UpdateModelHelper {
         
     }
     
-    func addUpdateItem(uuid: String, actionId: String, code: String, message: String, updatedBy: String, timestamp: String) {
+    func addUpdateItem(uuid: String, actionId: String, code: String, message: String, updatedBy: String, timestamp: Int) {
         let updateItem = UpdateModel()
         updateItem.uuid = uuid
         updateItem.actionId = actionId
@@ -47,18 +47,23 @@ class UpdateModelHelper {
     }
     
     func getUpdateList() -> [[String: AnyObject]] {
+        let actionItemModelHelper = ActionItemModelHelper(me: false)
         var updateList: [[String: AnyObject]] = []
         do {
             let realm = try Realm()
             for item in realm.objects(UpdateModel) {
-                let itemDict = [
+                let actionId = item.actionId
+                var itemDict: [String: AnyObject] = [
                     "uuid": item.uuid,
-                    "actionId": item.actionId,
+                    "actionId": actionId,
                     "code": item.code,
                     "message": item.message,
                     "updatedBy": item.updatedBy,
                     "timestamp": item.timestamp
                 ]
+                if let actionInfo = actionItemModelHelper.getActionInfoByActionId(actionId) {
+                    itemDict["actionInfo"] = actionInfo
+                }
                 updateList.insert(itemDict, atIndex: 0)
             }
         } catch {
