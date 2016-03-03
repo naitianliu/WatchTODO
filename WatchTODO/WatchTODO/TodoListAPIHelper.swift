@@ -35,8 +35,8 @@ class TodoListAPIHelper: CallAPIHelperDelegate {
         CallAPIHelper(url: apiURL_GetTodoList, data: data, delegate: self).GET(index_GetTodoList)
     }
     
-    func addAction(content: String, projectId: String?, projectName:String?, dueDate:String?, deferDate: String?, priority: Int?, watchers: [String]) {
-        let actionId = actionItemModelHelper.addActionItem(nil, username: nil, content: content, projectId: projectId, projectName: projectName, dueDate: dueDate, deferDate: deferDate, priority: priority)
+    func addAction(actionId: String?, content: String, projectId: String?, projectName:String?, dueDate:String?, deferDate: String?, priority: Int?, watchers: [String]) {
+        let actionId = actionItemModelHelper.addActionItem(actionId, username: nil, content: content, projectId: projectId, projectName: projectName, dueDate: dueDate, deferDate: deferDate, priority: priority)
         WatcherModelHelper().addUpdateWatchers(actionId, watchers: watchers)
         var actionInfo: [String: String] = ["content": content]
         if let projectId = projectId {

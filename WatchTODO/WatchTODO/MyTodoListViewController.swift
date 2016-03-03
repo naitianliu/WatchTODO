@@ -11,7 +11,7 @@ import Toast
 import CZPicker
 import DZNEmptyDataSet
 
-class MyTodoListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CZPickerViewDelegate, CZPickerViewDataSource, DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
+class MyTodoListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CZPickerViewDelegate, CZPickerViewDataSource, DZNEmptyDataSetDelegate, DZNEmptyDataSetSource, AddActionVCDelegate {
     
     let colorP1: UIColor = UIColor.redColor()
     let colorP2: UIColor = UIColor.orangeColor()
@@ -209,6 +209,9 @@ class MyTodoListViewController: UIViewController, UITableViewDelegate, UITableVi
         // let cell = tableView.dequeueReusableCellWithIdentifier(unfoldCellIdentifier) as! TodoUnfoldTableViewCell
         let cell = tableView.dequeueReusableCellWithIdentifier(unfoldCellIdentifier, forIndexPath: indexPath) as! TodoUnfoldTableViewCell
         cell.addWatcherButton.action = Selector("addWatcherButtonOnClick:")
+        cell.editButton.action = Selector("editActionButtonOnClick:")
+        cell.completeButton.action = Selector("completeButtonOnClick:")
+        cell.deleteButton.action = Selector("deleteButtonOnClick:")
         return cell
     }
     
@@ -372,6 +375,53 @@ class MyTodoListViewController: UIViewController, UITableViewDelegate, UITableVi
         
     }
     
+    func editActionButtonOnClick(sender: UIBarButtonItem!) {
+        let sectionKey = sectionKeyList[selectedCellIndexPath!.section]
+        let dataArray: [[String: AnyObject]] = dataDictArray[sectionKey]!
+        let actionId: String = dataArray[selectedCellIndexPath!.row]["uuid"] as! String
+        let AddActionNC = self.storyboard!.instantiateViewControllerWithIdentifier("AddActionNavigationController") as! UINavigationController
+        AddActionNC.modalTransitionStyle = .CoverVertical
+        let AddActionVC = AddActionNC.viewControllers[0] as! AddActionViewController
+        AddActionVC.delegate = self
+        AddActionVC.actionId = actionId
+        self.presentViewController(AddActionNC, animated: true) { () -> Void in
+            
+        }
+    }
+    
+    func completeButtonOnClick(sender: UIBarButtonItem!) {
+        if let indexPath = self.selectedCellIndexPath {
+            let sectionKey = sectionKeyList[indexPath.section]
+            let dataArray: [[String: AnyObject]] = dataDictArray[sectionKey]!
+            var row: Int = indexPath.row
+            if let selectedIndexPath = selectedCellIndexPath {
+                if selectedIndexPath.section == indexPath.section && selectedIndexPath.row < indexPath.row {
+                    row = indexPath.row - 1
+                }
+            }
+            // update db
+            let uuid: String = dataArray[row]["uuid"] as! String
+            let status: Int = dataArray[row]["status"] as! Int
+            var newStatus: Int = 0
+            if status == 0 || status == 1{
+                newStatus = 2
+                dataDictArray[sectionKey]![row]["status"] = newStatus
+                tableView.reloadData()
+                TodoListAPIHelper().updateStatus(uuid, status: newStatus)
+                selectedActionId = uuid
+            }
+            self.performDidSelectRow(self.tableView, didSelectRowAtIndexPath: indexPath)
+        }
+    }
+    
+    func deleteButtonOnClick(sender: UIBarButtonItem!) {
+        if let indexPath = self.selectedCellIndexPath {
+            self.performDidSelectRow(self.tableView, didSelectRowAtIndexPath: indexPath)
+            toDeleteCellIndexPath = indexPath
+            self.showConfirmDeleteActionItemActionSheet()
+        }
+    }
+    
     func numberOfRowsInPickerView(pickerView: CZPickerView!) -> Int {
         return friends.count
     }
@@ -398,5 +448,12 @@ class MyTodoListViewController: UIViewController, UITableViewDelegate, UITableVi
         let text: String = "No Pending Action"
         let attributes: [String: AnyObject] = [NSFontAttributeName: UIFont.boldSystemFontOfSize(18), NSForegroundColorAttributeName: UIColor.darkGrayColor()]
         return NSAttributedString(string: text, attributes: attributes)
+    }
+    
+    func didAddAction(actionId: String?, actionContent: String?, projectId: String?, projectName: String?, dueDate: String?, deferDate: String?, priority: Int?, watchers: [String]) {
+        if let content = actionContent {
+            TodoListAPIHelper().addAction(actionId, content: content, projectId: projectId, projectName: projectName, dueDate: dueDate, deferDate: deferDate, priority: priority, watchers: watchers)
+            self.setupDisplayItems()
+        }
     }
 }

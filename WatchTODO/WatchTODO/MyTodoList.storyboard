@@ -153,11 +153,11 @@
                                                                 <constraint firstAttribute="height" constant="44" id="JOV-i3-pxU"/>
                                                             </constraints>
                                                             <items>
-                                                                <barButtonItem image="back" id="Hnk-OU-gbz">
+                                                                <barButtonItem image="complete" id="Hnk-OU-gbz">
                                                                     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                 </barButtonItem>
                                                                 <barButtonItem style="plain" systemItem="flexibleSpace" id="6Lp-qc-aWV"/>
-                                                                <barButtonItem image="complete" id="0iY-c6-ucS">
+                                                                <barButtonItem image="delete-icon" id="0iY-c6-ucS">
                                                                     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                 </barButtonItem>
                                                                 <barButtonItem style="plain" systemItem="flexibleSpace" id="JaD-ae-uqD"/>
@@ -233,9 +233,9 @@
                                         <connections>
                                             <outlet property="addWatcherButton" destination="Pzm-cj-qsQ" id="KCf-Ro-fs1"/>
                                             <outlet property="commentButton" destination="xCw-2N-3cL" id="Pe9-Ny-fhM"/>
-                                            <outlet property="completeButton" destination="0iY-c6-ucS" id="wW9-dn-yZ8"/>
+                                            <outlet property="completeButton" destination="Hnk-OU-gbz" id="tmo-0D-Ltt"/>
+                                            <outlet property="deleteButton" destination="0iY-c6-ucS" id="d3Q-c9-sJb"/>
                                             <outlet property="editButton" destination="WGm-Sz-IXj" id="3vz-gR-xrM"/>
-                                            <outlet property="revokeButton" destination="Hnk-OU-gbz" id="NZ5-lU-mSz"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -422,7 +422,7 @@
                                 <action selector="cancelButtonOnClick:" destination="W9L-14-qJg" id="JDK-Ef-zaG"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Add" id="GbG-CC-aOB">
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="GbG-CC-aOB">
                             <color key="tintColor" red="0.2981615762" green="0.74215316099999995" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="addButtonOnClick:" destination="W9L-14-qJg" id="WgG-80-QeQ"/>
@@ -1039,12 +1039,12 @@
     </scenes>
     <resources>
         <image name="adduser" width="50" height="50"/>
-        <image name="back" width="50" height="50"/>
         <image name="bubble1" width="35" height="24"/>
         <image name="bubble2" width="35" height="25"/>
         <image name="comment" width="50" height="50"/>
         <image name="comment2" width="25" height="25"/>
         <image name="complete" width="50" height="50"/>
+        <image name="delete-icon" width="26" height="26"/>
         <image name="edit" width="50" height="50"/>
         <image name="priority-flag" width="24" height="24"/>
         <image name="reveal-icon" width="22" height="17"/>

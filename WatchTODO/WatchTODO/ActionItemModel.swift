@@ -154,7 +154,7 @@ class ActionItemModelHelper {
             for item in realm.objects(ActionItemModel).filter("status != 2 AND status != 3") {
                 pendingActionIdList.append(item.uuid)
             }
-        }catch {
+        } catch {
 
         }
         return pendingActionIdList
@@ -177,7 +177,7 @@ class ActionItemModelHelper {
         do {
             let realm = try Realm()
             let item = realm.objectForPrimaryKey(ActionItemModel.self, key: actionId)!
-            let actionInfo: [String: AnyObject] = [
+            var actionInfo: [String: AnyObject] = [
                 "content": item.content,
                 "projectId": item.projectId,
                 "projectName": item.projectName,
@@ -186,9 +186,11 @@ class ActionItemModelHelper {
                 "priority": item.priority,
                 "status": item.status,
                 "everyday": item.everyday,
-                "username": item.username,
-                "nickname": friendsMapDict[item.username]!
             ]
+            if !self.me {
+                actionInfo["username"] = item.username
+                actionInfo["nickname"] = friendsMapDict[item.username]!
+            }
             return actionInfo
         } catch {
             return nil

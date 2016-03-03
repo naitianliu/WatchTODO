@@ -13,12 +13,14 @@ import CZPicker
 import Toast
 
 protocol AddActionVCDelegate {
-    func didAddAction(actionContent:String?, projectId:String?, projectName:String?, dueDate:String?, deferDate:String?, priority: Int?, watchers: [String])
+    func didAddAction(actionId:String?, actionContent:String?, projectId:String?, projectName:String?, dueDate:String?, deferDate:String?, priority: Int?, watchers: [String])
 }
 
 class AddActionViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, SelectProjectVCDelegate, UITextViewDelegate, CZPickerViewDelegate, CZPickerViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
+    
+    var actionId: String?
     
     var actionContent: String?
     var projectId: String?
@@ -34,6 +36,13 @@ class AddActionViewController: UIViewController, UITableViewDataSource, UITableV
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if let tempActionId = actionId {
+            self.navigationItem.title = "Edit Action"
+            self.initiateActionInfo(tempActionId)
+        } else {
+            self.navigationItem.title = "Add Action"
+        }
         
         friends = FriendModelHelper().getAllFriendList()
         
@@ -59,7 +68,7 @@ class AddActionViewController: UIViewController, UITableViewDataSource, UITableV
         if actionContent != nil && actionContent != "" {
             let dueDateEpoch: String? = DateTimeHelper().convertDateToEpoch(dueDate)
             let deferDateEpoch: String? = DateTimeHelper().convertDateToEpoch(deferDate)
-            delegate?.didAddAction(actionContent, projectId: projectId, projectName: projectName, dueDate: dueDateEpoch, deferDate: deferDateEpoch, priority: priority, watchers: watchers)
+            delegate?.didAddAction(actionId, actionContent: actionContent, projectId: projectId, projectName: projectName, dueDate: dueDateEpoch, deferDate: deferDateEpoch, priority: priority, watchers: watchers)
             self.dismissViewControllerAnimated(true) { () -> Void in
                 
             }
@@ -68,6 +77,20 @@ class AddActionViewController: UIViewController, UITableViewDataSource, UITableV
             self.view.makeToast(message, duration: 2.0, position: CSToastPositionCenter)
         }
         
+    }
+    
+    private func initiateActionInfo(actionId: String) {
+        let actionInfo: [String: AnyObject] = ActionItemModelHelper(me: true).getActionInfoByActionId(actionId)!
+        self.actionContent = actionInfo["content"] as? String
+        self.projectId = actionInfo["projectId"] as? String
+        self.projectName = actionInfo["projectName"] as? String
+        let dueDateEpoch: String = actionInfo["dueDate"] as! String
+        let deferDateEpoch: String = actionInfo["deferDate"] as! String
+        self.dueDate = DateTimeHelper().convertEpochToDate(dueDateEpoch)
+        self.deferDate = DateTimeHelper().convertEpochToDate(deferDateEpoch)
+        self.priority = actionInfo["priority"] as? Int
+        let watchers = WatcherModelHelper().getWatchers(actionId)
+        self.watchers = watchers
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
