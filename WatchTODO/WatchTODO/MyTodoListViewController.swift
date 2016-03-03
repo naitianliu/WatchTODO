@@ -38,6 +38,8 @@ class MyTodoListViewController: UIViewController, UITableViewDelegate, UITableVi
     var selectedProjectId: String?
     var selectedCategory: String?
     
+    var toDeleteCellIndexPath: NSIndexPath?
+    
     var friends: [[String: String]] = []
     
     @IBOutlet weak var tableView: UITableView!
@@ -243,6 +245,7 @@ class MyTodoListViewController: UIViewController, UITableViewDelegate, UITableVi
                     self.performDidSelectRow(tableView, didSelectRowAtIndexPath: indexPath)
                 }
             }
+            toDeleteCellIndexPath = indexPath
             self.showConfirmDeleteActionItemActionSheet()
         }
     }
@@ -298,7 +301,15 @@ class MyTodoListViewController: UIViewController, UITableViewDelegate, UITableVi
     private func showConfirmDeleteActionItemActionSheet() {
         let alertController = UIAlertController(title: "Delete Action", message: "Are you sure you want to delete this action?", preferredStyle: UIAlertControllerStyle.ActionSheet)
         let deleteAction = UIAlertAction(title: "Delete", style: UIAlertActionStyle.Destructive) { (action) -> Void in
-            
+            if let indexPath = self.toDeleteCellIndexPath {
+                let sectionKey = self.sectionKeyList[indexPath.section]
+                let dataArray: [[String: AnyObject]] = self.dataDictArray[sectionKey]!
+                let rowDict = dataArray[indexPath.row]
+                let actionId: String = rowDict["uuid"] as! String
+                TodoListAPIHelper().removeAction(actionId)
+                self.dataDictArray[sectionKey]!.removeAtIndex(indexPath.row)
+                self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+            }
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) { (action) -> Void in
             

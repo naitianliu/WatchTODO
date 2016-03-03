@@ -66,8 +66,10 @@ class TodoListAPIHelper: CallAPIHelperDelegate {
         
     }
     
-    func removeAction() {
-        
+    func removeAction(actionId: String) {
+        actionItemModelHelper.updateActionStatus(actionId, status: 3)
+        let data: [String: AnyObject] = ["action_id": actionId]
+        CallAPIHelper(url: apiURL_RemoveAction, data: data, delegate: self).POST(index_RemoveAction)
     }
     
     func updateStatus(actionId: String, status: Int) {

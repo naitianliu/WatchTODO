@@ -92,8 +92,9 @@ class AddProjectViewController: UIViewController, UITableViewDelegate, UITableVi
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier1) as! NewProjectTableViewCell
+            cell.projectNameTextField.text = self.projectName
             cell.projectNameTextField.delegate = self
-            cell.projectNameTextField.becomeFirstResponder()
+            cell.projectNameTextField.resignFirstResponder()
             return cell
         } else if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier2)!
@@ -114,6 +115,7 @@ class AddProjectViewController: UIViewController, UITableViewDelegate, UITableVi
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         if indexPath.section == 1 {
+            tableView.reloadData()
             self.showAddWatchersPickerView()
         }
     }

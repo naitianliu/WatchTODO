@@ -17,7 +17,7 @@ class ActionItemModel: Object {
     dynamic var projectName: String = ""
     dynamic var deferDate: String = ""
     dynamic var priority: Int = 4
-    // status 0: not started, 1: WorkInProgress, 2: complete
+    // status 0: not started, 1: WorkInProgress, 2: complete, 3: deleted
     dynamic var status: Int = 0
     dynamic var everyday: Bool = false
     dynamic var me: Bool = false
@@ -96,9 +96,9 @@ class ActionItemModelHelper {
         var pendingItems: [[String:AnyObject]] = []
         do {
             let realm = try Realm()
-            var queryString = "status != 2 AND me = \(self.me)"
+            var queryString = "status != 2 AND status != 3 AND me = \(self.me)"
             if let tempProjectId = projectId {
-                queryString = "status != 2 AND me = \(self.me) AND projectId = '\(tempProjectId)'"
+                queryString = "status != 2 AND status != 3 AND me = \(self.me) AND projectId = '\(tempProjectId)'"
             }
             for item in realm.objects(ActionItemModel).filter(queryString) {
                 let itemDict = [
@@ -125,7 +125,7 @@ class ActionItemModelHelper {
         var pendingItems: [[String: AnyObject]] = []
         do {
             let realm = try Realm()
-            for item in realm.objects(ActionItemModel).filter("status != 2 AND me = \(self.me)") {
+            for item in realm.objects(ActionItemModel).filter("status != 2 AND status != 3 AND me = \(self.me)") {
                 let itemDict = [
                     "uuid": item.uuid,
                     "content": item.content,
@@ -151,7 +151,7 @@ class ActionItemModelHelper {
         var pendingActionIdList: [String] = []
         do {
             let realm = try Realm()
-            for item in realm.objects(ActionItemModel).filter("status != 2") {
+            for item in realm.objects(ActionItemModel).filter("status != 2 AND status != 3") {
                 pendingActionIdList.append(item.uuid)
             }
         }catch {
