@@ -54,6 +54,7 @@ class CallAPIHelper: NSObject {
                 self.delegate?.afterReceiveResponse(JSON, index:index)
             case .Failure(let error):
                 print(error)
+                print(self.url)
                 self.delegate?.apiReceiveError(error)
             }
         }
@@ -68,6 +69,7 @@ class CallAPIHelper: NSObject {
                 self.delegate?.afterReceiveResponse(JSON, index:index)
             case .Failure(let error):
                 print(error)
+                print(self.url)
                 self.delegate?.apiReceiveError(error)
             }
         }

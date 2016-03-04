@@ -48,6 +48,8 @@
 		46E6C5901C83B44600A6C416 /* WatchByFriendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E6C58F1C83B44600A6C416 /* WatchByFriendTableViewCell.swift */; };
 		46E6C5921C83C3CE00A6C416 /* FriendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E6C5911C83C3CE00A6C416 /* FriendTableViewCell.swift */; };
 		46E6C5951C8555A800A6C416 /* NewProjectTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E6C5941C8555A800A6C416 /* NewProjectTableViewCell.swift */; };
+		46E6C5971C894D6E00A6C416 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E6C5961C894D6E00A6C416 /* SettingsTableViewController.swift */; };
+		46E6C5991C896F8400A6C416 /* AddFriendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E6C5981C896F8400A6C416 /* AddFriendTableViewCell.swift */; };
 		46E98E9B1C559ABA00CE83EA /* FriendModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E98E9A1C559ABA00CE83EA /* FriendModel.swift */; };
 		46E98E9D1C55DA3B00CE83EA /* WatchItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E98E9C1C55DA3B00CE83EA /* WatchItemDetailViewController.swift */; };
 		46E98E9F1C55DAEE00CE83EA /* WatchFriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E98E9E1C55DAEE00CE83EA /* WatchFriendViewController.swift */; };
@@ -140,6 +142,8 @@
 		46E6C58F1C83B44600A6C416 /* WatchByFriendTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchByFriendTableViewCell.swift; sourceTree = "<group>"; };
 		46E6C5911C83C3CE00A6C416 /* FriendTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendTableViewCell.swift; sourceTree = "<group>"; };
 		46E6C5941C8555A800A6C416 /* NewProjectTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewProjectTableViewCell.swift; sourceTree = "<group>"; };
+		46E6C5961C894D6E00A6C416 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
+		46E6C5981C896F8400A6C416 /* AddFriendTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddFriendTableViewCell.swift; sourceTree = "<group>"; };
 		46E98E9A1C559ABA00CE83EA /* FriendModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendModel.swift; sourceTree = "<group>"; };
 		46E98E9C1C55DA3B00CE83EA /* WatchItemDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchItemDetailViewController.swift; sourceTree = "<group>"; };
 		46E98E9E1C55DAEE00CE83EA /* WatchFriendViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchFriendViewController.swift; sourceTree = "<group>"; };
@@ -229,6 +233,7 @@
 				46E6C5881C82899300A6C416 /* WatchUpdateTableViewCell.swift */,
 				46E6C58F1C83B44600A6C416 /* WatchByFriendTableViewCell.swift */,
 				46E6C5911C83C3CE00A6C416 /* FriendTableViewCell.swift */,
+				46E6C5981C896F8400A6C416 /* AddFriendTableViewCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -423,6 +428,7 @@
 			isa = PBXGroup;
 			children = (
 				46E6C5831C80165700A6C416 /* MeTableViewController.swift */,
+				46E6C5961C894D6E00A6C416 /* SettingsTableViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -710,6 +716,7 @@
 				46EE9E191C4C2A8C0062D644 /* TodoActionItemTableViewCell.swift in Sources */,
 				46B3E0071C54ABF8002A6769 /* AddFriendViewController.swift in Sources */,
 				4600E6781C59E5380007696F /* RenderCommentView.swift in Sources */,
+				46E6C5971C894D6E00A6C416 /* SettingsTableViewController.swift in Sources */,
 				46B3DFFB1C548415002A6769 /* LoginViewController.swift in Sources */,
 				46E6C5901C83B44600A6C416 /* WatchByFriendTableViewCell.swift in Sources */,
 				46E6C5921C83C3CE00A6C416 /* FriendTableViewCell.swift in Sources */,
@@ -732,6 +739,7 @@
 				4600E67C1C5AD5940007696F /* CommentModel.swift in Sources */,
 				465DB0D91C5B029F00DAD91F /* ChatBubbleTableViewCell.swift in Sources */,
 				46EE9E241C4C82190062D644 /* AddProjectViewController.swift in Sources */,
+				46E6C5991C896F8400A6C416 /* AddFriendTableViewCell.swift in Sources */,
 				46E6C5841C80165700A6C416 /* MeTableViewController.swift in Sources */,
 				46EE9E171C4B58970062D644 /* AddActionContentTableViewCell1.swift in Sources */,
 				46B17DD51C65B53A0006EEB3 /* SyncHelper.swift in Sources */,

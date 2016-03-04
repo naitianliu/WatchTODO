@@ -88,12 +88,11 @@ class WatchAPIHelper: CallAPIHelperDelegate {
                 if let tempPriority = actionInfo["priority"] {
                     priority = Int(tempPriority)
                 }
-                let pending = action["pending"] as! Bool
                 let projectId = action["project_id"] as? String
-                let status = action["status"] as! Int
+                let status = action["status"] as! String
                 let username = action["username"] as? String
                 let projectName = action["project_name"] as? String
-                self.actionItemModelHelper.addActionItem(actionId, username: username, content: content!, projectId: projectId, projectName: projectName, dueDate: dueDate, deferDate: deferDate, priority: priority)
+                self.actionItemModelHelper.addActionItem(actionId, username: username, content: content!, projectId: projectId, projectName: projectName, dueDate: dueDate, deferDate: deferDate, priority: priority, status: Int(status))
             }
             // add update model
             let updateModelHelper = UpdateModelHelper()

@@ -36,7 +36,7 @@ class ActionItemModelHelper {
         PerformMigrations().setDefaultRealmForUser()
     }
     
-    func addActionItem(actionId: String?, username: String?, content:String, projectId:String?, projectName:String?, dueDate:Int?, deferDate:Int?, priority:Int?) -> String {
+    func addActionItem(actionId: String?, username: String?, content:String, projectId:String?, projectName:String?, dueDate:Int?, deferDate:Int?, priority:Int?, status: Int?) -> String {
         var uuid = NSUUID().UUIDString
         if let actionId = actionId {
             uuid = actionId
@@ -64,6 +64,11 @@ class ActionItemModelHelper {
             actionItem.priority = priority
         } else {
             actionItem.priority = 4
+        }
+        if let status = status {
+            actionItem.status = status
+        } else {
+            actionItem.status = 0
         }
         do {
             let realm = try Realm()

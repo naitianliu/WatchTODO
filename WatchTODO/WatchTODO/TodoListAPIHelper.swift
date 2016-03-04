@@ -36,7 +36,7 @@ class TodoListAPIHelper: CallAPIHelperDelegate {
     }
     
     func addAction(actionId: String?, content: String, projectId: String?, projectName:String?, dueDate:Int?, deferDate: Int?, priority: Int?, watchers: [String]) {
-        let actionId = actionItemModelHelper.addActionItem(actionId, username: nil, content: content, projectId: projectId, projectName: projectName, dueDate: dueDate, deferDate: deferDate, priority: priority)
+        let actionId = actionItemModelHelper.addActionItem(actionId, username: nil, content: content, projectId: projectId, projectName: projectName, dueDate: dueDate, deferDate: deferDate, priority: priority, status: nil)
         WatcherModelHelper().addUpdateWatchers(actionId, watchers: watchers)
         var actionInfo: [String: String] = ["content": content]
         if let projectId = projectId {
@@ -97,6 +97,7 @@ class TodoListAPIHelper: CallAPIHelperDelegate {
             for item in resDict["todo_list"]! {
                 print(item)
                 let actionId = item["action_id"] as! String
+                let status: String = item["status"] as! String
                 let actionInfo = item["info"] as! [String: String]
                 let content = actionInfo["content"]
                 var projectId: String?
@@ -121,7 +122,7 @@ class TodoListAPIHelper: CallAPIHelperDelegate {
                         priority = Int(tempPriority)!
                     }
                 }
-                self.actionItemModelHelper.addActionItem(actionId, username: nil, content: content!, projectId: projectId, projectName: projectName, dueDate: dueDate, deferDate: deferDate, priority: priority)
+                self.actionItemModelHelper.addActionItem(actionId, username: nil, content: content!, projectId: projectId, projectName: projectName, dueDate: dueDate, deferDate: deferDate, priority: priority, status: Int(status))
             }
         }
     }

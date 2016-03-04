@@ -17,7 +17,6 @@ class SortMessagesHelper {
     func getTimeSortedMessages() -> [[String: AnyObject]] {
         let unsortedMessages: [[String: AnyObject]] = self.getCommentMessages() + self.getFriendMessages()
         let resultMessageList: [[String: AnyObject]] = unsortedMessages.sort { (element1, element2) -> Bool in
-            print(element1["timestamp"])
             let timestamp1 = element1["timestamp"] as! Int
             let timestamp2 = element2["timestamp"] as! Int
             let result: Bool = timestamp1 > timestamp2

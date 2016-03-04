@@ -7,23 +7,21 @@
 //
 
 import UIKit
-import SDWebImage
+import MBProgressHUD
 
-protocol AddFriendVCDelegate {
-    func addDFriendDidSelectFriend(userInfo: [String: String])
-}
-
-class AddFriendViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class AddFriendViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, FriendAPIHelperDelegate, UISearchBarDelegate {
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var searchBar: UISearchBar!
     
-    var delegate: AddFriendVCDelegate?
-    
-    var userListByUsername: [[String: String]] = []
-    var userListByNickname: [[String: String]] = []
+    var userList: [[String: String]] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tableView.estimatedRowHeight = 60
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.tableFooterView = UIView()
     }
 
     override func didReceiveMemoryWarning() {
@@ -31,49 +29,76 @@ class AddFriendViewController: UIViewController, UITableViewDelegate, UITableVie
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func cancelButtonOnClick(sender: AnyObject) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        if let keyword = searchBar.text {
+            searchBar.resignFirstResponder()
+            MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+            let friendAPIHelper = FriendAPIHelper()
+            friendAPIHelper.delegate = self
+            friendAPIHelper.getUserListByKeyword(keyword)
+        }
+    }
+    
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 2
+        return 1
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
-            return userListByUsername.count
-        } else {
-            return userListByNickname.count
-        }
+        return userList.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .Default, reuseIdentifier: "AddFriendCell")
-        if indexPath.section == 0 {
-            let nickname: String = userListByUsername[indexPath.row]["nickname"]!
-            let profileImageURL :String = userListByUsername[indexPath.row]["profile_img_url"]!
-            cell.textLabel?.text = nickname
-            cell.imageView?.sd_setImageWithURL(NSURL(string: profileImageURL))
-        } else {
-            let nickname: String = userListByNickname[indexPath.row]["nickname"]!
-            let profileImageURL :String = userListByNickname[indexPath.row]["profile_img_url"]!
-            cell.textLabel?.text = nickname
-            cell.imageView?.sd_setImageWithURL(NSURL(string: profileImageURL))
-        }
+        let cell = tableView.dequeueReusableCellWithIdentifier("AddFriendTableViewCell") as! AddFriendTableViewCell
+        let nickname: String = userList[indexPath.row]["nickname"]!
+        let username: String = userList[indexPath.row]["username"]!
+        cell.nicknameLabel.text = nickname
+        cell.usernameLabel.text = username
+        cell.inviteButton.addTarget(self, action: Selector("inviteButtonOnClick:"), forControlEvents: .TouchDown)
         return cell
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.section == 0 {
-            delegate?.addDFriendDidSelectFriend(userListByUsername[indexPath.row])
-        } else {
-            delegate?.addDFriendDidSelectFriend(userListByNickname[indexPath.row])
-        }
-        
+    func inviteButtonOnClick(sender: UIButton!) {
+        let cell = sender.superview?.superview as! AddFriendTableViewCell
+        let indexPath = tableView.indexPathForCell(cell)!
+        let userInfo: [String: String] = self.userList[indexPath.row]
+        let username: String = userInfo["username"]!
+        let nickname: String = userInfo["nickname"]!
+        self.showSendAlertController(username, nickname: nickname)
     }
     
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 0 {
-            return "Results by Username"
-        } else {
-            return "Results by Nickname"
+    func didGetUserListByKeyword(userList: [[String : String]]) {
+        MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        MBProgressHUD.hideHUDForView(self.view, animated: true)
+        self.userList = userList
+        self.tableView.reloadData()
+    }
+    
+    func didSendFriendRequest() {
+        MBProgressHUD.hideHUDForView(self.view, animated: true)
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func didFailCallFriendAPI() {
+        MBProgressHUD.hideHUDForView(self.view, animated: true)
+    }
+    
+    private func showSendAlertController(username: String?, nickname: String?) {
+        let alertController = UIAlertController(title: "Send Friend Invitation", message: nickname, preferredStyle: UIAlertControllerStyle.Alert)
+        let alertActionSend = UIAlertAction(title: "Send", style: UIAlertActionStyle.Default) { (action) -> Void in
+            if let selectedUsername = username, selectedNickname = nickname {
+                let friendAPIHelper = FriendAPIHelper()
+                friendAPIHelper.delegate = self
+                friendAPIHelper.sendFriendRequest(selectedUsername, nickname: selectedNickname)
+            }
         }
+        let alertActionCancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil)
+        alertController.addAction(alertActionSend)
+        alertController.addAction(alertActionCancel)
+        self.presentViewController(alertController, animated: true, completion: nil)
     }
 
 }

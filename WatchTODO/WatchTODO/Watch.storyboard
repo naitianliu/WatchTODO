@@ -256,7 +256,7 @@
             </objects>
             <point key="canvasLocation" x="883" y="571"/>
         </scene>
-        <!--Add Friend View Controller-->
+        <!--Add Friend-->
         <scene sceneID="sgE-Jq-idS">
             <objects>
                 <viewController storyboardIdentifier="AddFriendViewController" automaticallyAdjustsScrollViewInsets="NO" id="5X7-oe-S2F" customClass="AddFriendViewController" customModule="WatchTODO" customModuleProvider="target" sceneMemberID="viewController">
@@ -268,9 +268,78 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2AE-D0-DFH">
-                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                            <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Nickname or Email" translatesAutoresizingMaskIntoConstraints="NO" id="Dv3-0H-bGd">
+                                <rect key="frame" x="0.0" y="64" width="600" height="44"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="search"/>
+                                <connections>
+                                    <outlet property="delegate" destination="5X7-oe-S2F" id="eyu-UR-Q4t"/>
+                                </connections>
+                            </searchBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="83" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2AE-D0-DFH">
+                                <rect key="frame" x="0.0" y="108" width="600" height="492"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="AddFriendTableViewCell" rowHeight="83" id="rah-0w-UaY" customClass="AddFriendTableViewCell" customModule="WatchTODO" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="600" height="83"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rah-0w-UaY" id="WdG-ea-0tG">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="82"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="adduser-50" translatesAutoresizingMaskIntoConstraints="NO" id="hok-6r-DRN">
+                                                    <rect key="frame" x="33" y="18" width="42" height="42"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="QQM-gm-s1N"/>
+                                                        <constraint firstAttribute="width" constant="30" id="msb-oJ-7kd"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="nickname label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TNT-6C-qSe">
+                                                    <rect key="frame" x="89" y="18" width="115" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="username label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="img-fM-Vdh">
+                                                    <rect key="frame" x="89" y="39" width="105" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZRt-df-5Eg">
+                                                    <rect key="frame" x="498" y="24" width="68" height="30"/>
+                                                    <color key="backgroundColor" red="0.2981615762" green="0.74215316099999995" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="70" id="4TN-kt-DGR"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <state key="normal" title="Invite">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottomMargin" secondItem="hok-6r-DRN" secondAttribute="bottom" constant="15" id="CtE-4i-uov"/>
+                                                <constraint firstItem="img-fM-Vdh" firstAttribute="top" secondItem="TNT-6C-qSe" secondAttribute="bottom" id="Ec4-gK-ArO"/>
+                                                <constraint firstItem="ZRt-df-5Eg" firstAttribute="leading" secondItem="TNT-6C-qSe" secondAttribute="trailing" constant="10" id="HPm-7k-rxO"/>
+                                                <constraint firstItem="img-fM-Vdh" firstAttribute="trailing" secondItem="TNT-6C-qSe" secondAttribute="trailing" id="L4Z-tP-2ok"/>
+                                                <constraint firstItem="img-fM-Vdh" firstAttribute="leading" secondItem="TNT-6C-qSe" secondAttribute="leading" id="dne-0H-upt"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="ZRt-df-5Eg" secondAttribute="trailing" constant="20" id="e8C-LY-PkW"/>
+                                                <constraint firstItem="TNT-6C-qSe" firstAttribute="leading" secondItem="hok-6r-DRN" secondAttribute="trailing" constant="20" id="g4x-Lr-YIb"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="ZRt-df-5Eg" secondAttribute="bottom" constant="20" id="kZL-eC-sAg"/>
+                                                <constraint firstItem="hok-6r-DRN" firstAttribute="top" secondItem="WdG-ea-0tG" secondAttribute="topMargin" constant="15" id="mUd-Kb-FWm"/>
+                                                <constraint firstItem="ZRt-df-5Eg" firstAttribute="top" secondItem="WdG-ea-0tG" secondAttribute="topMargin" constant="15" id="pw1-T9-UXC"/>
+                                                <constraint firstItem="TNT-6C-qSe" firstAttribute="top" secondItem="hok-6r-DRN" secondAttribute="top" constant="-5" id="wL0-Ko-XMO"/>
+                                                <constraint firstItem="hok-6r-DRN" firstAttribute="leading" secondItem="WdG-ea-0tG" secondAttribute="leadingMargin" constant="20" id="xSg-Qv-bZE"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="iconImageView" destination="hok-6r-DRN" id="VKR-6V-xKW"/>
+                                            <outlet property="inviteButton" destination="ZRt-df-5Eg" id="Nit-RH-ufg"/>
+                                            <outlet property="nicknameLabel" destination="TNT-6C-qSe" id="261-qr-Qt5"/>
+                                            <outlet property="usernameLabel" destination="img-fM-Vdh" id="NNH-4R-gbB"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="5X7-oe-S2F" id="Znv-Uf-CsW"/>
                                     <outlet property="delegate" destination="5X7-oe-S2F" id="EJb-wd-fCl"/>
@@ -279,14 +348,31 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="Dv3-0H-bGd" firstAttribute="top" secondItem="Ozc-Kg-hEQ" secondAttribute="bottom" id="3NS-MM-1CP"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Dv3-0H-bGd" secondAttribute="trailing" constant="-20" id="H0j-fR-0hz"/>
+                            <constraint firstItem="2AE-D0-DFH" firstAttribute="top" secondItem="Dv3-0H-bGd" secondAttribute="bottom" id="LWE-A2-kj8"/>
                             <constraint firstAttribute="trailingMargin" secondItem="2AE-D0-DFH" secondAttribute="trailing" constant="-20" id="LdD-Nn-Dr5"/>
+                            <constraint firstItem="Dv3-0H-bGd" firstAttribute="leading" secondItem="jYK-dF-EYf" secondAttribute="leadingMargin" constant="-20" id="PbO-TS-AxG"/>
                             <constraint firstItem="and-oL-rII" firstAttribute="top" secondItem="2AE-D0-DFH" secondAttribute="bottom" id="erQ-67-3BZ"/>
                             <constraint firstItem="2AE-D0-DFH" firstAttribute="top" secondItem="Ozc-Kg-hEQ" secondAttribute="bottom" id="i0k-qC-3Sx"/>
                             <constraint firstItem="2AE-D0-DFH" firstAttribute="leading" secondItem="jYK-dF-EYf" secondAttribute="leadingMargin" constant="-20" id="vLQ-Y5-o5a"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="i0k-qC-3Sx"/>
+                            </mask>
+                        </variation>
                     </view>
-                    <navigationItem key="navigationItem" id="qEu-lc-xhw"/>
+                    <navigationItem key="navigationItem" title="Add Friend" id="qEu-lc-xhw">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="koq-aT-lmJ">
+                            <color key="tintColor" red="0.2981615762" green="0.74215316099999995" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="cancelButtonOnClick:" destination="5X7-oe-S2F" id="468-ZY-94G"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="searchBar" destination="Dv3-0H-bGd" id="k94-gH-yzN"/>
                         <outlet property="tableView" destination="2AE-D0-DFH" id="ifu-Fv-iq7"/>
                     </connections>
                 </viewController>
@@ -297,8 +383,7 @@
         <!--Navigation Controller-->
         <scene sceneID="nzZ-dh-sIw">
             <objects>
-                <navigationController storyboardIdentifier="AddFriendNavigationController" navigationBarHidden="YES" id="IVG-OF-JrI" sceneMemberID="viewController">
-                    <nil key="simulatedStatusBarMetrics"/>
+                <navigationController storyboardIdentifier="AddFriendNavigationController" id="IVG-OF-JrI" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="fUQ-ab-hxQ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -475,6 +560,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="adduser-50" width="26" height="26"/>
         <image name="friends" width="22" height="20"/>
     </resources>
 </document>

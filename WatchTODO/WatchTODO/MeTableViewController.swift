@@ -112,6 +112,9 @@ class MeTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        if indexPath.section == 2 && indexPath.row == 1 {
+            self.performSegueWithIdentifier("SettingsSegue", sender: nil)
+        }
     }
 
     /*

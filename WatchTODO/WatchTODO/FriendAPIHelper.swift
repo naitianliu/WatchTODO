@@ -8,6 +8,12 @@
 
 import Foundation
 
+@objc protocol FriendAPIHelperDelegate {
+    optional func didGetUserListByKeyword(userList: [[String: String]])
+    optional func didSendFriendRequest()
+    optional func didFailCallFriendAPI()
+}
+
 class FriendAPIHelper: CallAPIHelperDelegate {
     
     let apiURL_GetFriendList = "\(const_APIEndpoint)friends/get_friend_list/"
@@ -24,12 +30,19 @@ class FriendAPIHelper: CallAPIHelperDelegate {
     
     let friendModelHelper = FriendModelHelper()
     
+    var delegate: FriendAPIHelperDelegate?
+    
     init() {
         
     }
     
     func getFriendList() {
         CallAPIHelper(url: apiURL_GetFriendList, data: nil, delegate: self).GET(index_GetFriendList)
+    }
+    
+    func getUserListByKeyword(keyword: String) {
+        let data: [String: AnyObject] = ["keyword": keyword]
+        CallAPIHelper(url: apiURL_GetUserListByKeyword, data: data, delegate: self).GET(index_GetUserListByKeyword)
     }
     
     func sendFriendRequest(username: String, nickname: String) {
@@ -55,11 +68,19 @@ class FriendAPIHelper: CallAPIHelperDelegate {
             for userInfo in resDict["friend_list"]! {
                 self.friendModelHelper.addFriend(userInfo)
             }
+        } else if index == index_GetUserListByKeyword {
+            let result = responseData as! [String: AnyObject]
+            let userListByNickname = result["user_list_by_nickname"] as! [[String: String]]
+            let userListByUsername = result["user_list_by_username"] as! [[String: String]]
+            let userList: [[String: String]] = userListByNickname + userListByUsername
+            self.delegate?.didGetUserListByKeyword!(userList)
+        } else if index == index_SendFriendRequest {
+            self.delegate?.didSendFriendRequest!()
         }
     }
     
     func apiReceiveError(error: ErrorType) {
-        
+        delegate?.didFailCallFriendAPI!()
     }
     
 }

@@ -8,7 +8,6 @@
 
 import UIKit
 import SDWebImage
-import CNPPopupController
 import SVPullToRefresh
 
 class WatchViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, WatchAPIHelperDelegate {
@@ -18,8 +17,6 @@ class WatchViewController: UIViewController, UITableViewDelegate, UITableViewDat
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
-    
-    var popupController: CNPPopupController = CNPPopupController()
     
     var data: [[String: AnyObject]] = []
     var dataDictArray: [String: [[String: AnyObject]]]!

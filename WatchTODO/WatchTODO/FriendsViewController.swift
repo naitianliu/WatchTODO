@@ -8,16 +8,10 @@
 
 import UIKit
 
-class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating, UISearchBarDelegate, AddFriendVCDelegate, CallAPIHelperDelegate, UpdateAPIHelperDelegate {
+class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UpdateAPIHelperDelegate {
     
-    let apiURL_GetFriendList = "\(const_APIEndpoint)friends/get_friend_list/"
-    let apiURL_GetUserListByKeyword = "\(const_APIEndpoint)friends/get_user_list_by_keyword/"
-    let apiURL_SendFriendRequest = "\(const_APIEndpoint)friends/send_friend_request/"
-    let apiURL_AcceptFriendRequest = "\(const_APIEndpoint)friends/accept_friend_request/"
-    let apiURL_GetPendingFriendRequestList = "\(const_APIEndpoint)friends/get_pending_friend_request_list/"
 
     @IBOutlet weak var friendTableView: UITableView!
-    var addFriendVC: AddFriendViewController!
     var selectedAddFriendUsername: String?
     var selectedAddFriendNickname: String?
     
@@ -30,18 +24,6 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let searchResultsController = self.storyboard?.instantiateViewControllerWithIdentifier("AddFriendNavigationController") as! UINavigationController
-        addFriendVC = searchResultsController.viewControllers[0] as! AddFriendViewController
-        addFriendVC.delegate = self
-        addSearchController = UISearchController(searchResultsController: searchResultsController)
-        addSearchController.searchResultsUpdater = self
-        addSearchController.searchBar.delegate = self
-        addSearchController.searchBar.placeholder = "Username / Nickname"
-        addSearchController.searchBar.frame = CGRect(x: addSearchController.searchBar.frame.origin.x, y: addSearchController.searchBar.frame.origin.y, width: addSearchController.searchBar.frame.width, height: 44)
-        addSearchController.searchBar.sizeToFit()
-        addSearchController.hidesNavigationBarDuringPresentation = true
-        self.definesPresentationContext = true
-        
         friendTableView.tableFooterView = UIView()
         friendTableView.estimatedRowHeight = 200
         
@@ -51,6 +33,11 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
         updateAPIHelper.delegate = self
         updateAPIHelper.getUpdatedInfo()
         
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        self.reloadTable()
     }
 
     override func didReceiveMemoryWarning() {
@@ -65,8 +52,10 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     @IBAction func addButtonOnClick(sender: AnyObject) {
-        friendTableView.tableHeaderView = addSearchController.searchBar
-        addSearchController.searchBar.becomeFirstResponder()
+        let addFriendNC = self.storyboard?.instantiateViewControllerWithIdentifier("AddFriendNavigationController") as! UINavigationController
+        // let addFriendVC = addFriendNC.viewControllers[0] as! AddFriendViewController
+        addFriendNC.modalTransitionStyle = .CoverVertical
+        self.presentViewController(addFriendNC, animated: true, completion: nil)
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -135,46 +124,7 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
-    func updateSearchResultsForSearchController(searchController: UISearchController) {
-        
-    }
-    
-    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
-        friendTableView.tableHeaderView = nil
-    }
-    
-    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-        let keyword = searchBar.text
-        CallAPIHelper(url: apiURL_GetUserListByKeyword, data: ["keyword": keyword!], delegate: self).GET("search")
-        
-    }
-    
-    func addDFriendDidSelectFriend(userInfo: [String : String]) {
-        friendTableView.tableHeaderView = nil
-        addSearchController.active = false
-        let username: String = userInfo["username"]!
-        let nickname: String = userInfo["nickname"]!
-        selectedAddFriendUsername = username
-        selectedAddFriendNickname = nickname
-        self.showSendAlertController(selectedAddFriendUsername, nickname: selectedAddFriendNickname)
-    }
-    
-    private func showSendAlertController(username: String?, nickname: String?) {
-        let alertController = UIAlertController(title: "Send Friend Invitation", message: nickname, preferredStyle: UIAlertControllerStyle.Alert)
-        let alertActionSend = UIAlertAction(title: "Send", style: UIAlertActionStyle.Default) { (action) -> Void in
-            if let selectedUsername = username, selectedNickname = nickname {
-                FriendAPIHelper().sendFriendRequest(selectedUsername, nickname: selectedNickname)
-                self.reloadTable()
-            }
-        }
-        let alertActionCancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil)
-        alertController.addAction(alertActionSend)
-        alertController.addAction(alertActionCancel)
-        self.presentViewController(alertController, animated: true, completion: nil)
-    }
-    
     private func showAcceptAlertController(username: String, nickname: String) {
-        print("show accept alert")
         let alertController = UIAlertController(title: "Accept", message: "Accept invitation from \(nickname)", preferredStyle: UIAlertControllerStyle.Alert)
         let actionAccept = UIAlertAction(title: "Accept", style: UIAlertActionStyle.Default) { (action) -> Void in
             FriendAPIHelper().acceptFriendRequest(username)
@@ -192,26 +142,5 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func didFriendsUpdated() {
         self.reloadTable()
-    }
-    
-    func beforeSendRequest(index: String?) {
-        if index == "search" {
-            
-        }
-    }
-    
-    func afterReceiveResponse(responseData: AnyObject, index: String?) {
-        if index == "search" {
-            let result = responseData as! [String: AnyObject]
-            let userListByNickname = result["user_list_by_nickname"] as! [[String: String]]
-            let userListByUsername = result["user_list_by_username"] as! [[String: String]]
-            addFriendVC.userListByNickname = userListByNickname
-            addFriendVC.userListByUsername = userListByUsername
-            addFriendVC.tableView.reloadData()
-        }
-    }
-    
-    func apiReceiveError(error: ErrorType) {
-        
     }
 }

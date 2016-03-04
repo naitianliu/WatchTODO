@@ -55,22 +55,6 @@ class LeftViewController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.reloadData()
     }
     
-    @IBAction func logoutButtonOnClick(sender: AnyObject) {
-        self.showLogoutActionSheet()
-    }
-    
-    private func showLogoutActionSheet() {
-        let alertController = UIAlertController(title: "Confirm to Logout", message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
-        let actionConfirm = UIAlertAction(title: "Confirm", style: UIAlertActionStyle.Destructive) { (action) -> Void in
-            UserDefaultsHelper().removeUserInfo()
-            self.appDelegate.switchToLoginVC()
-        }
-        let actionCancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil)
-        alertController.addAction(actionConfirm)
-        alertController.addAction(actionCancel)
-        self.presentViewController(alertController, animated: true, completion: nil)
-    }
-    
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 2
     }
