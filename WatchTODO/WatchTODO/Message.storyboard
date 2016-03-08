@@ -37,7 +37,7 @@
                                 <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MessageAddFriendCell" textLabel="ALc-6l-Hec" detailTextLabel="6Ez-yy-n9f" imageView="pqu-Ds-lO2" rowHeight="60" style="IBUITableViewCellStyleSubtitle" id="muK-wS-oU1">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MessageAddFriendCell" textLabel="ALc-6l-Hec" imageView="pqu-Ds-lO2" rowHeight="60" style="IBUITableViewCellStyleDefault" id="muK-wS-oU1">
                                         <rect key="frame" x="0.0" y="28" width="600" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="muK-wS-oU1" id="Tc1-bw-qYj">
@@ -45,17 +45,10 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ALc-6l-Hec">
-                                                    <rect key="frame" x="54" y="12" width="32" height="20"/>
+                                                    <rect key="frame" x="54" y="0.0" width="531" height="59"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6Ez-yy-n9f">
-                                                    <rect key="frame" x="54" y="32" width="47" height="16"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                    <color key="textColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="add_friend" id="pqu-Ds-lO2">
@@ -106,6 +99,7 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="hAg-Gf-0Ql" firstAttribute="top" secondItem="iOZ-wE-lcf" secondAttribute="topMargin" constant="18" id="8hg-cm-wOd"/>
+                                                <constraint firstItem="NcB-XZ-wMZ" firstAttribute="trailing" secondItem="v17-Vi-rQD" secondAttribute="trailing" id="Abq-jy-B1Q"/>
                                                 <constraint firstItem="1kc-Dn-zi0" firstAttribute="top" secondItem="iOZ-wE-lcf" secondAttribute="topMargin" constant="4" id="Bev-vI-oPQ"/>
                                                 <constraint firstItem="hAg-Gf-0Ql" firstAttribute="leading" secondItem="iOZ-wE-lcf" secondAttribute="leadingMargin" constant="10" id="ESR-ey-0ey"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="v17-Vi-rQD" secondAttribute="trailing" constant="10" id="Fap-5I-cFs"/>

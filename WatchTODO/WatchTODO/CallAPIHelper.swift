@@ -41,7 +41,7 @@ class CallAPIHelper: NSObject {
         configuration.timeoutIntervalForRequest = 20
         configuration.timeoutIntervalForResource = 20
         let serverTrustPolicy = ServerTrustPolicy.DisableEvaluation
-        self.manager = Alamofire.Manager(configuration: configuration, serverTrustPolicyManager: ServerTrustPolicyManager(policies: ["opsinhand.vip.stratus.ebay.com" : serverTrustPolicy]))
+        self.manager = Alamofire.Manager(configuration: configuration, serverTrustPolicyManager: ServerTrustPolicyManager(policies: ["api.wedo.knockfuture.com" : serverTrustPolicy]))
         
     }
     

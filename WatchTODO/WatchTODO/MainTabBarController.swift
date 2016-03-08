@@ -68,11 +68,11 @@ class MainTabBarController: UITabBarController, MessageVCDelegate, AddActionVCDe
         // Dispose of any resources that can be recreated.
     }
     
-    func toSetTabBage() {
+    func toSetTabBage(number: Int) {
         if let badgeString = messageNC.tabBarItem.badgeValue {
-            messageNC.tabBarItem.badgeValue = String(Int(badgeString)! + 1)
+            messageNC.tabBarItem.badgeValue = String(Int(badgeString)! + number)
         } else {
-            messageNC.tabBarItem.badgeValue = "1"
+            messageNC.tabBarItem.badgeValue = String(number)
         }
         
     }

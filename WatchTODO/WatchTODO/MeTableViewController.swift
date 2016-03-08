@@ -50,7 +50,7 @@ class MeTableViewController: UITableViewController {
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 3
+        return 2
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -61,7 +61,7 @@ class MeTableViewController: UITableViewController {
         case 1:
             return 2
         case 2:
-            return 2
+            return 0
         default:
             return 0
         }
@@ -90,14 +90,14 @@ class MeTableViewController: UITableViewController {
             cell.label2.text = self.countNumberDict["1"]
             cell.label3.text = self.countNumberDict["2"]
             return cell
-        } else if indexPath.section == 1 {
+        } else if indexPath.section == 2 {
             let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier2, forIndexPath: indexPath)
             let icon: String = iconTitleArray[indexPath.row]["icon"]!
             let title: String = iconTitleArray[indexPath.row]["title"]!
             cell.imageView?.image = UIImage(named: icon)
             cell.textLabel?.text = title
             return cell
-        } else if indexPath.section == 2 {
+        } else if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier2, forIndexPath: indexPath)
             let icon: String = settingsIconTitleArray[indexPath.row]["icon"]!
             let title: String = settingsIconTitleArray[indexPath.row]["title"]!
@@ -112,8 +112,12 @@ class MeTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        if indexPath.section == 2 && indexPath.row == 1 {
+        if indexPath.section == 1 && indexPath.row == 1 {
             self.performSegueWithIdentifier("SettingsSegue", sender: nil)
+        } else if indexPath.section == 1 && indexPath.row == 0 {
+            if let appSettings = NSURL(string: UIApplicationOpenSettingsURLString) {
+                UIApplication.sharedApplication().openURL(appSettings)
+            }
         }
     }
 

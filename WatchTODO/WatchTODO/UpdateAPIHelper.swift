@@ -8,8 +8,9 @@
 
 import Foundation
 
-protocol UpdateAPIHelperDelegate {
-    func didFriendsUpdated()
+@objc protocol UpdateAPIHelperDelegate {
+    optional func didFriendsUpdated()
+    optional func didCommentsUpdated(number: Int)
 }
 
 class UpdateAPIHelper: CallAPIHelperDelegate {
@@ -18,7 +19,7 @@ class UpdateAPIHelper: CallAPIHelperDelegate {
     
     var delegate: UpdateAPIHelperDelegate?
     
-    let myUsername: String = UserDefaultsHelper().getUsername()!
+    var myUsername: String = ""
     
     let friendModelHelper = FriendModelHelper()
     let commentModelHelper = CommentModelHelper()
@@ -28,8 +29,11 @@ class UpdateAPIHelper: CallAPIHelperDelegate {
     }
     
     func getUpdatedInfo() {
-        let data: [String: AnyObject] = ["timestamp": "0"]
-        CallAPIHelper(url: apiURL_GetUpdatedInfo, data: data, delegate: self).GET(nil)
+        if let username = UserDefaultsHelper().getUsername() {
+            self.myUsername = username
+            let data: [String: AnyObject] = ["timestamp": UserDefaultsHelper().getLastUpdatedTimestamp()]
+            CallAPIHelper(url: apiURL_GetUpdatedInfo, data: data, delegate: self).GET(nil)
+        }
     }
     
     private func handleUpdatedFriends(updatedFriendList: [[String: AnyObject]]) {
@@ -48,11 +52,12 @@ class UpdateAPIHelper: CallAPIHelperDelegate {
                     friendModelHelper.updateStatus(accepterUsername!)
                 }
             }
-            delegate?.didFriendsUpdated()
+            delegate?.didFriendsUpdated!()
         }
     }
     
     private func handleUpdatedComments(updatedCommentsList: [[String: AnyObject]]) {
+        var actionIdList: [String] = []
         if updatedCommentsList.count != 0 {
             for rowDict in updatedCommentsList {
                 let commentId = rowDict["comment_id"] as! String
@@ -61,8 +66,12 @@ class UpdateAPIHelper: CallAPIHelperDelegate {
                 let timestampString = rowDict["timestamp"] as! String
                 let timestamp = Int(timestampString)
                 let username = rowDict["username"] as! String
+                if !actionIdList.contains(actionId) {
+                    actionIdList.append(actionId)
+                }
                 self.commentModelHelper.addComment(commentId, actionId: actionId, message: message, username: username, timestamp: timestamp, read: false)
             }
+            self.delegate?.didCommentsUpdated!(actionIdList.count)
         }
     }
     
@@ -72,12 +81,19 @@ class UpdateAPIHelper: CallAPIHelperDelegate {
     
     func afterReceiveResponse(responseData: AnyObject, index: String?) {
         let resDict = responseData as! [String: AnyObject]
+        //
         let updatedFriendList = resDict["updated_friends"] as! [[String: AnyObject]]
         self.handleUpdatedFriends(updatedFriendList)
+        //
+        let updatedWatchActionList = resDict["updated_actions_watch"] as! [[String: AnyObject]]
+        WatchAPIHelper().updateWatchActionList(updatedWatchActionList)
+        //
         let updatedCommentsListMe = resDict["updated_comments_me"] as! [[String: AnyObject]]
         let updatedCommentsListWatch = resDict["updated_comments_watch"] as! [[String: AnyObject]]
-        self.handleUpdatedComments(updatedCommentsListMe)
-        self.handleUpdatedComments(updatedCommentsListWatch)
+        self.handleUpdatedComments(updatedCommentsListMe + updatedCommentsListWatch)
+        //
+        let timestamp = resDict["current_timestamp"] as! String
+        UserDefaultsHelper().updateLastUpdatedTimestamp(timestamp)
     }
     
     func apiReceiveError(error: ErrorType) {

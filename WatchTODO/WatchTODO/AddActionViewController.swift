@@ -25,7 +25,7 @@ class AddActionViewController: UIViewController, UITableViewDataSource, UITableV
     var actionContent: String?
     var projectId: String?
     var projectName: String?
-    var dueDate: NSDate?
+    var dueDate: NSDate? = NSDate()
     var deferDate: NSDate?
     var priority: Int?
     var watchers: [String] = []

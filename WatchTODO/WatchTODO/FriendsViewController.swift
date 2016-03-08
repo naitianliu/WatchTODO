@@ -45,7 +45,7 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
         // Dispose of any resources that can be recreated.
     }
     
-    private func reloadTable() {
+    func reloadTable() {
         pendingFriends = friendModelHelper.getPendingFriendList()
         friends = friendModelHelper.getAllFriendList()
         friendTableView.reloadData()
@@ -142,5 +142,9 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func didFriendsUpdated() {
         self.reloadTable()
+    }
+    
+    func didCommentsUpdated(number: Int) {
+        
     }
 }

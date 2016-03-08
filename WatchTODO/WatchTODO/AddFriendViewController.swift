@@ -71,7 +71,6 @@ class AddFriendViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func didGetUserListByKeyword(userList: [[String : String]]) {
-        MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         MBProgressHUD.hideHUDForView(self.view, animated: true)
         self.userList = userList
         self.tableView.reloadData()

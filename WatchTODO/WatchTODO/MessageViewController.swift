@@ -10,10 +10,10 @@ import UIKit
 
 protocol MessageVCDelegate {
     func toCleanTabBadge()
-    func toSetTabBage()
+    func toSetTabBage(number: Int)
 }
 
-class MessageViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, APNSNotificationDelegate, CommentAPIHelperDelegate {
+class MessageViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, APNSNotificationDelegate, CommentAPIHelperDelegate, UpdateAPIHelperDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     
@@ -26,6 +26,8 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
     var presented: Bool = false
     
     let actionItemModelHelper = ActionItemModelHelper(me: false)
+    
+    var actionContentDict = [String: String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,8 +61,9 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func reloadTable() {
+        self.actionContentDict = self.actionItemModelHelper.getAllActionContentDict()
         self.messages = SortMessagesHelper().getTimeSortedMessages()
-        tableView.reloadData()
+        self.tableView.reloadData()
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -83,7 +86,11 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
             let nickname: String = commentDict["nickname"] as! String
             let unreadCount: String = commentDict["unreadCount"] as! String
             cell.messageLabel.text = commentMessage
-            cell.contentLabel.text = self.actionItemModelHelper.getActionContentByActionId(actionId)
+            if let content = actionContentDict[actionId] {
+                cell.contentLabel.text = content
+            } else {
+                cell.contentLabel.text = ""
+            }
             cell.timeLabel.text = DateTimeHelper().convertEpochToHumanFriendlyTime(timestamp)
             cell.nameLabel.text = nickname
             if unreadCount == "0" {
@@ -138,27 +145,40 @@ class MessageViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func didReceiveFriendNotification(subtype: String) {
-        var message = ""
-        if subtype == "send" {
-            message = "You received a friend invitation."
-        } else {
-            message = "You invitation has been accepted."
-        }
-        let friendMessage = ["type": "friend", "message": message]
-        self.messages.insert(friendMessage, atIndex: 0)
-        if !presented {
-            self.delegate?.toSetTabBage()
-        } else {
-            self.tableView.reloadData()
-        }
+        let updateHelperAPI = UpdateAPIHelper()
+        updateHelperAPI.delegate = self
+        updateHelperAPI.getUpdatedInfo()
+    }
+    
+    func didAppBecomeActive() {
+        let updateHelperAPI = UpdateAPIHelper()
+        updateHelperAPI.delegate = self
+        updateHelperAPI.getUpdatedInfo()
+        
     }
     
     func didGetCommentList() {
         print("message did get comment list")
         if !presented {
-            self.delegate?.toSetTabBage()
+            self.delegate?.toSetTabBage(1)
         } else {
             self.reloadTable()
+        }
+    }
+    
+    func didCommentsUpdated(number: Int) {
+        if presented {
+            self.reloadTable()
+        } else {
+            self.delegate?.toSetTabBage(number)
+        }
+    }
+    
+    func didFriendsUpdated() {
+        if presented {
+            self.reloadTable()
+        } else {
+            self.delegate?.toSetTabBage(1)
         }
     }
 

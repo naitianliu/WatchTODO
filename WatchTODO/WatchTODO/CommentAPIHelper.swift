@@ -59,8 +59,8 @@ class CommentAPIHelper: CallAPIHelperDelegate {
                 let actionId: String = commentDict["action_id"] as! String
                 let username: String = commentDict["username"] as! String
                 let message: String = commentDict["message"] as! String
-                let timestamp: Int = commentDict["timestamp"] as! Int
-                commentModelHelper.addComment(commentId, actionId: actionId, message: message, username: username, timestamp: timestamp, read: false)
+                let timestamp: String = commentDict["timestamp"] as! String
+                commentModelHelper.addComment(commentId, actionId: actionId, message: message, username: username, timestamp: Int(timestamp), read: false)
             }
             self.delegate?.didGetCommentList()
         }

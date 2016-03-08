@@ -10,7 +10,9 @@ import Foundation
 import UIKit
 
 // let const_APIEndpoint = "http://localhost:9000/"
-let const_APIEndpoint = "http://apiqa.wedo.knockfuture.com/"
+// let const_APIEndpoint = "http://apiqa.wedo.knockfuture.com/"
+
+let const_APIEndpoint = "https://api.wedo.knockfuture.com/"
 
 let const_RealmSchemaVersion: UInt64 = 9
 

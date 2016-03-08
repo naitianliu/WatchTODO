@@ -15,11 +15,24 @@ extension DefaultsKeys {
     static let nickname = DefaultsKey<String?>("nickname")
     static let token = DefaultsKey<String?>("token")
     static let deviceToken = DefaultsKey<String?>("deviceToken")
+    static let timestamp = DefaultsKey<String?>("timestamp")
 }
 
 class UserDefaultsHelper {
     init() {
         
+    }
+    
+    func getLastUpdatedTimestamp() -> String {
+        if let timestamp = Defaults[.timestamp] {
+            return timestamp
+        } else {
+            return "0"
+        }
+    }
+    
+    func updateLastUpdatedTimestamp(timestamp: String) {
+        Defaults[.timestamp] = timestamp
     }
     
     func createOrUpdateUserInfo(username:String?, profileImageURL:String?, nickname:String?, token:String?) {

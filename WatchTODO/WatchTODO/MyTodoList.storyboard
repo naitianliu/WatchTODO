@@ -136,7 +136,7 @@
                                             <outlet property="updateButton" destination="K4g-gf-2hc" id="0Jr-WU-9Vw"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TodoUnfoldCell" rowHeight="44" id="eWK-MX-B09" customClass="TodoUnfoldTableViewCell" customModule="WatchTODO" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="TodoUnfoldCell" rowHeight="44" id="eWK-MX-B09" customClass="TodoUnfoldTableViewCell" customModule="WatchTODO" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="102" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="eWK-MX-B09" id="HZr-MD-Efn">

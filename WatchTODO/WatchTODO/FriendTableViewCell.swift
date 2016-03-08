@@ -39,6 +39,8 @@ class FriendTableViewCell: UITableViewCell {
         
         if status == "waiting" {
             self.boxView.layer.borderColor = UIColor.orangeColor().CGColor
+        } else {
+            self.boxView.layer.borderColor = const_ThemeColor.CGColor
         }
     }
 }

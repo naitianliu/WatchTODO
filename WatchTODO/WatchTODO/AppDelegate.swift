@@ -13,6 +13,7 @@ import RealmSwift
 @objc protocol APNSNotificationDelegate {
     optional func didReceiveCommentNotification(actionId: String)
     optional func didReceiveFriendNotification(subtype: String)
+    optional func didAppBecomeActive()
 }
 
 @UIApplicationMain
@@ -68,6 +69,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginVCDelegate {
     func applicationDidBecomeActive(application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         UIApplication.sharedApplication().applicationIconBadgeNumber = 0
+        let isLogin = UserDefaultsHelper().checkIfLogin()
+        if isLogin {
+            apnsDelegate?.didAppBecomeActive!()
+        }
     }
 
     func applicationWillTerminate(application: UIApplication) {

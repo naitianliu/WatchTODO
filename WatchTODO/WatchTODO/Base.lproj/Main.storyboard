@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="tqm-1A-I6H">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -32,20 +31,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="logo_slogan" translatesAutoresizingMaskIntoConstraints="NO" id="hmF-l6-54t">
-                                <rect key="frame" x="180" y="28" width="240" height="128"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="ATk-KX-j7X"/>
-                                    <constraint firstAttribute="height" constant="120" id="rge-ND-jga"/>
-                                </constraints>
-                            </imageView>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Username" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Bv2-iP-SNa">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Bv2-iP-SNa">
                                 <rect key="frame" x="162" y="194" width="282" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="dLJ-Wo-jbB"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <textInputTraits key="textInputTraits" spellCheckingType="no"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="DUm-YG-kuQ">
                                 <rect key="frame" x="162" y="250" width="282" height="30"/>
@@ -88,6 +80,13 @@
                                     <constraint firstAttribute="height" constant="1" id="ChD-8J-FAI"/>
                                 </constraints>
                             </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="logo-header" translatesAutoresizingMaskIntoConstraints="NO" id="hmF-l6-54t">
+                                <rect key="frame" x="180" y="28" width="240" height="128"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="ATk-KX-j7X"/>
+                                    <constraint firstAttribute="height" constant="80" id="rge-ND-jga"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -142,20 +141,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="logo_slogan" translatesAutoresizingMaskIntoConstraints="NO" id="1rX-Jb-9xb">
-                                <rect key="frame" x="193" y="35" width="240" height="128"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="RfU-Dz-4ZO"/>
-                                    <constraint firstAttribute="height" constant="120" id="dkC-WM-pho"/>
-                                </constraints>
-                            </imageView>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Username" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="5pD-Mw-Zio">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="5pD-Mw-Zio">
                                 <rect key="frame" x="175" y="201" width="282" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="W3D-FU-mnm"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <textInputTraits key="textInputTraits" spellCheckingType="no"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Qk1-QO-VS0">
                                 <rect key="frame" x="175" y="257" width="282" height="30"/>
@@ -236,22 +228,20 @@
                             <constraint firstItem="5pD-Mw-Zio" firstAttribute="leading" secondItem="hNy-gP-Hzj" secondAttribute="leadingMargin" constant="20" id="Fpn-8g-Tnh"/>
                             <constraint firstItem="9FS-KO-7r5" firstAttribute="width" secondItem="UYc-dI-8NG" secondAttribute="width" id="K4U-Mk-jUo"/>
                             <constraint firstItem="RcR-Yi-zEy" firstAttribute="height" secondItem="Qk1-QO-VS0" secondAttribute="height" id="Kd9-SA-8BN"/>
-                            <constraint firstItem="1rX-Jb-9xb" firstAttribute="top" secondItem="Ic5-zg-0gp" secondAttribute="bottom" constant="20" id="MGT-ET-AJH"/>
                             <constraint firstItem="5Wi-aw-dms" firstAttribute="leading" secondItem="5pD-Mw-Zio" secondAttribute="leading" id="Pec-nv-jLF"/>
                             <constraint firstItem="Kmf-Xl-65A" firstAttribute="top" secondItem="RcR-Yi-zEy" secondAttribute="bottom" id="Vem-7M-kGx"/>
                             <constraint firstItem="Qk1-QO-VS0" firstAttribute="width" secondItem="5Wi-aw-dms" secondAttribute="width" id="VhY-W0-pSa"/>
+                            <constraint firstItem="5pD-Mw-Zio" firstAttribute="top" secondItem="Ic5-zg-0gp" secondAttribute="bottom" constant="20" id="X6K-eD-Fkg"/>
                             <constraint firstItem="Kmf-Xl-65A" firstAttribute="leading" secondItem="RcR-Yi-zEy" secondAttribute="leading" id="XCJ-Yh-g0V"/>
                             <constraint firstItem="9FS-KO-7r5" firstAttribute="leading" secondItem="UYc-dI-8NG" secondAttribute="leading" id="XEj-ih-2n4"/>
                             <constraint firstItem="RcR-Yi-zEy" firstAttribute="top" secondItem="oQn-PE-t9U" secondAttribute="bottom" id="Y2y-N7-3vM"/>
                             <constraint firstItem="Kmf-Xl-65A" firstAttribute="width" secondItem="RcR-Yi-zEy" secondAttribute="width" id="YlN-gM-I3e"/>
                             <constraint firstItem="5Wi-aw-dms" firstAttribute="width" secondItem="5pD-Mw-Zio" secondAttribute="width" id="aJC-JO-e4o"/>
-                            <constraint firstItem="5pD-Mw-Zio" firstAttribute="top" secondItem="1rX-Jb-9xb" secondAttribute="bottom" constant="20" id="dcY-qi-5Tj"/>
                             <constraint firstItem="0wX-ae-v3o" firstAttribute="top" secondItem="lES-M7-sZs" secondAttribute="bottom" constant="15" id="jkN-ym-0Qn"/>
                             <constraint firstItem="lES-M7-sZs" firstAttribute="leading" secondItem="UYc-dI-8NG" secondAttribute="leading" id="lBV-gR-1uX"/>
                             <constraint firstItem="Qk1-QO-VS0" firstAttribute="top" secondItem="5Wi-aw-dms" secondAttribute="bottom" id="nE3-JL-5y9"/>
                             <constraint firstItem="lES-M7-sZs" firstAttribute="width" secondItem="UYc-dI-8NG" secondAttribute="width" id="oJh-Dc-cDm"/>
                             <constraint firstItem="RcR-Yi-zEy" firstAttribute="width" secondItem="oQn-PE-t9U" secondAttribute="width" id="oWV-Ft-gZM"/>
-                            <constraint firstItem="1rX-Jb-9xb" firstAttribute="centerX" secondItem="hNy-gP-Hzj" secondAttribute="centerX" id="oiq-KR-FOs"/>
                             <constraint firstItem="0wX-ae-v3o" firstAttribute="centerX" secondItem="hNy-gP-Hzj" secondAttribute="centerX" id="okB-GB-34y"/>
                             <constraint firstItem="RcR-Yi-zEy" firstAttribute="leading" secondItem="oQn-PE-t9U" secondAttribute="leading" id="pzp-QG-ByM"/>
                             <constraint firstItem="UYc-dI-8NG" firstAttribute="height" secondItem="RcR-Yi-zEy" secondAttribute="height" id="qgk-nO-P4Z"/>
@@ -281,6 +271,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="logo_slogan" width="250" height="150"/>
+        <image name="logo-header" width="250" height="100"/>
     </resources>
 </document>

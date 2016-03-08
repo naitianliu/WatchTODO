@@ -48,4 +48,9 @@ class SortMessagesHelper {
         
     }
     
+    private func getWatcherMessages() -> [[String: AnyObject]] {
+        
+        return []
+    }
+    
 }

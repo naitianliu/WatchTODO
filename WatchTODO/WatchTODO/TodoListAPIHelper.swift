@@ -31,7 +31,7 @@ class TodoListAPIHelper: CallAPIHelperDelegate {
     }
     
     func getTodoList() {
-        let data: [String: AnyObject] = ["timestamp": "0"]
+        let data: [String: AnyObject] = ["timestamp": UserDefaultsHelper().getLastUpdatedTimestamp()]
         CallAPIHelper(url: apiURL_GetTodoList, data: data, delegate: self).GET(index_GetTodoList)
     }
     

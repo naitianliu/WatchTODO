@@ -159,6 +159,34 @@ class ActionItemModelHelper {
         return pendingActionIdList
     }
     
+    func getAllActionIdList() -> [String] {
+        var actionIdList: [String] = []
+        do {
+            let realm = try Realm()
+            for item in realm.objects(ActionItemModel).filter("status != 3") {
+                actionIdList.append(item.uuid)
+            }
+        } catch {
+            
+        }
+        return actionIdList
+    }
+    
+    func getAllActionContentDict() -> [String: String] {
+        var actionContentDict = [String: String]()
+        do {
+            let realm = try Realm()
+            for item in realm.objects(ActionItemModel).filter("status != 2 AND status != 3") {
+                let actionId: String = item.uuid
+                let actionContent: String = item.content
+                actionContentDict[actionId] = actionContent
+            }
+        } catch {
+            
+        }
+        return actionContentDict
+    }
+    
     func getActionContentByActionId(actionId: String) -> String {
         var actionContent: String = ""
         do {
@@ -175,21 +203,24 @@ class ActionItemModelHelper {
         let friendsMapDict = FriendModelHelper().getFriendsMapDict()
         do {
             let realm = try Realm()
-            let item = realm.objectForPrimaryKey(ActionItemModel.self, key: actionId)!
-            var actionInfo: [String: AnyObject] = [
-                "content": item.content,
-                "projectId": item.projectId,
-                "projectName": item.projectName,
-                "dueDate": item.dueDate,
-                "deferDate": item.deferDate,
-                "priority": item.priority,
-                "status": item.status
-            ]
-            if !self.me {
-                actionInfo["username"] = item.username
-                actionInfo["nickname"] = friendsMapDict[item.username]!
+            if let item = realm.objectForPrimaryKey(ActionItemModel.self, key: actionId) {
+                var actionInfo: [String: AnyObject] = [
+                    "content": item.content,
+                    "projectId": item.projectId,
+                    "projectName": item.projectName,
+                    "dueDate": item.dueDate,
+                    "deferDate": item.deferDate,
+                    "priority": item.priority,
+                    "status": item.status
+                ]
+                if !self.me {
+                    actionInfo["username"] = item.username
+                    actionInfo["nickname"] = friendsMapDict[item.username]!
+                }
+                return actionInfo
+            } else {
+                return nil
             }
-            return actionInfo
         } catch {
             return nil
         }

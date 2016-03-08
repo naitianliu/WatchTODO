@@ -69,31 +69,7 @@ class WatchAPIHelper: CallAPIHelperDelegate {
             let resDict = responseData as! [String: AnyObject]
             let watchInfo = resDict["watch_updated_info"] as! [String: AnyObject]
             let actionList = watchInfo["updated_actions_watch"] as! [[String: AnyObject]]
-            for action in actionList {
-                let actionId = action["action_id"] as! String
-                let actionInfo = action["info"] as! [String: String]
-                var content: String?
-                var dueDate: Int?
-                var deferDate: Int?
-                var priority: Int?
-                if let tempContent = actionInfo["content"] {
-                    content = tempContent
-                }
-                if let tempDueDate = actionInfo["due_date"] {
-                    dueDate = Int(tempDueDate)
-                }
-                if let tempDeferDate = actionInfo["defer_date"] {
-                    deferDate = Int(tempDeferDate)
-                }
-                if let tempPriority = actionInfo["priority"] {
-                    priority = Int(tempPriority)
-                }
-                let projectId = action["project_id"] as? String
-                let status = action["status"] as! String
-                let username = action["username"] as? String
-                let projectName = action["project_name"] as? String
-                self.actionItemModelHelper.addActionItem(actionId, username: username, content: content!, projectId: projectId, projectName: projectName, dueDate: dueDate, deferDate: deferDate, priority: priority, status: Int(status))
-            }
+            self.updateWatchActionList(actionList)
             // add update model
             let updateModelHelper = UpdateModelHelper()
             let updateList = resDict["update_list"] as! [[String: AnyObject]]
@@ -128,5 +104,33 @@ class WatchAPIHelper: CallAPIHelperDelegate {
     
     func apiReceiveError(error: ErrorType) {
         print(error)
+    }
+    
+    func updateWatchActionList(actionList: [[String: AnyObject]]) {
+        for action in actionList {
+            let actionId = action["action_id"] as! String
+            let actionInfo = action["info"] as! [String: String]
+            var content: String?
+            var dueDate: Int?
+            var deferDate: Int?
+            var priority: Int?
+            if let tempContent = actionInfo["content"] {
+                content = tempContent
+            }
+            if let tempDueDate = actionInfo["due_date"] {
+                dueDate = Int(tempDueDate)
+            }
+            if let tempDeferDate = actionInfo["defer_date"] {
+                deferDate = Int(tempDeferDate)
+            }
+            if let tempPriority = actionInfo["priority"] {
+                priority = Int(tempPriority)
+            }
+            let projectId = action["project_id"] as? String
+            let status = action["status"] as! String
+            let username = action["username"] as? String
+            let projectName = action["project_name"] as? String
+            self.actionItemModelHelper.addActionItem(actionId, username: username, content: content!, projectId: projectId, projectName: projectName, dueDate: dueDate, deferDate: deferDate, priority: priority, status: Int(status))
+        }
     }
 }
